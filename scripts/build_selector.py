@@ -71,7 +71,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Dict, Iterable, List, Optional, Sequence
 
-APP_NAME = "Serial-Studio-GPL3"
+APP_NAME = "Serial-Studio"
 
 
 class BuildError(RuntimeError):
@@ -95,9 +95,9 @@ class BuildOptions:
     # 行为控制
     configure_only: bool = False  # 仅配置，不构建
     dry_run: bool = False  # 仅打印命令，不执行
-    production: bool = False  # 启用生产优化
+    production: bool = True  # 启用生产优化
     sanitizer: bool = False  # 启用内存检查器（仅 Debug）
-    gpl_only: bool = True  # 仅构建 GPL 版本
+    gpl_only: bool = False  # 仅构建 GPL 版本
     clean: bool = False  # 构建前清理目录
     run_after_build: bool = False  # 构建后运行应用
     create_package: bool = False  # 构建后创建安装包
