@@ -16,6 +16,10 @@
 
 # General caches
 .cache
+.github/
+.claude/
+AGENTS.md
+CLAUDE.md
 
 # Build outputs
 /build*/        
