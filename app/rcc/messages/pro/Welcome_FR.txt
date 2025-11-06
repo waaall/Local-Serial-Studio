@@ -1,0 +1,24 @@
+▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
+░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
+▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
+
+Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
+Tous droits réservés.
+
+Merci d’utiliser %1 et de soutenir le logiciel libre !
+
+Cette version est sous licence commerciale et approuvée pour une utilisation
+dans des environnements commerciaux et propriétaires.
+
+→ Support : alex@serial-studio.com
+→ Planifier un appel : https://calendly.com/serial-studio
+→ Portail client : https://store.serial-studio.com/billing
+
+Vos fonctionnalités Pro incluent :
+→ Intégration MQTT
+→ Visualisation XY et 3D
+→ Support prioritaire
+→ Licence adaptée aux entreprises
+→ Mises à jour continues
+
+→ En savoir plus : https://serial-studio.com/

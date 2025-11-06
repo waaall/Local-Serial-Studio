@@ -1,0 +1,70 @@
+# macOS system files
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+.AppleDB
+.AppleDesktop
+.apdisk
+
+# General caches
+.cache
+
+# Build outputs
+/build*/        
+*/build*/      
+cmake-build-*/ 
+
+# Binary builds
+udp_function_generator
+udp_function_generator.exe
+
+# Qt artifacts
+*.autosave
+*.user
+*.pro.user
+*.qmake.stash
+*.moc
+moc_*.cpp
+qrc_*.cpp
+ui_*.h
+*.qmlls.ini
+
+# IDE configs
+# VS Code
+.vscode/
+*.code-workspace
+
+# Qt Creator
+*.pro.user.*
+*.creator.*
+*.creator
+
+# CLion
+.idea/
+.idea_modules/
+cmake-build-*/
+
+# Xcode
+*.xcworkspace/
+*.xcuserstate
+*.xcuserdatad/
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/xcshareddata/
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+
+# KDevelop
+*.kdev*
+
+# Other
+*.layout

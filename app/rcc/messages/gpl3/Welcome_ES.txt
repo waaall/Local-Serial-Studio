@@ -1,0 +1,27 @@
+▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
+░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
+▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
+
+Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
+
+Este software está licenciado bajo la Licencia Pública General de GNU
+versión 3.0 (GPLv3). Eres libre de usar, modificar y redistribuir este
+software bajo los términos de la GPL, siempre que todos los trabajos
+derivados también permanezcan como código abierto.
+
+→ Licencia completa: https://www.gnu.org/licenses/gpl-3.0.html
+→ Código fuente: https://github.com/serial-studio/serial-studio
+
+¿Nuevo en Serial Studio? Haz clic en el botón "Ayuda" de la barra de
+herramientas para comenzar.
+
+¿Te gusta este proyecto? Considera apoyarlo comprando la versión Pro:
+→ https://store.serial-studio.com/
+
+Pro incluye extras geniales como:
+→ Soporte para MQTT
+→ Gráficas XY y visualización en 3D
+→ Licencia binaria amigable con empresas (sin obligaciones GPL)
+→ Y más herramientas para mejorar tu flujo de trabajo embebido
+
+→ Más información: https://serial-studio.com/
