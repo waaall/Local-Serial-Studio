@@ -181,7 +181,7 @@ class ToolchainStrategy:
 
 def generator_available(name: str) -> bool:
     """检查指定的 CMake 生成器是否可用"""
-    if name == "Ninja":
+    if name.startswith("Ninja"):
         return shutil.which("ninja") is not None
     if name == "MinGW Makefiles":
         return shutil.which("mingw32-make") is not None
@@ -284,7 +284,7 @@ class MsvcToolchain(ToolchainStrategy):
             )
 
         # MSVC 优先使用 Ninja，否则使用 NMake Makefiles
-        preferred = ["Ninja", "NMake Makefiles"]
+        preferred = ["Ninja", "Ninja Multi-Config", "NMake Makefiles"]
         generator = options.generator or pick_generator(preferred)
         if not generator:
             raise BuildError("No suitable generator found for MSVC (install Ninja or use Developer Command Prompt for nmake).")
@@ -292,6 +292,25 @@ class MsvcToolchain(ToolchainStrategy):
         if options.qt_root:
             args.append(f"-DCMAKE_PREFIX_PATH={options.qt_root}")
         return args
+
+    def configure_env(self, options: BuildOptions) -> Dict[str, str]:
+        """对 MSVC 构建进行环境净化，避免被 MSYS2/Git 的 sh.exe、路径转换影响"""
+        env: Dict[str, str] = {}
+        # 清空会触发 MSYS 路径/行为的变量
+        for key in ("MSYSTEM", "CHERE_INVOKING", "MSYS2_PATH_TYPE", "SHELL"):
+            if os.environ.get(key):
+                env[key] = ""
+        # 过滤 PATH 中的 msys2/mingw64/git 的 usr/bin，避免 CMake 进入 MSYS 模式或拿到错误的 link.exe/sh.exe
+        try:
+            import re as _re
+            bad = _re.compile(r"(msys2|msys64|mingw64|git[\/]{1}usr[\/]{1}bin)", _re.IGNORECASE)
+            parts = os.environ.get("PATH", "").split(os.pathsep)
+            filtered = [p for p in parts if not bad.search(p or "")]
+            if filtered:
+                env["PATH"] = os.pathsep.join(filtered)
+        except Exception:
+            pass
+        return env
 
     def build_args(self, options: BuildOptions) -> List[str]:
         # MSVC 多配置生成器需要指定 --config 参数
@@ -437,6 +456,19 @@ class Builder:
 
         # 添加工具链特定的配置参数（生成器、Qt 路径等）
         configure_cmd.extend(self.toolchain.configure_args(self.options))
+
+        # 如使用 Ninja，显式指定 Ninja 可执行文件，避免 PATH 冲突
+        try:
+            if "-G" in configure_cmd:
+                _idx = configure_cmd.index("-G")
+                _gen = configure_cmd[_idx+1]
+                if _gen.startswith("Ninja"):
+                    _ninja = shutil.which("ninja")
+                    if _ninja:
+                        configure_cmd.append(f"-DCMAKE_MAKE_PROGRAM={_ninja}")
+        except Exception:
+            pass
+
         # 添加用户指定的额外 CMake 参数
         configure_cmd.extend(self.options.extra_cmake_args)
 
@@ -494,8 +526,16 @@ class Builder:
         # Windows 和 Linux：直接查找可执行文件
         if self.options.platform == "windows":
             exe_name = f"{APP_NAME}.exe"
-            # MSVC 多配置生成器会在 build_type 子目录下生成可执行文件
-            if self.options.toolchain == "msvc":
+            cache = self.build_dir / "CMakeCache.txt"
+            is_multi = False
+            if cache.exists():
+                try:
+                    _cache = cache.read_text(encoding="utf-8", errors="ignore")
+                    if "CMAKE_CONFIGURATION_TYPES" in _cache:
+                        is_multi = True
+                except Exception:
+                    pass
+            if is_multi:
                 app_path = self.build_dir / "app" / self.options.build_type / exe_name
             else:
                 app_path = self.build_dir / "app" / exe_name
@@ -647,7 +687,16 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
         logger = configure_logging(options.verbose)
         # 脚本位于 scripts/ 目录，项目根目录是其父目录
-        project_root = Path(__file__).resolve().parent.parent
+        here = Path(__file__).resolve().parent
+        cwd = Path.cwd()
+        if (cwd / "CMakeLists.txt").exists():
+            project_root = cwd
+        elif (here / "CMakeLists.txt").exists():
+            project_root = here
+        elif (here.parent / "CMakeLists.txt").exists():
+            project_root = here.parent
+        else:
+            project_root = cwd
 
         # 初始化命令执行器和工具链
         runner = CommandRunner(logger=logger, dry_run=options.dry_run, env=dict(os.environ))
