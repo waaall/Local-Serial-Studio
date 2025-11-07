@@ -256,13 +256,22 @@ class MinGWToolchain(ToolchainStrategy):
         return args
 
     def configure_env(self, options: BuildOptions) -> Dict[str, str]:
-        """配置 MinGW 环境变量，将 Qt 和 MinGW 工具路径添加到 PATH"""
+        """配置 MinGW 环境变量，将 Qt 和 MinGW 工具路径添加到 PATH
+
+        路径优先级（从高到低）：
+        1. qt_tools_root/bin - MinGW 编译器（g++, gcc, mingw32-make 等）
+        2. qt_root/bin - Qt 的 DLL 和工具
+        3. 原始 PATH - 系统环境变量
+
+        这样可以确保使用正确版本的编译器，避免与系统其他编译器冲突
+        """
         extra_path: List[str] = []
+        # 编译器路径应该有最高优先级，避免使用系统PATH中的其他版本
+        if options.qt_tools_root:
+            extra_path.append(str(options.qt_tools_root / "bin"))
+        # Qt DLL 路径次之
         if options.qt_root:
             extra_path.append(str(options.qt_root / "bin"))
-        if options.qt_tools_root:
-            # qt_tools_root 通常指向 MinGW 编译器目录
-            extra_path.append(str(options.qt_tools_root / "bin"))
         if not extra_path:
             return {}
         # 使用 os.pathsep 确保跨平台兼容（Windows 用 ;，Unix 用 :）
@@ -294,22 +303,41 @@ class MsvcToolchain(ToolchainStrategy):
         return args
 
     def configure_env(self, options: BuildOptions) -> Dict[str, str]:
-        """对 MSVC 构建进行环境净化，避免被 MSYS2/Git 的 sh.exe、路径转换影响"""
+        """对 MSVC 构建进行环境净化，避免被 MSYS2/Git 的 sh.exe、路径转换影响
+
+        处理步骤：
+        1. 清除 MSYS2 相关环境变量，防止 CMake 进入 MSYS 模式
+        2. 过滤 PATH 中的 msys2/mingw64 路径，避免使用错误的工具（如 sh.exe、link.exe）
+        3. 将 Qt 路径添加到 PATH 前端，确保能找到 Qt DLL 和工具
+        """
         env: Dict[str, str] = {}
         # 清空会触发 MSYS 路径/行为的变量
         for key in ("MSYSTEM", "CHERE_INVOKING", "MSYS2_PATH_TYPE", "SHELL"):
             if os.environ.get(key):
                 env[key] = ""
+
         # 过滤 PATH 中的 msys2/mingw64/git 的 usr/bin，避免 CMake 进入 MSYS 模式或拿到错误的 link.exe/sh.exe
         try:
             import re as _re
-            bad = _re.compile(r"(msys2|msys64|mingw64|git[\/]{1}usr[\/]{1}bin)", _re.IGNORECASE)
+            # 过滤 msys2/mingw64 的路径，但保留 msys2 中的独立工具（如 ninja）
+            # 主要过滤 /usr/bin 和 /mingw64/bin，因为这些会导致工具链冲突
+            bad = _re.compile(r"(msys2|msys64)[\\/](usr|mingw64)[\\/]bin", _re.IGNORECASE)
             parts = os.environ.get("PATH", "").split(os.pathsep)
             filtered = [p for p in parts if not bad.search(p or "")]
-            if filtered:
-                env["PATH"] = os.pathsep.join(filtered)
+
+            # 将 Qt 路径添加到前端，确保优先使用 Qt 的 DLL 和工具
+            qt_paths: List[str] = []
+            if options.qt_root:
+                qt_paths.append(str(options.qt_root / "bin"))
+
+            if qt_paths or filtered:
+                env["PATH"] = os.pathsep.join(qt_paths + filtered)
         except Exception:
-            pass
+            # 如果过滤失败，至少确保添加 Qt 路径
+            if options.qt_root:
+                qt_bin = str(options.qt_root / "bin")
+                original_path = os.environ.get("PATH", "")
+                env["PATH"] = os.pathsep.join([qt_bin, original_path])
         return env
 
     def build_args(self, options: BuildOptions) -> List[str]:
