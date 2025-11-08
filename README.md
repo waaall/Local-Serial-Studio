@@ -1,3 +1,7 @@
+# readme again
+
+这是我fork 的 Serial Studio，在此基础上自行学习开发。
+
 # ![Application Icon for Serial Studio](./doc/brand/logo.svg) Serial Studio
 
 [![GitHub downloads](https://img.shields.io/github/downloads/Serial-Studio/Serial-Studio/total.svg?logo=github)](https://github.com/Serial-Studio/Serial-Studio/releases/)
