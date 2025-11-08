@@ -1,4 +1,3 @@
-
 我分别问了三个AI（gpt5-codex、claude code Sonnet4.5、copilot gpt5），他们的回答策略分别从笼统到详细，我验证并整合了他们的回答，如下文所示：
 
 codex resume 019a5703-9b0c-7ec1-8b1f-0709c96db75b
@@ -10,79 +9,83 @@ gpt5-codex answer
 ## 总体架构
 
 ### 入口与初始化
-  - main.cpp 创建应用 → `Misc::ModuleManager` 注册 QML 类型、注入单例到 QML、加载 main.qml。
+
+- main.cpp 创建应用 → `Misc::ModuleManager` 注册 QML 类型、注入单例到 QML、加载 main.qml。
 
 ### I/O 层（串口/网络/BLE等）
-  - `IO::Manager` 是总控（单例），提供连接状态、协议切换、帧读取等属性接口，供 QML 直接绑定 (app/
-    src/IO/Manager.h:46). 管理具体驱动(`IO::Drivers::UART/Network/BluetoothLE`)、开关连接、帧提取线程。
-  - 驱动基类 `IO::HAL_Driver` 统一 open/close、读写与配置检查接口、状态与 dataReceived() 信号; 所有设备驱动都继承抽象层。
+
+- `IO::Manager` 是总控（单例），提供连接状态、协议切换、帧读取等属性接口，供 QML 直接绑定 (app/
+  src/IO/Manager.h:46). 管理具体驱动(`IO::Drivers::UART/Network/BluetoothLE`)、开关连接、帧提取线程。
+- 驱动基类 `IO::HAL_Driver` 统一 open/close、读写与配置检查接口、状态与 dataReceived() 信号; 所有设备驱动都继承抽象层。
 
 ### 帧提取层
-  - `IO::FrameReader`（可放到独立线程）基于起止序列/分隔符与校验配置切分原始流为“帧”，通过无锁队列传给 `IO::Manager`。
+
+- `IO::FrameReader`（可放到独立线程）基于起止序列/分隔符与校验配置切分原始流为“帧”，通过无锁队列传给 `IO::Manager`。
 
 ### 解析/建模层
-  - `JSON::FrameBuilder` 接收数据帧，根据当前模式（项目文件/快速绘图/设备直发JSON）解析为结构化 `JSON::Frame`，再广播给仪表盘、CSV 导出和插件
-    (app/src/JSON/FrameBuilder.cpp:306, app/src/JSON/FrameBuilder.cpp:696).
+
+- `JSON::FrameBuilder` 接收数据帧，根据当前模式（项目文件/快速绘图/设备直发JSON）解析为结构化 `JSON::Frame`，再广播给仪表盘、CSV 导出和插件
+  (app/src/JSON/FrameBuilder.cpp:306, app/src/JSON/FrameBuilder.cpp:696).
 
 ### UI 层
-  - `UI::Dashboard` 接收 `Frame`，维护各类可视化数据序列（折线、FFT、多曲线、GPS等），以 ~20Hz 节流触发 `updated()` 驱动 QML 刷新。
+
+- `UI::Dashboard` 接收 `Frame`，维护各类可视化数据序列（折线、FFT、多曲线、GPS等），以 ~20Hz 节流触发 `updated()` 驱动 QML 刷新。
 
 ### 持久化与对外
-  - `CSV::Export` 异步写入 CSV；`IO::Console`/`ConsoleExport` 负责终端显示/导出；`Plugins::Server` 对外广播。
 
+- `CSV::Export` 异步写入 CSV；`IO::Console`/`ConsoleExport` 负责终端显示/导出；`Plugins::Server` 对外广播。
 
 ## 数据处理链路
 
-  - 通过 Manager::setBusType() 选择串口、网络或 BLE，对应地装配不同 HAL 驱动 (app/src/IO/
-    Manager.cpp:645).
-  - 以串口为例，驱动在 onReadyRead() 中读取底层缓冲并发出 dataReceived 信号 (app/src/IO/Drivers/
-    UART.cpp:894).
-  - Manager::startFrameReader() 将驱动数据流转到 FrameReader::processData()，并在需要时放入独立线程
-    保证 UI 流畅 (app/src/IO/Manager.cpp:748).
-  - FrameReader::processData() 根据模式（QuickPlot/项目/JSON）从环形缓冲抽取完整帧，必要时执行起止符
-    和校验策略 (app/src/IO/FrameReader.cpp:80).
-  - Manager::onReadyRead() 从队列拉取帧，转交 FrameBuilder::hotpathRxFrame() 进入项目解析或直通处理
-    (app/src/IO/Manager.cpp:789, app/src/JSON/FrameBuilder.cpp:306).
-  - 项目模式下 FrameBuilder::parseProjectFrame() 依 JSON 映射更新各数据集，并触发 UI/CSV/
-    插件 (app/src/JSON/FrameBuilder.cpp:389, app/src/JSON/FrameBuilder.cpp:696); 仪表盘通过
-    UI::Dashboard::hotpathRxFrame() 刷新模型和绘图缓存 (app/src/UI/Dashboard.cpp:990).
+- 通过 Manager::setBusType() 选择串口、网络或 BLE，对应地装配不同 HAL 驱动 (app/src/IO/
+  Manager.cpp:645).
+- 以串口为例，驱动在 onReadyRead() 中读取底层缓冲并发出 dataReceived 信号 (app/src/IO/Drivers/
+  UART.cpp:894).
+- Manager::startFrameReader() 将驱动数据流转到 FrameReader::processData()，并在需要时放入独立线程
+  保证 UI 流畅 (app/src/IO/Manager.cpp:748).
+- FrameReader::processData() 根据模式（QuickPlot/项目/JSON）从环形缓冲抽取完整帧，必要时执行起止符
+  和校验策略 (app/src/IO/FrameReader.cpp:80).
+- Manager::onReadyRead() 从队列拉取帧，转交 FrameBuilder::hotpathRxFrame() 进入项目解析或直通处理
+  (app/src/IO/Manager.cpp:789, app/src/JSON/FrameBuilder.cpp:306).
+- 项目模式下 FrameBuilder::parseProjectFrame() 依 JSON 映射更新各数据集，并触发 UI/CSV/
+  插件 (app/src/JSON/FrameBuilder.cpp:389, app/src/JSON/FrameBuilder.cpp:696); 仪表盘通过
+  UI::Dashboard::hotpathRxFrame() 刷新模型和绘图缓存 (app/src/UI/Dashboard.cpp:990).
 
 ## 数据存储与日志
 
-  - JSON::Frame/Dataset 保存每个通道的原始值、数值版本、绘图参数等，供仪表盘和导出模块共享 (app/src/
-    JSON/Frame.h:134).
-  - CSV::Export::hotpathTxFrame() 将结构化帧排入待写队列，由后台线程周期落盘；文件按项目名称和时间归
-    档 (app/src/CSV/Export.cpp:202, app/src/CSV/Export.cpp:234, app/src/CSV/Export.cpp:303).
-  - 终端窗口通过 IO::Console::append() 将原始流转换成文本、加时间戳并保存到内存缓冲，可随时复制或导
-    出 (app/src/IO/Console.cpp:435).
-  - 若项目定义了自动执行动作，FrameBuilder::onConnectedChanged() 会在建立连接后写出预设指令到当前总
-    线 (app/src/JSON/FrameBuilder.cpp:342, app/src/IO/Manager.cpp:307).
+- JSON::Frame/Dataset 保存每个通道的原始值、数值版本、绘图参数等，供仪表盘和导出模块共享 (app/src/
+  JSON/Frame.h:134).
+- CSV::Export::hotpathTxFrame() 将结构化帧排入待写队列，由后台线程周期落盘；文件按项目名称和时间归
+  档 (app/src/CSV/Export.cpp:202, app/src/CSV/Export.cpp:234, app/src/CSV/Export.cpp:303).
+- 终端窗口通过 IO::Console::append() 将原始流转换成文本、加时间戳并保存到内存缓冲，可随时复制或导
+  出 (app/src/IO/Console.cpp:435).
+- 若项目定义了自动执行动作，FrameBuilder::onConnectedChanged() 会在建立连接后写出预设指令到当前总
+  线 (app/src/JSON/FrameBuilder.cpp:342, app/src/IO/Manager.cpp:307).
 
 ## UI 与逻辑绑定
 
-  - ModuleManager 在初始化时把各 C++ 单例注册为 QML 上下文对象，例如 Cpp_IO_Manager、
-    Cpp_UI_Dashboard (app/src/Misc/ModuleManager.cpp:375).
-  - 设备设置页的协议列表直接绑定 Cpp_IO_Manager.availableBuses，用户选择后修改 busType 即完成驱动切
-    换 (app/qml/MainWindow/Panes/Setup.qml:245).
-  - 工具栏“连接”按钮通过 Cpp_IO_Manager.toggleConnection() 控制设备或 MQTT 连接状态，实时反映
-    isConnected (app/qml/MainWindow/Panes/Toolbar.qml:303).
-  - 仪表盘操作按钮通过 Cpp_UI_Dashboard 的模型和方法执行自定义动作，同时根据 Cpp_IO_Manager.paused
-    控制可用性 (app/qml/MainWindow/Panes/Dashboard.qml:129).
-  - QML 主窗口加载完成后由 ModuleManager 负责 show/hide 各页面，确保第一帧有效数据时自动切换到仪表盘
-    (app/qml/MainWindow/MainWindow.qml:96 及 app/src/Misc/ModuleManager.cpp:400).
+- ModuleManager 在初始化时把各 C++ 单例注册为 QML 上下文对象，例如 Cpp_IO_Manager、
+  Cpp_UI_Dashboard (app/src/Misc/ModuleManager.cpp:375).
+- 设备设置页的协议列表直接绑定 Cpp_IO_Manager.availableBuses，用户选择后修改 busType 即完成驱动切
+  换 (app/qml/MainWindow/Panes/Setup.qml:245).
+- 工具栏“连接”按钮通过 Cpp_IO_Manager.toggleConnection() 控制设备或 MQTT 连接状态，实时反映
+  isConnected (app/qml/MainWindow/Panes/Toolbar.qml:303).
+- 仪表盘操作按钮通过 Cpp_UI_Dashboard 的模型和方法执行自定义动作，同时根据 Cpp_IO_Manager.paused
+  控制可用性 (app/qml/MainWindow/Panes/Dashboard.qml:129).
+- QML 主窗口加载完成后由 ModuleManager 负责 show/hide 各页面，确保第一帧有效数据时自动切换到仪表盘
+  (app/qml/MainWindow/MainWindow.qml:96 及 app/src/Misc/ModuleManager.cpp:400).
 
 ## Autogen 目录说明
 
-  - app/CMakeLists.txt 开启 CMAKE_AUTOMOC/AUTOUIC/AUTORCC，并通过 qt_add_executable() 定义目标
-    Serial-Studio-GPL3 (app/CMakeLists.txt:33, app/CMakeLists.txt:280).
-  - CMake 在构建时为每个使用 Q_OBJECT 的类运行 Qt Meta-Object Compiler，所以 IO::Manager 会生成
-    对应的 moc_Manager.cpp，放在 build-release/app/Serial-Studio-GPL3_autogen/... (app/src/IO/
-    Manager.h:49).
-  - Serial-Studio-GPL3_autogen 还包含由 rcc 和 uic 生成的资源及 UI 辅助源码，所有文件都是中间产物，
-    随目标重建自动更新。
-  - 这些自动生成文件仅在构建目录存在，源代码树保持整洁，开发者通常不需要手动修改它们。
-  - 若删除或清理构建目录，重新执行 cmake --build 会再次调用 Qt autogen 工具生成同名文件。
-
+- app/CMakeLists.txt 开启 CMAKE_AUTOMOC/AUTOUIC/AUTORCC，并通过 qt_add_executable() 定义目标
+  Serial-Studio-GPL3 (app/CMakeLists.txt:33, app/CMakeLists.txt:280).
+- CMake 在构建时为每个使用 Q_OBJECT 的类运行 Qt Meta-Object Compiler，所以 IO::Manager 会生成
+  对应的 moc_Manager.cpp，放在 build-release/app/Serial-Studio-GPL3_autogen/... (app/src/IO/
+  Manager.h:49).
+- Serial-Studio-GPL3_autogen 还包含由 rcc 和 uic 生成的资源及 UI 辅助源码，所有文件都是中间产物，
+  随目标重建自动更新。
+- 这些自动生成文件仅在构建目录存在，源代码树保持整洁，开发者通常不需要手动修改它们。
+- 若删除或清理构建目录，重新执行 cmake --build 会再次调用 Qt autogen 工具生成同名文件。
 
 # 具体处理过程
 
@@ -94,10 +97,11 @@ claude code answer
 
   Qt的**MOC（元对象编译器）**是Qt框架的核心机制，它为
   C++添加了以下功能：
-  - 信号与槽机制（Signals & Slots）
-  - 属性系统（Q_PROPERTY）
-  - 运行时类型信息
-  - 动态调用方法
+
+- 信号与槽机制（Signals & Slots）
+- 属性系统（Q_PROPERTY）
+- 运行时类型信息
+- 动态调用方法
 
   你看到的 moc_Manager.cpp 就是MOC自动生成的代码。
 
@@ -105,11 +109,11 @@ claude code answer
 
   让我们看看IO::Manager类的定义（app/src/IO/Manager.h
   :46-89）：
+
 ```c++
   class Manager : public QObject
   {
-    Q_OBJECT  // ← 
-  这个宏告诉MOC："这个类需要元对象支持"
+    Q_OBJECT  // ← 这个宏告诉MOC："这个类需要元对象支持"
 
     // 定义属性，可以在QML中直接绑定
     Q_PROPERTY(bool isConnected
@@ -125,25 +129,28 @@ claude code answer
 ```
 
 CMake构建流程：
-  1. CMake检测到类中有Q_OBJECT宏
-  2. 调用MOC工具处理Manager.h
-  3. MOC生成moc_Manager.cpp（包含元对象代码）
-  4. 将moc_Manager.cpp编译并链接到最终程序
+
+1. CMake检测到类中有Q_OBJECT宏
+2. 调用MOC工具处理Manager.h
+3. MOC生成moc_Manager.cpp（包含元对象代码）
+4. 将moc_Manager.cpp编译并链接到最终程序
 
 ### 1.3 autogen文件夹的作用
 
 build-release/app/Serial-Studio-GPL3_autogen/文件夹
 
 包含：
-  - moc_*.cpp - MOC生成的元对象代码
-  - *.moc - 内联MOC文件
-  - mocs_compilation.cpp - 统一编译文件
+
+- moc_*.cpp - MOC生成的元对象代码
+- *.moc - 内联MOC文件
+- mocs_compilation.cpp - 统一编译文件
 
 为什么需要这个文件夹？
-  - Qt的信号槽机制不是C++标准特性
-  - MOC将Qt特有的signals/slots/Q_PROPERTY转换为标准C+
+
+- Qt的信号槽机制不是C++标准特性
+- MOC将Qt特有的signals/slots/Q_PROPERTY转换为标准C+
   +代码
-  - 这些自动生成的代码实现了运行时反射和动态绑定
+- 这些自动生成的代码实现了运行时反射和动态绑定
 
 举例：
   在moc_Manager.cpp:201-208中，你会看到：
@@ -163,9 +170,10 @@ build-release/app/Serial-Studio-GPL3_autogen/文件夹
 ```
 
 这个staticMetaObject结构体包含了：
-  - 所有信号/槽的名称和签名
-  - 属性的读写方法
-  - 运行时调用这些方法的函数指针
+
+- 所有信号/槽的名称和签名
+- 属性的读写方法
+- 运行时调用这些方法的函数指针
 
 ---
 
@@ -177,41 +185,41 @@ build-release/app/Serial-Studio-GPL3_autogen/文件夹
 
 ```text
   ┌─────────────┐
-  │ 硬件设备    │ (通过串口/网络/蓝牙发送数据)
-  │ (例如:Arduino)│
+  │ 硬件设备      │ (通过串口/网络/蓝牙发送数据)
+  │(例如:Arduino)│
   └──────┬──────┘
          │ 原始字节流: "/*{temp:25.5,humidity:60}*/"
          ↓
   ┌──────────────────────────────────────┐
-  │ 1. I/O层 (IO::Manager + HAL_Driver) │
+  │ 1. I/O层 (IO::Manager + HAL_Driver)  │
   │    app/src/IO/Manager.cpp:54-74      │
   └──────┬───────────────────────────────┘
          │
          ↓ signal: dataReceived(QByteArray)
   ┌──────────────────────────────────────┐
-  │ 2. 帧检测 (IO::FrameReader)          │
+  │ 2. 帧检测 (IO::FrameReader)           │
   │    app/src/IO/FrameReader.h:49-89    │
-  │    - 在独立线程中运行                 │
-  │    - 检测帧边界 (/* ... */)          │
-  │    - 验证校验和                       │
+  │    - 在独立线程中运行                   │
+  │    - 检测帧边界 (/* ... */)            │
+  │    - 验证校验和                        │
   └──────┬───────────────────────────────┘
          │
          ↓ signal: readyRead() + 无锁队列
   ┌──────────────────────────────────────┐
-  │ 3. JSON解析 (JSON::FrameBuilder)     │
+  │ 3. JSON解析 (JSON::FrameBuilder)      │
   │    app/src/JSON/FrameBuilder.h:50-91 │
-  │    - 可选JavaScript预处理器           │
+  │    - 可选JavaScript预处理器            │
   │    - 解析JSON或CSV                    │
   │    - 构建Frame对象                    │
   └──────┬───────────────────────────────┘
          │
          ↓ signal: frameChanged(Frame)
   ┌──────────────────────────────────────┐
-  │ 4. 仪表盘 (UI::Dashboard)            │
+  │ 4. 仪表盘 (UI::Dashboard)             │
   │    app/src/UI/Dashboard.h:50-206     │
-  │    - 更新DSP数据结构                  │
-  │    - 管理Plot/Gauge/GPS等Widget      │
-  │    - 限制更新频率为20Hz               │
+  │    - 更新DSP数据结构                   │
+  │    - 管理Plot/Gauge/GPS等Widget       │
+  │    - 限制更新频率为20Hz                │
   └──────┬───────────────────────────────┘
          │
          ↓ Q_PROPERTY绑定 + signal: updated()
@@ -223,7 +231,6 @@ build-release/app/Serial-Studio-GPL3_autogen/文件夹
 ```
 
 ### 2.2 代码级别的详细流程
-
 
 #### 步骤1: 数据接收（IO::Manager.cpp:154-156）
 
@@ -246,10 +253,11 @@ build-release/app/Serial-Studio-GPL3_autogen/文件夹
 ```
 
 关键点：
-  - driver()是硬件抽象层，可能是UART/Network/BLE
-  - 使用QMetaObject::invokeMethod跨线程调用（因为Fram
+
+- driver()是硬件抽象层，可能是UART/Network/BLE
+- 使用QMetaObject::invokeMethod跨线程调用（因为Fram
   eReader运行在独立线程）
-  - Qt::QueuedConnection确保线程安全
+- Qt::QueuedConnection确保线程安全
 
 #### 步骤2: 帧检测（IO::FrameReader.h:62-69）
 
@@ -269,14 +277,16 @@ build-release/app/Serial-Studio-GPL3_autogen/文件夹
 
 CircularBuffer的作用（FrameReader.h:87）：
   CircularBuffer<QByteArray, char> m_circularBuffer;
-  - 处理不完整的数据包
-  - 支持跨包边界的帧检测
+
+- 处理不完整的数据包
+- 支持跨包边界的帧检测
 
 无锁队列（FrameReader.h:88）：
-  moodycamel::ReaderWriterQueue<QByteArray>
+  moodycamel::ReaderWriterQueue`<QByteArray>`
   m_queue{4096};
-  - 生产者-消费者模式
-  - 避免线程锁开销
+
+- 生产者-消费者模式
+- 避免线程锁开销
 
 #### 步骤3: Frame构建（JSON::FrameBuilder.h:93-94）
 
@@ -298,9 +308,10 @@ CircularBuffer的作用（FrameReader.h:87）：
              NOTIFY operationModeChanged)
 
 三种模式：
-  1. ProjectFile: 根据JSON配置文件解析
-  2. QuickPlot: 自动检测CSV格式
-  3. DeviceSendsJSON: 设备直接发送完整JSON
+
+1. ProjectFile: 根据JSON配置文件解析
+2. QuickPlot: 自动检测CSV格式
+3. DeviceSendsJSON: 设备直接发送完整JSON
 
 #### 步骤4: 数据聚合（UI::Dashboard.h:148）
 
@@ -313,13 +324,13 @@ CircularBuffer的作用（FrameReader.h:87）：
 ```
 
 DSP数据结构（Dashboard.h:182-186）：
-  QVector<DSP::LineSeries> m_pltValues;           // 
+  QVector[DSP::LineSeries](DSP::LineSeries) m_pltValues;           //
   折线图数据
-  QVector<DSP::MultiLineSeries> m_multipltValues; // 
+  QVector[DSP::MultiLineSeries](DSP::MultiLineSeries) m_multipltValues; //
   多线图数据
-  QVector<DSP::AxisData> m_fftValues;             // 
+  QVector[DSP::AxisData](DSP::AxisData) m_fftValues;             //
   FFT频谱数据
-  QVector<DSP::GpsSeries> m_gpsValues;            // 
+  QVector[DSP::GpsSeries](DSP::GpsSeries) m_gpsValues;            //
   GPS轨迹数据
 
 ---
@@ -385,7 +396,6 @@ DSP数据结构（Dashboard.h:182-186）：
   }
 ```
 
-
 ### 3.3 信号槽连接示例
 
   C++端（Manager.h:91-103）：
@@ -437,16 +447,16 @@ DSP数据结构（Dashboard.h:182-186）：
   }
 ```
 
-
 ### 4.2 线程模型
 
 主线程：
-  - QML UI渲染
-  - 信号槽事件处理
+
+- QML UI渲染
+- 信号槽事件处理
 
   Worker线程（Manager.h:164-165）：
   QThread m_workerThread;
-  QPointer<FrameReader> m_frameReader;
+  QPointer`<FrameReader>` m_frameReader;
 
   线程启动（Manager.cpp:82-98）：
   void IO::Manager::startFrameReader()
@@ -461,7 +471,7 @@ DSP数据结构（Dashboard.h:182-186）：
     connect(driver(), &IO::HAL_Driver::dataReceived,
             m_frameReader,
   &IO::FrameReader::processData,
-            Qt::QueuedConnection);  // ← 
+            Qt::QueuedConnection);  // ←
   队列连接，线程安全
   }
 
@@ -506,10 +516,11 @@ DSP数据结构（Dashboard.h:182-186）：
   JSON::Frame m_lastFrame;  // 处理后的帧（用于UI）
 
   DSP时序数据（Dashboard.h:182-186）：
-  QVector<DSP::LineSeries> m_pltValues;  // 
+  QVector[DSP::LineSeries](DSP::LineSeries) m_pltValues;  //
   每个Plot的历史数据点
 
   DSP::FixedQueue（在DSP.h中定义）：
+
 ```c++
   template<typename T>
   class FixedQueue {
@@ -555,6 +566,7 @@ DSP数据结构（Dashboard.h:182-186）：
 ```
 
 #### 第2步：Manager分发到FrameReader（IO/Manager.cpp:154
+
   -156）
 
 ```c++
@@ -609,6 +621,7 @@ DSP数据结构（Dashboard.h:182-186）：
 ```
 
 #### 第4步：FrameBuilder解析JSON（JSON/FrameBuilder.cpp
+
   ）
 
 ```c++
@@ -653,7 +666,7 @@ DSP数据结构（Dashboard.h:182-186）：
 ```
 
 #### 第5步：Dashboard更新数据（UI/Dashboard.cpp）
-  
+
 ```c++
   void Dashboard::hotpathRxFrame(const JSON::Frame 
   &frame)
@@ -747,9 +760,10 @@ DSP数据结构（Dashboard.h:182-186）：
 ```
 
 好处：
-  1. UI永远不会被数据处理阻塞
-  2. 高速数据流不会导致界面卡顿
-  3. 可以处理高达1Mbps的数据速率
+
+1. UI永远不会被数据处理阻塞
+2. 高速数据流不会导致界面卡顿
+3. 可以处理高达1Mbps的数据速率
 
 ### 6.2 信号槽的松耦合
 
@@ -771,6 +785,7 @@ DSP数据结构（Dashboard.h:182-186）：
 ```
 
 在QML中可以直接绑定：
+
 ```c++
   Rectangle {
     color: Cpp_IO_Manager.isConnected ? "green" :
@@ -786,36 +801,35 @@ DSP数据结构（Dashboard.h:182-186）：
 
 ### 核心设计模式
 
-| 模式      | 应用         | 位置 |
-|---------|------------|----------------------------|
-| 单例模式    | 所有Manager类 | Manager::instance() |
-| 生产者-消费者 | 数据处理管道     | FrameReader → FrameBuilder  |
-| 观察者模式   | 信号槽机制      | emit frameChanged()      |
-| 策略模式    | 多种HAL驱动    | UART/Network/BLE|
-| 工厂模式    | Widget创建   | Dashboard::reconfigureDashboard() |
+| 模式          | 应用          | 位置                              |
+| ------------- | ------------- | --------------------------------- |
+| 单例模式      | 所有Manager类 | Manager::instance()               |
+| 生产者-消费者 | 数据处理管道  | FrameReader → FrameBuilder       |
+| 观察者模式    | 信号槽机制    | emit frameChanged()               |
+| 策略模式      | 多种HAL驱动   | UART/Network/BLE                  |
+| 工厂模式      | Widget创建    | Dashboard::reconfigureDashboard() |
 
 ### 关键技术点
 
-  1. MOC（元对象编译器）
-    - 将Qt扩展语法转换为标准C++
-    - 生成在*_autogen/目录
-  2. 线程模型
-    - 主线程：UI渲染
-    - Worker线程：数据处理
-    - 使用QMetaObject::invokeMethod跨线程调用
-  3. 数据流
-    - 硬件 → IO::Manager → FrameReader → FrameBuilder
+1. MOC（元对象编译器）
+   - 将Qt扩展语法转换为标准C++
+   - 生成在*_autogen/目录
+2. 线程模型
+   - 主线程：UI渲染
+   - Worker线程：数据处理
+   - 使用QMetaObject::invokeMethod跨线程调用
+3. 数据流
+   - 硬件 → IO::Manager → FrameReader → FrameBuilder
    → Dashboard → QML
-    - 每一层都是松耦合，通过信号槽连接
-  4. 性能优化
-    - 无锁队列（moodycamel::ReaderWriterQueue）
-    - 循环缓冲区（CircularBuffer）
-    - 20Hz UI更新限流
-  5. C++/QML互操作
-    - qmlRegisterType<>() 注册C++类型
-    - setContextProperty() 暴露C++对象
-    - Q_PROPERTY 实现属性绑定
-
+   - 每一层都是松耦合，通过信号槽连接
+4. 性能优化
+   - 无锁队列（moodycamel::ReaderWriterQueue）
+   - 循环缓冲区（CircularBuffer）
+   - 20Hz UI更新限流
+5. C++/QML互操作
+   - qmlRegisterType<>() 注册C++类型
+   - setContextProperty() 暴露C++对象
+   - Q_PROPERTY 实现属性绑定
 
 # 代码示例
 
@@ -824,13 +838,17 @@ copilot GPT5 answer on serial studio source code
 ## 端到端流程（串口举例）
 
 1) 设备→驱动：驱动接收字节流后发出 `dataReceived(const QByteArray&)`
+
 - 定义自基类 `IO::HAL_Driver`：
+
 ```cpp
 // app/src/IO/HAL_Driver.h
 signals:
   void dataReceived(const QByteArray &data);
 ```
+
 - 串口驱动示例接口：
+
 ```cpp
 // app/src/IO/Drivers/UART.h
 class UART : public HAL_Driver {
@@ -843,6 +861,7 @@ signals:
 ```
 
 2) 驱动→IO 管理器：`IO::Manager::setDriver()` 连接信号，接收原始数据
+
 ```cpp
 // app/src/IO/Manager.cpp
 void IO::Manager::setDriver(HAL_Driver *driver) {
@@ -854,7 +873,9 @@ void IO::Manager::setDriver(HAL_Driver *driver) {
   // ...
 }
 ```
+
 `onDataReceived()` 将原始流发到控制台和插件，不改变帧边界：
+
 ```cpp
 void IO::Manager::onDataReceived(const QByteArray &data) {
   static auto &console = IO::Console::instance();
@@ -932,6 +953,7 @@ public slots:
   // ...
 };
 ```
+
 核心分发逻辑：
 
 ```cpp
@@ -1012,6 +1034,7 @@ connect(&Misc::TimerEvents::instance(), &Misc::TimerEvents::uiTimeout, this, [=,
 ```
 
 7) QML 界面与 C++ 单例连接
+
 - `ModuleManager` 将单例注入 QML 上下文并注册类型：
 
 ```cpp
@@ -1061,6 +1084,7 @@ Connections {
 ## 数据如何保存
 
 - CSV 导出：`CSV::Export` 单例，后台线程异步写入
+
 ```cpp
 // app/src/CSV/Export.h
 class Export : public QObject {
@@ -1072,6 +1096,7 @@ private slots:
   void writeValues(); // 定时批量写出
 };
 ```
+
 - 控制台内容：`IO::Console`/`IO::ConsoleExport` 负责显示与导出。
 
 ## UI 与逻辑代码如何连接
@@ -1085,13 +1110,16 @@ private slots:
 这是 Qt CMake 的自动生成产物目录，用来存放 Qt 元对象系统、资源、QML 类型注册等自动生成的中间代码。来源与用途如下：
 
 - 自动生成由 CMake 开关启用：
+
 ```cmake
 # app/CMakeLists.txt
 set(CMAKE_AUTOMOC ON)   # 自动运行 moc 生成信号/槽等的元对象代码
 set(CMAKE_AUTOUIC ON)   # 自动处理 .ui
 set(CMAKE_AUTORCC ON)   # 自动处理 .qrc 资源
 ```
+
 - moc（Meta-Object Compiler）为含 Q_OBJECT/信号槽的类生成元对象代码，支持信号/槽调用、属性、反射等。您提供的 `moc_Manager.cpp` 就是典型示例：
+
 ```cpp
 /****************************************************************************
 ** Meta object code from reading C++ file 'Manager.h'
@@ -1106,15 +1134,18 @@ void IO::Manager::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id,
   }
 }
 ```
+
 - rcc（资源编译器）把 rcc.qrc 等资源编译进二进制，构建目录里可见：
   - qrc_rcc.cpp
   - qrc_translations.cpp
-  主程序中通过 `Q_INIT_RESOURCE(rcc); Q_INIT_RESOURCE(translations);` 确保加载：
+    主程序中通过 `Q_INIT_RESOURCE(rcc); Q_INIT_RESOURCE(translations);` 确保加载：
+
 ```cpp
 // app/src/main.cpp
 Q_INIT_RESOURCE(rcc);
 Q_INIT_RESOURCE(translations);
 ```
+
 - QML 相关生成物：
   - `serial-studio-gpl3_qmltyperegistrations.cpp` 等文件由 QML type registrar 生成，描述注册到 QML 的类型信息，配合 `qmlRegisterType/qmlRegisterSingletonType` 使用。
   - `meta_types/`、`qmltypes/` 等目录放置类型信息与 QML 工具链需要的元数据。
@@ -1124,6 +1155,7 @@ Q_INIT_RESOURCE(translations);
 ## 关键类职责速览（索引）
 
 - I/O 总控：`IO::Manager`（连接管理、帧提取线程、把数据推送给 FrameBuilder/Console/Server）
+
 ```cpp
 // app/src/IO/Manager.h（节选）
 Q_PROPERTY(bool isConnected READ isConnected NOTIFY connectedChanged)
@@ -1145,4 +1177,3 @@ public slots:
 
 - 数据从驱动进入，经 `IO::Manager` 分发；帧提取通过 `FrameReader`（可在后台线程）；`FrameBuilder` 将原始帧解析成结构化 `JSON::Frame`；`Dashboard` 消化帧并触发 UI 更新；`CSV::Export` 异步落盘；`ModuleManager` 负责把这些单例暴露给 QML。
 - Serial-Studio-GPL3_autogen 由 Qt 的 moc/rcc/qml type registrar 在构建阶段自动生成，是 Qt 元对象系统、资源系统、QML 类型系统的中间产物目录，不能手改，会随构建重建。
-
