@@ -17,6 +17,20 @@
  * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
  *
  * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
+ * 
+ * fix log :codex resume 019a5703-9b0c-7ec1-8b1f-0709c96db75b
+   - Added the precise Qt headers plus a shared reply-processing helper so the 
+driver always compiles and handles QModbusReply uniformly, eliminating duplicated code and silencing spurious 
+errors (app/src/IO/Drivers/Modbus.h:24-37, app/src/IO/Drivers/Modbus.cpp:404-418, app/src/IO/Drivers/Modbus.cpp:731-749).
+   - Restored and persisted every user-facing setting (including the serial-port index), tightened input 
+validation, and refreshed device lists immediately 
+so configurationOk() now reflects real hardware availability and TCP parameters before enabling the Connect button 
+(app/src/IO/Drivers/Modbus.cpp:36-72, app/src/IO/Drivers/Modbus.cpp:159-169, 
+app/src/IO/Drivers/Modbus.cpp:424-552).
+   - Corrected the function-code setter to work with actual Modbus codes instead of combo-box indices, preventing off-by-one requests and making the stored 
+preference consistent (app/src/IO/Drivers/Modbus.cpp:454-465).
+   - Ensured synchronous Modbus replies are parsed and emitted just like asynchronous ones, so no polled frame is silently dropped when the backend answers 
+immediately (app/src/IO/Drivers/Modbus.cpp:603-659).
  */
 
 #include "IO/Drivers/Modbus.h"
@@ -62,10 +76,14 @@ IO::Drivers::Modbus::Modbus()
   m_tcpHost = m_settings.value("Modbus_TcpHost", "127.0.0.1").toString();
   m_tcpPort = m_settings.value("Modbus_TcpPort", 502).toUInt();
   m_baudRate = m_settings.value("Modbus_BaudRate", 9600).toInt();
+  m_serialPortIndex = m_settings.value("Modbus_SerialIndex", 0).toUInt();
   m_parityIndex = m_settings.value("Modbus_Parity", 0).toUInt();
 
   // 设置奇偶校验
   setParity(m_parityIndex);
+
+  // 立即刷新一次串口列表，避免等待定时器
+  refreshSerialDevices();
 }
 
 /**
@@ -156,10 +174,13 @@ bool IO::Drivers::Modbus::configurationOk() const
 {
   // RTU模式需要串口索引大于0
   if (m_modbusMode == ModbusMode::RTU)
-    return m_serialPortIndex > 0;
+  {
+    const auto ports = serialPortList();
+    return m_serialPortIndex > 0 && m_serialPortIndex < ports.count();
+  }
 
   // TCP模式需要有效的主机地址
-  return !m_tcpHost.isEmpty();
+  return !m_tcpHost.isEmpty() && m_tcpPort > 0;
 }
 
 /**
@@ -406,6 +427,9 @@ void IO::Drivers::Modbus::setupExternalConnections()
   // 语言变化时更新列表
   connect(&Misc::Translator::instance(), &Misc::Translator::languageChanged,
           this, &Modbus::languageChanged);
+
+  // 确保启动后列表立即可用
+  refreshSerialDevices();
 }
 
 /**
@@ -413,6 +437,9 @@ void IO::Drivers::Modbus::setupExternalConnections()
  */
 void IO::Drivers::Modbus::setModbusMode(const quint8 mode)
 {
+  if (mode > ModbusMode::TCP)
+    return;
+
   if (m_modbusMode != mode)
   {
     m_modbusMode = mode;
@@ -440,9 +467,12 @@ void IO::Drivers::Modbus::setSlaveAddress(const quint8 address)
  */
 void IO::Drivers::Modbus::setFunctionCode(const quint8 code)
 {
+  if (code < 1 || code > 4)
+    return;
+
   if (m_functionCode != code)
   {
-    m_functionCode = code + 1; // 列表索引转换为实际功能码
+    m_functionCode = code;
     m_settings.setValue("Modbus_FuncCode", m_functionCode);
     Q_EMIT functionCodeChanged();
   }
@@ -527,12 +557,13 @@ void IO::Drivers::Modbus::setTcpPort(const quint16 port)
 void IO::Drivers::Modbus::setSerialPortIndex(const quint8 index)
 {
   auto ports = serialPortList();
-  if (index < ports.count())
-  {
-    m_serialPortIndex = index;
-    Q_EMIT serialPortIndexChanged();
-    Q_EMIT configurationChanged();
-  }
+  if (index >= ports.count() || m_serialPortIndex == index)
+    return;
+
+  m_serialPortIndex = index;
+  m_settings.setValue("Modbus_SerialIndex", index);
+  Q_EMIT serialPortIndexChanged();
+  Q_EMIT configurationChanged();
 }
 
 /**
@@ -623,7 +654,7 @@ void IO::Drivers::Modbus::onPollTimer()
     else
     {
       // 立即处理（同步响应）
-      delete reply;
+      processReply(reply);
     }
   }
   else
@@ -638,26 +669,7 @@ void IO::Drivers::Modbus::onPollTimer()
  */
 void IO::Drivers::Modbus::onReadReady()
 {
-  auto reply = qobject_cast<QModbusReply *>(sender());
-  if (!reply)
-    return;
-
-  if (reply->error() == QModbusDevice::NoError)
-  {
-    const QModbusDataUnit unit = reply->result();
-
-    // 将Modbus数据格式化为字节流
-    QByteArray data = formatModbusData(unit);
-
-    // 发射数据接收信号
-    Q_EMIT dataReceived(data);
-  }
-  else
-  {
-    qWarning() << "Modbus read error:" << reply->errorString();
-  }
-
-  reply->deleteLater();
+  processReply(qobject_cast<QModbusReply *>(sender()));
 }
 
 /**
@@ -725,6 +737,29 @@ void IO::Drivers::Modbus::refreshSerialDevices()
     m_deviceLocations = locations;
     Q_EMIT availablePortsChanged();
   }
+}
+
+/**
+ * 统一处理Modbus回复
+ */
+void IO::Drivers::Modbus::processReply(QModbusReply *reply)
+{
+  if (!reply)
+    return;
+
+  if (reply->error() == QModbusDevice::NoError)
+  {
+    const QModbusDataUnit unit = reply->result();
+
+    // 将Modbus数据格式化为字节流
+    Q_EMIT dataReceived(formatModbusData(unit));
+  }
+  else if (reply->error() != QModbusDevice::OperationAbortedError)
+  {
+    qWarning() << "Modbus read error:" << reply->errorString();
+  }
+
+  reply->deleteLater();
 }
 
 //------------------------------------------------------------------------------

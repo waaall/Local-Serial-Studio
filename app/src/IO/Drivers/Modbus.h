@@ -26,10 +26,13 @@
 #include <QString>
 #include <QSettings>
 #include <QByteArray>
-#include <QtSerialPort>
+#include <QVector>
+#include <QSerialPort>
+#include <QSerialPortInfo>
 #include <QModbusClient>
 #include <QModbusRtuSerialClient>
 #include <QModbusTcpClient>
+#include <QModbusReply>
 #include <QModbusDataUnit>
 
 #include "IO/HAL_Driver.h"
@@ -194,6 +197,7 @@ private slots:
   void onStateChanged(QModbusDevice::State state);
   void onErrorOccurred(QModbusDevice::Error error);
   void refreshSerialDevices();
+  void processReply(QModbusReply *reply);
 
 private:
   QVector<QSerialPortInfo> validPorts() const;
