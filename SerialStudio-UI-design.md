@@ -480,7 +480,7 @@ Canvas {
 
 ---
 
-## 5. 使用Qt Creator修改UI
+## 5. 使用Qt Creator修改UI(待测试)
 
 ### 5.1 Qt Creator打开项目
 
@@ -499,7 +499,16 @@ Canvas {
 
 1. 在Qt Creator左侧项目树中找到 `app/qml/Widgets/Dashboard/Gauge.qml`
 2. 双击打开文件
-3. 切换到"Design"模式(左侧边栏图标或Ctrl+2)
+3. 试图切换到"Design"模式(左侧边栏图标或Ctrl+2)——本项目的仪表类文件大量使用 `Canvas`、自绘JS和 `import SerialStudio` 的自定义C++类型，Qt Creator Designer 对这些模块不支持，因此该按钮会被禁用；请在"Edit"模式下修改并用命令行 `qml` 预览无依赖的片段，或直接运行应用查看效果。
+
+**原因示例**:
+- `app/qml/Widgets/Dashboard/Gauge.qml`：Canvas自绘刻度/弧线/指针，依赖 C++ `GaugeModel` 与 `SerialStudio` 枚举。
+- `app/qml/Widgets/Dashboard/Plot.qml`：Canvas 绘制网格与轨迹，读取 `PlotModel` 数据、`SerialStudio` 常量。
+- `app/qml/Widgets/Dashboard/WidgetDelegate.qml`：加载 C++ `UI::DashboardWidget` 决定具体 Dashboard 组件，Designer 无法解析。
+
+**预览建议**:
+- 真实效果：`cmake --build build --parallel && ./build/app/Serial-Studio-GPL3` 运行应用查看。
+- 片段预览：仅对不依赖 C++ 的简化版本用 `qml` 启动，修改后手动重启；如需局部预览，临时去掉 `import SerialStudio` 并 mock 一个最小 model，修改完再恢复。
 
 **可视化编辑器功能**:
 - **属性编辑器**: 右侧面板可直接修改属性(颜色、尺寸、字体等)
@@ -511,27 +520,21 @@ Canvas {
 - 复杂的自定义Canvas绘制无法可视化预览
 - 需要在"Edit"模式下编写JavaScript逻辑
 
-### 5.3 实时预览(qmlscene)
+### 5.3 预览(qml 命令)
 
 **单独预览QML文件**:
 
 ```bash
-# 安装qmlscene (通常随Qt安装)
-/path/to/Qt/6.9.2/macos/bin/qmlscene app/qml/Widgets/Pane.qml
+# 使用 Qt 6 自带的 qml 工具(替代已弃用的旧 scene 预览命令)
+/path/to/Qt/6.9.2/macos/bin/qml app/qml/Widgets/Pane.qml
 ```
 
-**注意**: 需要确保QML文件不依赖C++单例,或者通过Mock对象模拟
+**注意**: `qml` 不支持 `--watch`，需手动重启进程；同时要确保QML文件不依赖C++单例，或者通过Mock对象模拟，涉及`import SerialStudio`或`Cpp_*`上下文的文件必须由应用进程加载。
 
 ### 5.4 热重载开发流程
 
-**方法1: 使用qmlscene监视模式**
 
-```bash
-qmlscene --watch app/qml/MainWindow/MainWindow.qml
-# 修改QML文件后自动重新加载
-```
-
-**方法2: 在主程序中启用QML调试**
+**在主程序中启用QML调试**
 
 在main.cpp中:
 ```cpp
@@ -974,18 +977,17 @@ Label {
 
 ## 8. 使用其他工具修改UI
 
-### 8.1 QML Scene Editor (独立工具)
+### 8.1 命令行QML预览(qml)
 
 **安装**:
 ```bash
 # 通过Qt维护工具安装
-# 或下载qmlscene工具
 brew install qt@6  # macOS
 ```
 
 **使用**:
 ```bash
-qmlscene app/qml/Widgets/Dashboard/Gauge.qml
+qml app/qml/Widgets/Dashboard/Gauge.qml
 ```
 
 **优点**:
@@ -994,7 +996,7 @@ qmlscene app/qml/Widgets/Dashboard/Gauge.qml
 - 支持热重载
 
 **缺点**:
-- 无法访问C++单例(需要Mock)
+- 无法访问C++单例(需要Mock)，`import SerialStudio` 会报“module not installed”
 - 不能调试复杂交互
 
 ### 8.2 Figma → QML 工作流
@@ -1498,7 +1500,7 @@ SerialStudio::getDashboardWidgets(const JSON::Dataset &dataset)
 ## 14. 常见问题
 
 **Q: 修改QML后不生效?**
-A: 确保重新编译,QML文件嵌入到资源文件(rcc)中。或使用qmlscene独立预览。
+A: 确保重新编译,QML文件嵌入到资源文件(rcc)中。或使用`qml`独立预览(仅限不依赖C++的QML)。
 
 **Q: C++属性在QML中undefined?**
 A: 检查是否在ModuleManager中注册了`setContextProperty`,并确保单例已初始化。
