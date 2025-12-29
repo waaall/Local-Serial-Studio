@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 #include "UI/DashboardWidget.h"
 
@@ -36,9 +17,6 @@
 
 #include "Misc/ThemeManager.h"
 
-#ifdef BUILD_COMMERCIAL
-#  include "UI/Widgets/Plot3D.h"
-#endif
 
 /**
  * Constructor function
@@ -227,14 +205,6 @@ void UI::DashboardWidget::setWidgetIndex(const int index)
         m_qmlPath
             = "qrc:/serial-studio.com/gui/qml/Widgets/Dashboard/LEDPanel.qml";
         break;
-#ifdef BUILD_COMMERCIAL
-      case SerialStudio::DashboardPlot3D:
-        m_dbWidget = new Widgets::Plot3D(relativeIndex(), this);
-        m_qmlPath
-            = "qrc:/serial-studio.com/gui/qml/Widgets/Dashboard/Plot3D.qml";
-        break;
-#endif
-
       default:
         break;
     }

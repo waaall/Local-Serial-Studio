@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 import QtCore
 import QtQuick
@@ -35,13 +16,7 @@ Item {
   //
   // Define application name
   //
-  property bool dontNag: false
-  readonly property bool proVersion: Cpp_CommercialBuild ? Cpp_Licensing_LemonSqueezy.isActivated || Cpp_Licensing_Trial.trialEnabled : false
-
-  Settings {
-    category: "App"
-    property alias hideWelcomeDialog: app.dontNag
-  }
+  readonly property bool proVersion: false
 
   //
   // Check for updates (non-silent mode)
@@ -55,13 +30,6 @@ Item {
   // Launch welcome dialog or show main window during starup
   //
   Component.onCompleted: {
-    if (Cpp_CommercialBuild) {
-      if (!Cpp_Licensing_LemonSqueezy.isActivated) {
-        app.showWelcomeDialog()
-        return
-      }
-    }
-
     app.showMainWindow()
   }
 
@@ -93,11 +61,6 @@ Item {
     }
 
     DialogLoader {
-      id: mqttConfiguration
-      source: "qrc:/serial-studio.com/gui/qml/Dialogs/MQTTConfiguration.qml"
-    }
-
-    DialogLoader {
       id: aboutDialog
       source: "qrc:/serial-studio.com/gui/qml/Dialogs/About.qml"
     }
@@ -120,23 +83,6 @@ Item {
     id: projectEditor
   }
 
-  //
-  // License activation dialog
-  //
-  DialogLoader {
-    id: licenseDialog
-    source: "qrc:/serial-studio.com/gui/qml/Dialogs/LicenseManagement.qml"
-  }
-
-  //
-  // Welcome dialog
-  //
-  DialogLoader {
-    id: welcomeDialog
-    source: "qrc:/serial-studio.com/gui/qml/Dialogs/Welcome.qml"
-  }
-
-  //
   // Main Window display function
   //
   function showMainWindow() {
@@ -152,22 +98,4 @@ Item {
   function showAcknowledgements()  { acknowledgementsDialog.activate() }
   function showFileTransmission()  { fileTransmissionDialog.activate() }
 
-  //
-  // Dialog display functions (commercial)
-  //
-  function showLicenseDialog() {
-    if (Cpp_CommercialBuild)
-      licenseDialog.activate()
-  } function showMqttConfiguration() {
-    if (Cpp_CommercialBuild)
-      mqttConfiguration.activate()
-  } function showWelcomeDialog() {
-    if (Cpp_CommercialBuild) {
-      if (!Cpp_Licensing_Trial.trialExpired && Cpp_Licensing_Trial.trialEnabled && app.dontNag && Cpp_Licensing_Trial.daysRemaining > 1)
-        showMainWindow()
-
-      else
-        welcomeDialog.activate()
-    }
-  }
 }

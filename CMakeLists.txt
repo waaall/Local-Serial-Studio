@@ -1,31 +1,10 @@
-#
-# Serial Studio
-# https://serial-studio.com/
-#
-# Copyright (C) 2020–2025 Alex Spataru
-#
-# This file is dual-licensed:
-#
-# - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
-# - Under the Serial Studio Commercial License for builds that include
-#   any Pro functionality.
-#
-# You must comply with the terms of one of these licenses, depending
-# on your use case.
-#
-# For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
-# For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
-#
-# SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
-#
-
 cmake_minimum_required(VERSION 3.20)
 
 #-------------------------------------------------------------------------------
 # Define project name & find Qt packages for correct CPack calls
 #-------------------------------------------------------------------------------
 
-project(Serial-Studio LANGUAGES CXX)
+project(Frequency-Calculator LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
@@ -40,47 +19,31 @@ find_package(
 # Options for build types
 #-------------------------------------------------------------------------------
 
-option(BUILD_GPL3              "Force GPLv3-only build"                 ON)
 option(DEBUG_SANITIZER         "Enable sanitizers for debug builds"    OFF)
 option(PRODUCTION_OPTIMIZATION "Enable production optimization flags"  OFF)
-option(BUILD_COMMERCIAL        "Enable commercial features"            OFF)
-
-set(ARCGIS_API_KEY $ENV{ARCGIS_API_KEY} CACHE STRING "API Key for ArcGIS map")
-set(SERIAL_STUDIO_LICENSE_KEY $ENV{SERIAL_STUDIO_LICENSE_KEY} CACHE STRING "License key for commercial build")
-set(SERIAL_STUDIO_INSTANCE_ID $ENV{SERIAL_STUDIO_INSTANCE_ID} CACHE STRING "Instance ID for license validation")
 
 #-------------------------------------------------------------------------------
 # Project information
 #-------------------------------------------------------------------------------
 
 set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
+set(PROJECT_DISPNAME "STM32 Monitor")
+set(PROJECT_FILE_LICENSE "${PROJECT_ROOT_DIR}/LICENSES/GPL-3.0-only.txt")
 
-if(BUILD_COMMERCIAL)
-   set(PROJECT_DISPNAME "Serial Studio Pro")
-   set(PROJECT_FILE_LICENSE "${PROJECT_ROOT_DIR}/LICENSES/LicenseRef-SerialStudio-Commercial.txt")
-   if (UNIX AND NOT APPLE)
-      set(PROJECT_EXECUTABLE "serial-studio-pro")
-   else()
-      set(PROJECT_EXECUTABLE "Serial-Studio-Pro")
-   endif()
+if (UNIX AND NOT APPLE)
+   set(PROJECT_EXECUTABLE "stm32-monitor")
 else()
-   set(PROJECT_DISPNAME "Serial Studio GPLv3")
-   set(PROJECT_FILE_LICENSE "${PROJECT_ROOT_DIR}/LICENSES/GPL-3.0-only.txt")
-   if (UNIX AND NOT APPLE)
-      set(PROJECT_EXECUTABLE "serial-studio-gpl3")
-   else()
-      set(PROJECT_EXECUTABLE "Serial-Studio-GPL3")
-   endif()
+   set(PROJECT_EXECUTABLE "STM32-Monitor")
 endif()
 
 set(PROJECT_VENDOR              "Alex Spataru")
-set(PROJECT_CONTACT             "serial-studio.github.io")
+set(PROJECT_CONTACT             "Frequency-Calculator.github.io")
 set(PROJECT_DESCRIPTION_SUMMARY "Flexible data visualization software for embedded devices and projects")
 set(PROJECT_VERSION_MAJOR       "3")
 set(PROJECT_VERSION_MINOR       "1")
 set(PROJECT_VERSION_PATCH       "10")
 set(PROJECT_VERSION             "${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}.${PROJECT_VERSION_PATCH}")
-set(PROJECT_APPCAST             "https://raw.githubusercontent.com/Serial-Studio/Serial-Studio/master/updates.json")
+set(PROJECT_APPCAST             "https://raw.githubusercontent.com/Frequency-Calculator/Frequency-Calculator/master/updates.json")
 set(PROJECT_DESCRIPTION_FILE    "${PROJECT_ROOT_DIR}/README.md")
 set(PROJECT_FILE_NAME           "${PROJECT_EXECUTABLE}-v${PROJECT_VERSION}")
 
@@ -93,61 +56,6 @@ add_definitions(-DPROJECT_CONTACT="${PROJECT_CONTACT}")
 add_definitions(-DPROJECT_VERSION="${PROJECT_VERSION}")
 add_definitions(-DPROJECT_APPCAST="${PROJECT_APPCAST}")
 add_definitions(-DPROJECT_DISPNAME="${PROJECT_DISPNAME}")
-
-#-------------------------------------------------------------------------------
-# Licensing and validation
-#-------------------------------------------------------------------------------
-
-if(BUILD_GPL3)
-   if(BUILD_COMMERCIAL)
-      message(FATAL_ERROR
-         "You cannot enable commercial features (BUILD_COMMERCIAL=ON) when BUILD_GPL3=ON.\n"
-         "Set -DBUILD_GPL3=OFF to build with commercial modules.")
-   endif()
-
-   set(BUILD_COMMERCIAL OFF CACHE BOOL "Commercial features disabled due to GPLv3 build mode" FORCE)
-   message(STATUS "BUILD_GPL3=ON — enforcing BUILD_COMMERCIAL=OFF for license compliance")
-endif()
-
-if(BUILD_COMMERCIAL)
-    add_compile_definitions(BUILD_COMMERCIAL)
-    add_definitions(-DARCGIS_API_KEY="${ARCGIS_API_KEY}")
-    message(STATUS "BUILD_COMMERCIAL=ON — validating license with Lemon Squeezy")
-
-    if(NOT SERIAL_STUDIO_LICENSE_KEY OR NOT SERIAL_STUDIO_INSTANCE_ID)
-        message(FATAL_ERROR
-            "Missing SERIAL_STUDIO_LICENSE_KEY or SERIAL_STUDIO_INSTANCE_ID.\n"
-            "Pass them via -D flags or set them as environment variables.")
-    endif()
-
-    find_program(CURL_EXECUTABLE curl)
-    if(NOT CURL_EXECUTABLE)
-        message(FATAL_ERROR "curl not found in PATH — required to validate license.")
-    endif()
-
-    execute_process(
-        COMMAND curl -s -X POST https://api.lemonsqueezy.com/v1/licenses/validate
-        -H "Accept: application/vnd.api+json"
-        -H "Content-Type: application/vnd.api+json"
-        -d "{\"license_key\": \"${SERIAL_STUDIO_LICENSE_KEY}\", \"instance_id\": \"${SERIAL_STUDIO_INSTANCE_ID}\"}"
-        OUTPUT_VARIABLE LS_RESPONSE
-        ERROR_VARIABLE LS_ERROR
-        RESULT_VARIABLE LS_RESULT
-    )
-
-    if(NOT LS_RESULT EQUAL 0)
-        message(FATAL_ERROR "License validation failed: ${LS_ERROR}")
-    endif()
-
-    string(FIND "${LS_RESPONSE}" "\"valid\":true" VALID_POS)
-    if(VALID_POS EQUAL -1)
-        message(FATAL_ERROR
-            "Commercial build denied: License not valid or not active.\n"
-            "Response: ${LS_RESPONSE}")
-    endif()
-
-    message(STATUS "License validation succeeded — building with commercial features")
-endif()
 
 #-------------------------------------------------------------------------------
 # Log CPU type
@@ -203,7 +111,7 @@ if(PRODUCTION_OPTIMIZATION)
       add_link_options(
          -Wl,--gc-sections               # Remove unused functions/data from final binary
       )
-   
+
    # GCC (MinGW) on Windows
    elseif(WIN32 AND MINGW)
       add_compile_options(

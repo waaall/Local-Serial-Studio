@@ -1,28 +1,3 @@
-#
-# Serial Studio
-# https://serial-studio.com/
-#
-# Copyright (C) 2020–2025 Alex Spataru
-#
-# This file is dual-licensed:
-#
-# - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
-# - Under the Serial Studio Commercial License for builds that include
-#   any Pro functionality.
-#
-# You must comply with the terms of one of these licenses, depending
-# on your use case.
-#
-# For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
-# For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
-#
-# SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
-#
-
-#-------------------------------------------------------------------------------
-# Project setup
-#-------------------------------------------------------------------------------
-
 cmake_minimum_required(VERSION 3.20)
 project(app LANGUAGES CXX VERSION ${PROJECT_VERSION})
 
@@ -70,20 +45,6 @@ set(QT_LIBS
   Qt6::SerialPort
   Qt6::QuickControls2
 )
-
-# Add required modules for Pro version if needed
-if(BUILD_COMMERCIAL)
-  set(QT_MODULES
-    ${QT_MODULES}
-    Mqtt
-    SerialBus
-  )
-  set(QT_LIBS
-    ${QT_LIBS}
-    Qt6::Mqtt
-    Qt6::SerialBus
-  )
-endif()
 
 # Find the Qt package and its modules
 find_package(
@@ -205,36 +166,6 @@ set(HEADERS
   src/SerialStudio.h
 )
 
-# Add headers & sources for commercial build
-if(BUILD_COMMERCIAL)
-  set(HEADERS
-    ${HEADERS}
-    src/MQTT/Client.h
-    src/IO/Drivers/Audio.h
-    src/IO/Drivers/CANBus.h
-    src/IO/Drivers/Modbus.h
-    src/UI/Widgets/Plot3D.h
-    src/Licensing/Trial.h
-    src/Licensing/MachineID.h
-    src/Licensing/SimpleCrypt.h
-    src/Licensing/LemonSqueezy.h
-    src/ThirdParty/miniaudio.h
-  )
-  set(SOURCES
-    ${SOURCES}
-    src/MQTT/Client.cpp
-    src/IO/Drivers/Audio.cpp
-    src/IO/Drivers/CANBus.cpp
-    src/IO/Drivers/Modbus.cpp
-    src/UI/Widgets/Plot3D.cpp
-    src/Licensing/Trial.cpp
-    src/ThirdParty/miniaudio.cpp
-    src/Licensing/MachineID.cpp
-    src/Licensing/SimpleCrypt.cpp
-    src/Licensing/LemonSqueezy.cpp
-  )
-endif()
-
 #-------------------------------------------------------------------------------
 # Platform-specific configuration
 #-------------------------------------------------------------------------------
@@ -243,12 +174,7 @@ if(WIN32)
   set(WIN_RC "${CMAKE_CURRENT_SOURCE_DIR}/deploy/windows/info.rc")
   set(SOURCES ${SOURCES} ${WIN_RC} "src/Platform/NativeWindow_Windows.cpp")
 elseif(APPLE)
-  if(BUILD_COMMERCIAL)
-    set(INFO_MACOSX "${CMAKE_CURRENT_SOURCE_DIR}/deploy/macOS/info-pro.plist")
-  else()
-    set(INFO_MACOSX "${CMAKE_CURRENT_SOURCE_DIR}/deploy/macOS/info-gpl3.plist")
-  endif()
-
+  set(INFO_MACOSX "${CMAKE_CURRENT_SOURCE_DIR}/deploy/macOS/info-gpl3.plist")
   set(ICON_MACOSX "${CMAKE_CURRENT_SOURCE_DIR}/deploy/macOS/AppIcon.icns")
   set(ASSETS_MACOSX "${CMAKE_CURRENT_SOURCE_DIR}/deploy/macOS/Assets.car")
 
@@ -314,18 +240,13 @@ set(QML_SOURCES
   qml/Dialogs/Donate.qml
   qml/Dialogs/FileTransmission.qml
   qml/Dialogs/IconPicker.qml
-  qml/Dialogs/LicenseManagement.qml
-  qml/Dialogs/MQTTConfiguration.qml
   qml/Dialogs/Settings.qml
   qml/Dialogs/Welcome.qml
   qml/MainWindow/Panes/Dashboard/DashboardCanvas.qml
   qml/MainWindow/Panes/Dashboard/StartMenu.qml
   qml/MainWindow/Panes/Dashboard/Taskbar.qml
   qml/MainWindow/Panes/Dashboard/WidgetDelegate.qml
-  qml/MainWindow/Panes/SetupPanes/Drivers/Audio.qml
   qml/MainWindow/Panes/SetupPanes/Drivers/BluetoothLE.qml
-  qml/MainWindow/Panes/SetupPanes/Drivers/CANBus.qml
-  qml/MainWindow/Panes/SetupPanes/Drivers/Modbus.qml
   qml/MainWindow/Panes/SetupPanes/Drivers/Network.qml
   qml/MainWindow/Panes/SetupPanes/Drivers/UART.qml
   qml/MainWindow/Panes/SetupPanes/Hardware.qml
@@ -354,7 +275,6 @@ set(QML_SOURCES
   qml/Widgets/Dashboard/LEDPanel.qml
   qml/Widgets/Dashboard/MultiPlot.qml
   qml/Widgets/Dashboard/Plot.qml
-  qml/Widgets/Dashboard/Plot3D.qml
   qml/Widgets/Dashboard/Terminal.qml
   qml/Widgets/BigButton.qml
   qml/Widgets/InfoBullet.qml
@@ -363,7 +283,6 @@ set(QML_SOURCES
   qml/Widgets/MiniWindow.qml
   qml/Widgets/Pane.qml
   qml/Widgets/PlotWidget.qml
-  qml/Widgets/ProNotice.qml
   qml/Widgets/SmartWindow.qml
   qml/Widgets/SubMenuCombo.qml
   qml/Widgets/TaskbarButton.qml
@@ -378,40 +297,8 @@ qt_add_qml_module(
   URI gui
   VERSION 1.0
   QML_FILES ${QML_SOURCES}
-  RESOURCE_PREFIX /serial-studio.com/
+  RESOURCE_PREFIX /Frequency-Calculator.com/
 )
-
-#-------------------------------------------------------------------------------
-# MiniAudio configuration
-#-------------------------------------------------------------------------------
-
-if (BUILD_COMMERCIAL)
-  target_compile_definitions(${PROJECT_EXECUTABLE} PRIVATE
-    MA_NO_DECODING
-    MA_NO_ENCODING
-    MA_NO_WAV
-    MA_NO_FLAC
-    MA_NO_MP3
-    MA_NO_RESOURCE_MANAGER
-    MA_NO_NODE_GRAPH
-    MA_NO_ENGINE
-    MA_NO_GENERATION
-    MA_NO_CUSTOM
-    MA_NO_NULL
-  )
-
-  if(LINUX)
-    target_link_libraries(${PROJECT_EXECUTABLE} PRIVATE asound)
-  endif()
-
-  if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(x86_64|amd64)$")
-    target_compile_definitions(${PROJECT_EXECUTABLE} PRIVATE MA_SUPPORT_SSE2)
-  endif()
-
-  if(CMAKE_SYSTEM_PROCESSOR MATCHES "^(arm64|aarch64)$" AND NOT APPLE)
-    target_compile_definitions(${PROJECT_EXECUTABLE} PRIVATE MA_SUPPORT_NEON)
-  endif()
-endif()
 
 #-------------------------------------------------------------------------------
 # Deployment options
@@ -441,7 +328,7 @@ elseif(UNIX)
     DESTINATION share/pixmaps
   )
   install(
-    FILES ${CMAKE_CURRENT_SOURCE_DIR}/deploy/linux/serial-studio.metainfo.xml
+    FILES ${CMAKE_CURRENT_SOURCE_DIR}/deploy/linux/Frequency-Calculator.metainfo.xml
     DESTINATION share/metainfo
   )
   install(

@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 import QtQuick
 import QtQuick.Layouts
@@ -91,45 +72,6 @@ Rectangle {
         Drivers.BluetoothLE {
           Component.onCompleted: root.buses.push(this)
         }
-      }
-    }
-
-    Loader {
-      asynchronous: true
-      Layout.fillWidth: true
-      Layout.fillHeight: true
-      active: Cpp_CommercialBuild
-      source: "qrc:/serial-studio.com/gui/qml/MainWindow/Panes/SetupPanes/Drivers/Audio.qml"
-
-      onLoaded: {
-        if (item)
-          root.buses.push(item)
-      }
-    }
-
-    Loader {
-      asynchronous: true
-      Layout.fillWidth: true
-      Layout.fillHeight: true
-      active: Cpp_CommercialBuild
-      source: "qrc:/serial-studio.com/gui/qml/MainWindow/Panes/SetupPanes/Drivers/Modbus.qml"
-
-      onLoaded: {
-        if (item)
-          root.buses.push(item)
-      }
-    }
-
-    Loader {
-      asynchronous: true
-      Layout.fillWidth: true
-      Layout.fillHeight: true
-      active: Cpp_CommercialBuild
-      source: "qrc:/serial-studio.com/gui/qml/MainWindow/Panes/SetupPanes/Drivers/CANBus.qml"
-
-      onLoaded: {
-        if (item)
-          root.buses.push(item)
       }
     }
   }

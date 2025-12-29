@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 import QtQuick
 import QtQuick.Window
@@ -209,37 +190,6 @@ Rectangle {
       Layout.fillHeight: true
       Layout.maximumHeight: 64
       Layout.alignment: Qt.AlignVCenter
-      visible: Cpp_CommercialBuild
-      color: Cpp_ThemeManager.colors["toolbar_separator"]
-    }
-
-    //
-    // MQTT Setup
-    //
-    Loader {
-      active: Cpp_CommercialBuild
-      sourceComponent: Component {
-        Widgets.ToolbarButton {
-          text: qsTr("MQTT")
-          onClicked: app.showMqttConfiguration()
-          icon.source: Cpp_MQTT_Client.isConnected ?
-                         (Cpp_MQTT_Client.isSubscriber ?
-                            "qrc:/rcc/icons/toolbar/mqtt-subscriber.svg" :
-                            "qrc:/rcc/icons/toolbar/mqtt-publisher.svg") :
-                         "qrc:/rcc/icons/toolbar/mqtt.svg"
-          ToolTip.text: qsTr("Configure MQTT connection (publish or subscribe)")
-        }
-      }
-    }
-
-    //
-    // Separator
-    //
-    Rectangle {
-      implicitWidth: 1
-      Layout.fillHeight: true
-      Layout.maximumHeight: 64
-      Layout.alignment: Qt.AlignVCenter
       color: Cpp_ThemeManager.colors["toolbar_separator"]
     }
 
@@ -305,36 +255,21 @@ Rectangle {
       font: Cpp_Misc_CommonFonts.boldUiFont
       Layout.minimumWidth: metrics.width + 16
       Layout.maximumWidth: metrics.width + 16
-      checked: Cpp_IO_Manager.isConnected || mqttSubscriber
+      checked: Cpp_IO_Manager.isConnected
       text: checked ? qsTr("Disconnect") : qsTr("Connect")
       icon.source: checked ? "qrc:/rcc/icons/toolbar/connect.svg" :
                              "qrc:/rcc/icons/toolbar/disconnect.svg"
-      ToolTip.text: qsTr("Connect or disconnect from device or MQTT broker")
-
-      //
-      // Hide button when trial expires
-      //
-      visible: Cpp_CommercialBuild ? (Cpp_Licensing_Trial.trialExpired && !Cpp_Licensing_LemonSqueezy.isActivated ? false : true) : true
-
-      //
-      // Get MQTT status
-      //
-      readonly property bool mqttSubscriber: Cpp_CommercialBuild ? (Cpp_MQTT_Client.isConnected && Cpp_MQTT_Client.isSubscriber) : false
+      ToolTip.text: qsTr("Connect or disconnect from device")
 
       //
       // Enable/disable the connect button
       //
-      enabled: (Cpp_IO_Manager.configurationOk && !Cpp_CSV_Player.isOpen) || mqttSubscriber
+      enabled: Cpp_IO_Manager.configurationOk && !Cpp_CSV_Player.isOpen
 
       //
       // Connect/disconnect device when button is clicked
       //
-      onClicked: {
-        if (mqttSubscriber)
-          Cpp_MQTT_Client.toggleConnection()
-        else
-          Cpp_IO_Manager.toggleConnection()
-      }
+      onClicked: Cpp_IO_Manager.toggleConnection()
 
       //
       // Obtain maximum width of the button
@@ -344,18 +279,6 @@ Rectangle {
         text: " " + qsTr("Disconnect") + " "
         font: Cpp_Misc_CommonFonts.boldUiFont
       }
-    }
-
-    //
-    // Activate button
-    //
-    Widgets.ToolbarButton {
-      text: qsTr("Activate")
-      onClicked: app.showLicenseDialog()
-      Layout.alignment: Qt.AlignVCenter
-      icon.source: "qrc:/rcc/icons/toolbar/activate.svg"
-      ToolTip.text: qsTr("Manage license and activate the application")
-      visible: Cpp_CommercialBuild ? Cpp_Licensing_Trial.trialExpired && !Cpp_Licensing_LemonSqueezy.isActivated : false
     }
 
     //

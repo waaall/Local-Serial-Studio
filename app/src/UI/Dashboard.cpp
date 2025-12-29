@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 #include "UI/Dashboard.h"
 
@@ -246,14 +227,8 @@ bool UI::Dashboard::showTaskbarButtons() const
  */
 bool UI::Dashboard::pointsWidgetVisible() const
 {
-#ifdef BUILD_COMMERCIAL
-  return m_widgetGroups.contains(SerialStudio::DashboardMultiPlot)
-         || m_widgetDatasets.contains(SerialStudio::DashboardPlot)
-         || m_widgetGroups.contains(SerialStudio::DashboardPlot3D);
-#else
   return m_widgetGroups.contains(SerialStudio::DashboardMultiPlot)
          || m_widgetDatasets.contains(SerialStudio::DashboardPlot);
-#endif
 }
 
 /**
@@ -1084,18 +1059,13 @@ void UI::Dashboard::updateDashboardData(const JSON::Frame &frame)
  * @brief Reconfigures the dashboard layout and widgets based on the new frame.
  *
  * Clears existing dashboard and plot data, detects appropriate widget mappings
- * for each group and dataset, handles commercial-only widgets (with fallback),
- * and regenerates widget model mappings. Emits signals if the widget or action
- * counts have changed.
+ * for each group and dataset, and regenerates widget model mappings. Emits
+ * signals if the widget or action counts have changed.
  *
  * @param frame The JSON frame with the new structure to configure.
- * @param pro Indicates whether commercial (pro) features are enabled.
  */
 void UI::Dashboard::reconfigureDashboard(const JSON::Frame &frame)
 {
-  // Check if we can use pro features
-  const bool pro = SerialStudio::activated();
-
   // Reset dashboard data
   resetData(false);
 
@@ -1122,31 +1092,9 @@ void UI::Dashboard::reconfigureDashboard(const JSON::Frame &frame)
     if (key != SerialStudio::DashboardNoWidget)
       m_widgetGroups[key].append(group);
 
-    // Append fallback 3D plot widget
-    if (key == SerialStudio::DashboardPlot3D && !pro)
-    {
-      m_widgetGroups.remove(key);
-      auto copy = group;
-      copy.title = tr("%1 (Fallback)").arg(group.title);
-      m_widgetGroups[SerialStudio::DashboardMultiPlot].append(copy);
-      for (size_t i = 0; i < m_lastFrame.groups.size(); ++i)
-      {
-        if (m_lastFrame.groups[i].groupId == group.groupId)
-        {
-          m_lastFrame.groups[i].title = copy.title;
-          m_lastFrame.groups[i].widget = "multiplot";
-          break;
-        }
-      }
-    }
-
-    // Append multiplot & 3D plot to accelerometer widget
+    // Append multiplot to accelerometer widget
     if (key == SerialStudio::DashboardAccelerometer)
-    {
       m_widgetGroups[SerialStudio::DashboardMultiPlot].append(group);
-      if (pro)
-        m_widgetGroups[SerialStudio::DashboardPlot3D].append(group);
-    }
 
     // Append multiplot to gyro widget
     if (key == SerialStudio::DashboardGyroscope)
@@ -1277,7 +1225,6 @@ void UI::Dashboard::reconfigureDashboard(const JSON::Frame &frame)
  * - Linear (2D) plots
  * - Multi-series (grouped) plots
  * - GPS trajectory widgets (lat/lon/alt history)
- * - 3D trajectory plots (X/Y/Z vectors) [Pro only]
  *
  * For each type, the function:
  * - Checks if the internal buffer count matches the current number of widgets.
@@ -1286,9 +1233,8 @@ void UI::Dashboard::reconfigureDashboard(const JSON::Frame &frame)
  * - Shifts in the latest sample from the dashboard dataset into the correct
  *   slot of the buffer.
  *
- * @warning GPS and 3D plots rely on structured dataset groups and expect the
- *          widgets to provide fields like [`lat`, `lon`, `alt`], or
- *          [`x`, `y`, `z`].
+ * @warning GPS plots rely on structured dataset groups and expect the widgets
+ *          to provide fields like [`lat`, `lon`, `alt`].
  */
 void UI::Dashboard::updateDataSeries()
 {
@@ -1297,9 +1243,6 @@ void UI::Dashboard::updateDataSeries()
   const int fftCount = widgetCount(SerialStudio::DashboardFFT);
   const int plotCount = widgetCount(SerialStudio::DashboardPlot);
   const int multiCount = widgetCount(SerialStudio::DashboardMultiPlot);
-#ifdef BUILD_COMMERCIAL
-  const int plot3DCount = widgetCount(SerialStudio::DashboardPlot3D);
-#endif
 
   // Resize data points if needed
   if (m_gpsValues.size() != gpsCount) [[unlikely]]
@@ -1310,10 +1253,6 @@ void UI::Dashboard::updateDataSeries()
     configureLineSeries();
   if (m_multipltValues.size() != multiCount) [[unlikely]]
     configureMultiLineSeries();
-#ifdef BUILD_COMMERCIAL
-  if (m_plotData3D.size() != plot3DCount) [[unlikely]]
-    configurePlot3DSeries();
-#endif
 
   // Update GPS data
   for (int i = 0; i < gpsCount; ++i)
@@ -1387,31 +1326,6 @@ void UI::Dashboard::updateDataSeries()
       multiSeries.y[j].push(group.datasets[j].numericValue);
   }
 
-  // Update 3D plots
-#ifdef BUILD_COMMERCIAL
-  for (int i = 0; i < plot3DCount; ++i)
-  {
-    auto &plotData = m_plotData3D[i];
-
-    QVector3D point;
-    const auto &group = getGroupWidget(SerialStudio::DashboardPlot3D, i);
-    for (const auto &dataset : group.datasets)
-    {
-      const QString &id = dataset.widget;
-      if (id == "x" || id == "X")
-        point.setX(dataset.numericValue);
-      else if (id == "y" || id == "Y")
-        point.setY(dataset.numericValue);
-      else if (id == "z" || id == "Z")
-        point.setZ(dataset.numericValue);
-    }
-
-    plotData.push_back(point);
-    const size_t maxPoints = static_cast<size_t>(points());
-    if (plotData.size() > maxPoints)
-      plotData.erase(plotData.begin(), plotData.end() - maxPoints);
-  }
-#endif
 }
 
 /**
@@ -1575,33 +1489,6 @@ void UI::Dashboard::configureLineSeries()
     m_activePlots.insert(i, true);
   }
 }
-
-#ifdef BUILD_COMMERCIAL
-/**
- * @brief Initializes internal data structures for 3D trajectory plot widgets.
- *
- * This method ensures that the internal storage (`m_plotData3D`) is correctly
- * resized and cleared to match the current number of 3D plot widgets in the
- * dashboard. Each entry in the list corresponds to a widget and holds a
- * time-ordered list of 3D points (`QVector3D`) representing the X, Y, and
- * Z axes.
- *
- * @note This function is typically called when the number of widgets changes or
- *       during dashboard reinitialization to prevent buffer overflows or stale
- *       data.
- */
-void UI::Dashboard::configurePlot3DSeries()
-{
-  m_plotData3D.clear();
-  m_plotData3D.squeeze();
-  m_plotData3D.resize(widgetCount(SerialStudio::DashboardPlot3D));
-  for (int i = 0; i < m_plotData3D.count(); ++i)
-  {
-    m_plotData3D[i].clear();
-    m_plotData3D[i].shrink_to_fit();
-  }
-}
-#endif
 
 /**
  * @brief Configures the multi-line series data structure for the dashboard.

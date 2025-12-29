@@ -1,109 +1,7 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 #include "SerialStudio.h"
 #include "Misc/ThemeManager.h"
-
-#ifdef BUILD_COMMERCIAL
-#  include "Licensing/Trial.h"
-#  include "Licensing/LemonSqueezy.h"
-#endif
-
-//------------------------------------------------------------------------------
-// Commercial feature detection, appreciate your respect for this project
-//------------------------------------------------------------------------------
-
-/**
- * @brief Checks if Serial Studio is activated with a commercial license.
- *
- * This function determines whether the application is running with a valid
- * commercial license. If the application is built with the commercial flag,
- * it queries the licensing system; otherwise, it always returns false.
- *
- * @return true if the app is activated with a valid license, false otherwise.
- */
-bool SerialStudio::activated()
-{
-#ifdef BUILD_COMMERCIAL
-  return Licensing::LemonSqueezy::instance().isActivated()
-         || Licensing::Trial::instance().trialEnabled();
-#else
-  return false;
-#endif
-}
-
-/**
- * @brief Checks if a project configuration requires commercial features.
- *
- * This function inspects the provided list of JSON groups and determines
- * if any of them use features that are exclusive to the commercial license.
- *
- * @param groups A vector of JSON::Group objects to analyze.
- * @return true if any commercial-only features are detected; false otherwise.
- */
-bool SerialStudio::commercialCfg(const QVector<JSON::Group> &g)
-{
-  for (const auto &group : std::as_const(g))
-  {
-    if (group.widget == QStringLiteral("plot3d"))
-    {
-      return true;
-      break;
-    }
-
-    for (const auto &dataset : std::as_const((group.datasets)))
-    {
-      if (dataset.xAxisId > 0)
-      {
-        return true;
-        break;
-      }
-    }
-  }
-
-  return false;
-}
-
-bool SerialStudio::commercialCfg(const std::vector<JSON::Group> &g)
-{
-  for (const auto &group : std::as_const(g))
-  {
-    if (group.widget == QStringLiteral("plot3d"))
-    {
-      return true;
-      break;
-    }
-
-    for (const auto &dataset : std::as_const((group.datasets)))
-    {
-      if (dataset.xAxisId > 0)
-      {
-        return true;
-        break;
-      }
-    }
-  }
-
-  return false;
-}
 
 //------------------------------------------------------------------------------
 // Dashboard widget logic
@@ -124,7 +22,6 @@ bool SerialStudio::isGroupWidget(const DashboardWidget widget)
     case DashboardGyroscope:
     case DashboardGPS:
     case DashboardLED:
-    case DashboardPlot3D:
     case DashboardTerminal:
       return true;
       break;
@@ -205,9 +102,6 @@ QString SerialStudio::dashboardWidgetIcon(const DashboardWidget w,
     case DashboardTerminal:
       return iconPath + "terminal.svg";
       break;
-    case DashboardPlot3D:
-      return iconPath + "plot3d.svg";
-      break;
     case DashboardNoWidget:
       return iconPath + "group.svg";
       break;
@@ -262,9 +156,6 @@ QString SerialStudio::dashboardWidgetTitle(const DashboardWidget w)
     case DashboardCompass:
       return tr("Compasses");
       break;
-    case DashboardPlot3D:
-      return tr("3D Plots");
-      break;
     case DashboardNoWidget:
       return "";
       break;
@@ -300,9 +191,6 @@ SerialStudio::getDashboardWidget(const JSON::Group &group)
 
   else if (widget == "multiplot")
     return DashboardMultiPlot;
-
-  else if (widget == "plot3d")
-    return DashboardPlot3D;
 
   else if (widget == "terminal")
     return DashboardTerminal;
@@ -371,9 +259,6 @@ QString SerialStudio::groupWidgetId(const GroupWidget widget)
     case MultiPlot:
       return "multiplot";
       break;
-    case Plot3D:
-      return "plot3d";
-      break;
     case NoGroupWidget:
       return "";
       break;
@@ -405,9 +290,6 @@ SerialStudio::GroupWidget SerialStudio::groupWidgetFromId(const QString &id)
 
   else if (id == "multiplot")
     return MultiPlot;
-
-  else if (id == "plot3d")
-    return Plot3D;
 
   return NoGroupWidget;
 }
@@ -462,6 +344,17 @@ SerialStudio::DatasetWidget SerialStudio::datasetWidgetFromId(const QString &id)
 //------------------------------------------------------------------------------
 // Utility functions
 //------------------------------------------------------------------------------
+
+bool SerialStudio::activated()
+{
+  return true;
+}
+
+bool SerialStudio::commercialCfg(const std::vector<JSON::Group> &groups)
+{
+  (void)groups;
+  return false;
+}
 
 /**
  * @brief Retrieves the appropriate color for a dataset based on its index.

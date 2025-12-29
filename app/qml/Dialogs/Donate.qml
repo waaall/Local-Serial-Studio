@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 import QtCore
 import QtQuick
@@ -33,7 +14,7 @@ Window {
   //
   width: minimumWidth
   height: minimumHeight
-  title: qsTr("Support Serial Studio")
+  title: qsTr("Support Frequency-Calculation")
   minimumWidth: column.implicitWidth + 32
   maximumWidth: column.implicitWidth + 32
   minimumHeight: column.implicitHeight + 32
@@ -147,7 +128,7 @@ Window {
             Layout.fillWidth: true
             Layout.maximumWidth: title.implicitWidth
             wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-            text: qsTr("Serial Studio is free & open-source software supported by volunteers. " +
+            text: qsTr("Frequency-Calculation is free & open-source software supported by volunteers. " +
                        "Consider donating or obtaining a Pro license to support development efforts :)")
           }
 
@@ -208,7 +189,7 @@ Window {
           Keys.onEnterPressed: clicked()
           Keys.onReturnPressed: clicked()
           Layout.alignment: Qt.AlignVCenter
-          text: qsTr("Get Serial Studio Pro")
+          text: qsTr("Get Frequency-Calculation Pro")
           Component.onCompleted: forceActiveFocus()
           icon.source: "qrc:/rcc/icons/buttons/buy.svg"
           icon.color: Cpp_ThemeManager.colors["button_text"]

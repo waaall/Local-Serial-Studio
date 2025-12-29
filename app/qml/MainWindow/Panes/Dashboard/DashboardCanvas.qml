@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 import QtQuick
 import QtQuick.Layouts
@@ -74,25 +55,6 @@ Item {
   }
 
   //
-  // Commercial features notification
-  //
-  Widgets.ProNotice {
-    z: 2
-    id: commercialNotification
-
-    activationFlag: Cpp_UI_Dashboard.containsCommercialFeatures
-    titleText: qsTr("Pro features detected in this project.")
-    subtitleText: qsTr("Fallback widgets are active. Purchase a license for full functionality.")
-
-    anchors {
-      margins: -1
-      top: parent.top
-      left: parent.left
-      right: parent.right
-    }
-  }
-
-  //
   // Window canvas
   //
   Item {
@@ -101,9 +63,7 @@ Item {
       left: parent.left
       right: parent.right
       bottom: parent.bottom
-      topMargin: commercialNotification.visible ? -1 : 0
-      top: commercialNotification.visible ? commercialNotification.bottom :
-                                            parent.top
+      top: parent.top
     }
 
     //

@@ -1,11 +1,11 @@
 [Desktop Entry]
-Name=Serial Studio Pro
+Name=Frequency-Calculation Pro
 Comment=Flexible data visualization software for embedded devices and projects
-Exec=serial-studio-pro
+Exec=Frequency-Calculator-pro
 Terminal=false
 Type=Application
 StartupNotify=true
 Categories=Electronics;Engineering;Science;
-Icon=serial-studio-pro
-X-AppImage-Name=Serial Studio Pro
+Icon=Frequency-Calculator-pro
+X-AppImage-Name=Frequency-Calculation Pro
 X-AppImage-Version=3.1.10

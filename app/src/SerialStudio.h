@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 #pragma once
 
@@ -143,11 +124,6 @@ public:
     UART,        /**< Serial port communication. */
     Network,     /**< Network socket communication. */
     BluetoothLE, /**< Bluetooth Low Energy communication. */
-#ifdef BUILD_COMMERCIAL
-    Audio,  /**< Audio input device */
-    ModBus, /**< MODBUS communication */
-    CanBus, /**< CANBUS communication */
-#endif
   };
   Q_ENUM(BusType)
 
@@ -162,7 +138,6 @@ public:
     GPS,
     MultiPlot,
     NoGroupWidget,
-    Plot3D,
   };
   Q_ENUM(GroupWidget)
 
@@ -192,7 +167,6 @@ public:
     DashboardAccelerometer,
     DashboardGyroscope,
     DashboardGPS,
-    DashboardPlot3D,
     DashboardFFT,
     DashboardLED,
     DashboardPlot,
@@ -249,13 +223,6 @@ public:
   typedef QMap<int, QPair<SerialStudio::DashboardWidget, int>> WidgetMap;
 
   //
-  // Commercial-related functions
-  //
-  [[nodiscard]] static bool activated();
-  [[nodiscard]] static bool commercialCfg(const QVector<JSON::Group> &g);
-  [[nodiscard]] static bool commercialCfg(const std::vector<JSON::Group> &g);
-
-  //
   // Dashboard logic
   //
   // clang-format off
@@ -278,6 +245,8 @@ public:
   //
   // Utility functions
   //
+  [[nodiscard]] static bool activated();
+  [[nodiscard]] static bool commercialCfg(const std::vector<JSON::Group> &groups);
   [[nodiscard]] static QColor getDatasetColor(const int index);
 
   //

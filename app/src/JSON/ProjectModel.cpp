@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 #include <QFile>
 #include <QTimer>
@@ -1949,56 +1930,6 @@ bool JSON::ProjectModel::setGroupWidget(const int group,
     grp.datasets.push_back(alt);
   }
 
-  // 3D plot widget
-  else if (widget == SerialStudio::Plot3D)
-  {
-    // Set widget type
-    grp.widget = "plot3d";
-
-    // Create datasets
-    JSON::Dataset x, y, z;
-
-    // Set dataset IDs
-    x.datasetId = 0;
-    y.datasetId = 1;
-    z.datasetId = 2;
-
-    // Register parent group for the datasets
-    x.groupId = groupId;
-    y.groupId = groupId;
-    z.groupId = groupId;
-
-    // Set dataset indexes
-    x.index = nextDatasetIndex();
-    y.index = nextDatasetIndex() + 1;
-    z.index = nextDatasetIndex() + 2;
-
-    // Set dataset properties
-    x.wgtMin = 0;
-    x.wgtMax = 0;
-    y.wgtMin = 0;
-    y.wgtMax = 0;
-    z.wgtMin = 0;
-    z.wgtMax = 0;
-    x.widget = "x";
-    y.widget = "y";
-    z.widget = "z";
-    x.alarmLow = 0;
-    y.alarmLow = 0;
-    z.alarmLow = 0;
-    x.alarmHigh = 0;
-    y.alarmHigh = 0;
-    z.alarmHigh = 0;
-    x.title = tr("X");
-    y.title = tr("Y");
-    z.title = tr("Z");
-
-    // Add datasets to group
-    grp.datasets.push_back(x);
-    grp.datasets.push_back(y);
-    grp.datasets.push_back(z);
-  }
-
   // Replace previous group with new group
   m_groups[group] = grp;
 
@@ -3240,7 +3171,6 @@ void JSON::ProjectModel::generateComboBoxModels()
   m_groupWidgets.insert(QStringLiteral("gyro"), tr("Gyroscope"));
   m_groupWidgets.insert(QStringLiteral("multiplot"), tr("Multiple Plot"));
   m_groupWidgets.insert(QStringLiteral("accelerometer"), tr("Accelerometer"));
-  m_groupWidgets.insert(QStringLiteral("plot3d"), tr("3D Plot"));
   m_groupWidgets.insert(QLatin1String(""), tr("None"));
 
   // Initialize dataset-level widgets
@@ -3389,8 +3319,6 @@ void JSON::ProjectModel::onGroupItemChanged(QStandardItem *item)
       widget = SerialStudio::GPS;
     else if (widgetStr == "datagrid")
       widget = SerialStudio::DataGrid;
-    else if (widgetStr == "plot3d")
-      widget = SerialStudio::Plot3D;
     else
       widget = SerialStudio::NoGroupWidget;
 

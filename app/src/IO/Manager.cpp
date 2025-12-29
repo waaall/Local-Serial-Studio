@@ -1,23 +1,4 @@
-/*
- * Serial Studio
- * https://serial-studio.com/
- *
- * Copyright (C) 2020–2025 Alex Spataru
- *
- * This file is dual-licensed:
- *
- * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include
- *   any Pro functionality.
- *
- * You must comply with the terms of one of these licenses, depending
- * on your use case.
- *
- * For GPL terms, see <https://www.gnu.org/licenses/gpl-3.0.html>
- * For commercial terms, see LICENSE_COMMERCIAL.md in the project root.
- *
- * SPDX-License-Identifier: GPL-3.0-only OR LicenseRef-SerialStudio-Commercial
- */
+
 
 #include "IO/Manager.h"
 #include "IO/Console.h"
@@ -30,14 +11,6 @@
 #include "JSON/FrameBuilder.h"
 
 #include <QApplication>
-
-#ifdef BUILD_COMMERCIAL
-#  include "MQTT/Client.h"
-#  include "Misc/Utilities.h"
-#  include "Licensing/Trial.h"
-#  include "IO/Drivers/Audio.h"
-#  include "Licensing/LemonSqueezy.h"
-#endif
 
 //------------------------------------------------------------------------------
 // Constructor, destructor & singleton access functions
@@ -281,12 +254,6 @@ QStringList IO::Manager::availableBuses() const
   list.append(tr("UART/COM"));
   list.append(tr("Network Socket"));
   list.append(tr("Bluetooth LE"));
-#ifdef BUILD_COMMERCIAL
-  list.append(tr("Audio Stream"));
-  // Comment these ports for the future
-  // list.append(tr("Modbus"));
-  // list.append(tr("CAN Bus"));
-#endif
   return list;
 }
 
@@ -350,20 +317,6 @@ void IO::Manager::toggleConnection()
  */
 void IO::Manager::connectDevice()
 {
-  // Stop if trial expired
-#ifdef BUILD_COMMERCIAL
-  bool expired = Licensing::Trial::instance().trialExpired();
-  bool activated = Licensing::LemonSqueezy::instance().isActivated();
-  if (expired && !activated)
-  {
-    disconnectDevice();
-    Misc::Utilities::showMessageBox(
-        tr("Your trial period has ended."),
-        tr("To continue using Serial Studio, please activate your license."));
-    return;
-  }
-#endif
-
   // Configure current device
   if (driver())
   {
@@ -489,11 +442,6 @@ void IO::Manager::processPayload(const QByteArray &payload)
     server.hotpathTxData(payload);
     console.hotpathRxData(payload);
     frameBuilder.hotpathRxFrame(payload);
-
-#ifdef BUILD_COMMERCIAL
-    static auto &mqtt = MQTT::Client::instance();
-    mqtt.hotpathTxFrame(payload);
-#endif
   }
 }
 
@@ -663,12 +611,6 @@ void IO::Manager::setBusType(const SerialStudio::BusType &driver)
     }
   }
 
-#ifdef BUILD_COMMERCIAL
-  // Try to open an Audio connection
-  else if (busType() == SerialStudio::BusType::Audio)
-    setDriver(static_cast<HAL_Driver *>(&(Drivers::Audio::instance())));
-#endif
-
   // Invalid driver
   else
     setDriver(nullptr);
@@ -778,9 +720,6 @@ void IO::Manager::startFrameReader()
 void IO::Manager::onReadyRead()
 {
   static auto &frameBuilder = JSON::FrameBuilder::instance();
-#ifdef BUILD_COMMERCIAL
-  static auto &mqtt = MQTT::Client::instance();
-#endif
 
   auto reader = m_frameReader;
   if (!m_paused && reader) [[likely]]
@@ -789,9 +728,6 @@ void IO::Manager::onReadyRead()
     while (queue.try_dequeue(m_frame))
     {
       frameBuilder.hotpathRxFrame(m_frame);
-#ifdef BUILD_COMMERCIAL
-      mqtt.hotpathTxFrame(m_frame);
-#endif
     }
   }
 }
