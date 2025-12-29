@@ -1,14 +1,2 @@
-▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
-░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
-▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
-
-Autorská práva (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
-
-Tento software je licencován pod GNU General Public License v3.0 (GPLv3).
-Můžete jej volně používat, upravovat a šířit dle podmínek GPL, pokud všechny
-odvozené práce zůstanou open source.
-
-→ Plná licence: https://www.gnu.org/licenses/gpl-3.0.html
-→ Zdrojový kód: https://github.com/serial-studio/serial-studio
-
-Poprvé v Serial Studio? Klikněte na tlačítko „Nápověda" na nástrojové liště.
+Software pro monitorování primární regulace frekvence
+Vysoce přesné monitorování frekvence v reálném čase a hodnocení výkonu primární regulace frekvence.

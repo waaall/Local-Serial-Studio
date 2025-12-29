@@ -1,14 +1,2 @@
-▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
-░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
-▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
-
-Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
-
-This software is licensed under the GNU General Public License v3.0 (GPLv3).
-You are free to use, modify, and redistribute this software under the terms
-of the GPL, provided that all derivative works also remain open source.
-
-→ Full license: https://www.gnu.org/licenses/gpl-3.0.html
-→ Source code: https://github.com/serial-studio/serial-studio
-
-New to Serial Studio? Click the "Help" toolbar button to get started.
+Primary Frequency Regulation Monitoring Software
+High-precision real-time frequency monitoring and primary frequency regulation performance evaluation.

@@ -1,15 +1,2 @@
-▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
-░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
-▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
-
-Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
-
-To oprogramowanie jest licencjonowane na podstawie GNU General Public License
-w wersji 3.0 (GPLv3). Możesz swobodnie używać, modyfikować i rozpowszechniać to
-oprogramowanie zgodnie z warunkami GPL, pod warunkiem że wszystkie dzieła
-pochodne również pozostaną open source.
-
-→ Pełna licencja: https://www.gnu.org/licenses/gpl-3.0.html
-→ Kod źródłowy: https://github.com/serial-studio/serial-studio
-
-Nowy w Serial Studio? Kliknij przycisk „Pomoc" na pasku narzędzi, aby zacząć.
+Oprogramowanie do monitorowania pierwotnej regulacji częstotliwości
+Wysokoprecyzyjny monitoring częstotliwości w czasie rzeczywistym oraz ocena wydajności pierwotnej regulacji częstotliwości.

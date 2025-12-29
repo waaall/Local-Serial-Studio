@@ -1,16 +1,2 @@
-▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
-░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
-▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
-
-Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
-
-Diese Software ist unter der GNU General Public License Version 3.0
-(GPLv3) lizenziert. Du darfst sie frei verwenden, ändern und
-weiterverbreiten, solange alle abgeleiteten Werke ebenfalls
-Open-Source bleiben.
-
-→ Vollständige Lizenz: https://www.gnu.org/licenses/gpl-3.0.html
-→ Quellcode: https://github.com/serial-studio/serial-studio
-
-Neu bei Serial Studio? Klicke auf den "Hilfe"-Button in der
-Werkzeugleiste, um loszulegen.
+Überwachungssoftware für die Primärfrequenzregelung
+Hochpräzise Echtzeit-Frequenzüberwachung und Bewertung der Primärfrequenzregelungsleistung.

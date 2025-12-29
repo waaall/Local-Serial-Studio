@@ -1,16 +1,2 @@
-▒█▀▀▀█ ▒█▀▀▀ ▒█▀▀█ ▀█▀ ░█▀▀█ ▒█░░░ 　 ▒█▀▀▀█ ▀▀█▀▀ ▒█░▒█ ▒█▀▀▄ ▀█▀ ▒█▀▀▀█
-░▀▀▀▄▄ ▒█▀▀▀ ▒█▄▄▀ ▒█░ ▒█▄▄█ ▒█░░░ 　 ░▀▀▀▄▄ ░▒█░░ ▒█░▒█ ▒█░▒█ ▒█░ ▒█░░▒█
-▒█▄▄▄█ ▒█▄▄▄ ▒█░▒█ ▄█▄ ▒█░▒█ ▒█▄▄█ 　 ▒█▄▄▄█ ░▒█░░ ░▀▄▄▀ ▒█▄▄▀ ▄█▄ ▒█▄▄▄█
-
-Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
-
-Ce logiciel est sous licence Licence Publique Générale GNU version 3.0
-(GPLv3). Vous êtes libre d’utiliser, de modifier et de redistribuer ce
-logiciel selon les termes de la GPL, à condition que tous les travaux
-dérivés restent également open source.
-
-→ Licence complète : https://www.gnu.org/licenses/gpl-3.0.html
-→ Code source : https://github.com/serial-studio/serial-studio
-
-Nouveau sur Serial Studio ? Cliquez sur le bouton "Aide" dans la barre
-d'outils pour commencer.
+Logiciel de surveillance de la régulation primaire de fréquence
+Surveillance de fréquence en temps réel de haute précision et évaluation des performances de la régulation primaire de fréquence.
