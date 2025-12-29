@@ -395,7 +395,7 @@ void Misc::ModuleManager::initializeQmlInterface()
   c->setContextProperty("Cpp_AppOrganizationDomain", APP_SUPPORT_URL);
 
   // Load main.qml
-  m_engine.load(QUrl("qrc:/serial-studio.com/gui/qml/main.qml"));
+  m_engine.load(QUrl("qrc:/Frequency-Calculator.com/gui/qml/main.qml"));
 
   // Try to contact activation server to validate license
 #ifdef BUILD_COMMERCIAL

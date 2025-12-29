@@ -268,7 +268,7 @@ build-release/app/Serial-Studio-GPL3_autogen/文件夹
    // 例如: "/*"
     void setFinishSequence(const QByteArray &finish);
    // 例如: "*/"
-    void setFrameDetectionMode(const 
+    void setFrameDetectionMode(const
   SerialStudio::FrameDetection mode);
 
   signals:
@@ -292,11 +292,11 @@ CircularBuffer的作用（FrameReader.h:87）：
 
 ```c++
   public slots:
-    void hotpathRxFrame(const QByteArray &data);  // 
+    void hotpathRxFrame(const QByteArray &data);  //
   接收原始数据
 
   signals:
-    void frameChanged(const JSON::Frame &frame);  // 
+    void frameChanged(const JSON::Frame &frame);  //
   发射解析后的Frame
 ```
 
@@ -441,7 +441,7 @@ DSP数据结构（Dashboard.h:182-186）：
   实现（Manager.cpp）：
   IO::Manager &IO::Manager::instance()
   {
-    static Manager instance;  // 
+    static Manager instance;  //
   线程安全的懒加载（C++11保证）
     return instance;
   }
@@ -559,7 +559,7 @@ DSP数据结构（Dashboard.h:182-186）：
 ```c++
   void UART::onReadyRead()
   {
-    QByteArray data = m_port->readAll();  // 
+    QByteArray data = m_port->readAll();  //
   读取串口数据
     emit dataReceived(data);  // 发射信号
   }
@@ -585,13 +585,13 @@ DSP数据结构（Dashboard.h:182-186）：
 #### 第3步：FrameReader检测帧边界
 
 ```c++
-  void FrameReader::processData(const QByteArray 
+  void FrameReader::processData(const QByteArray
   &data)
   {
-    m_circularBuffer.append(data);  // 
+    m_circularBuffer.append(data);  //
   添加到循环缓冲区
 
-    // 假设配置了startSequence="/*", 
+    // 假设配置了startSequence="/*",
   finishSequence="*/"
     if (m_frameDetectionMode == StartAndEndDelimiter)
    {
@@ -625,7 +625,7 @@ DSP数据结构（Dashboard.h:182-186）：
   ）
 
 ```c++
-  void FrameBuilder::hotpathRxFrame(const QByteArray 
+  void FrameBuilder::hotpathRxFrame(const QByteArray
   &data)
   {
     // 去除帧边界标记
@@ -668,7 +668,7 @@ DSP数据结构（Dashboard.h:182-186）：
 #### 第5步：Dashboard更新数据（UI/Dashboard.cpp）
 
 ```c++
-  void Dashboard::hotpathRxFrame(const JSON::Frame 
+  void Dashboard::hotpathRxFrame(const JSON::Frame
   &frame)
   {
     // 保存原始帧
@@ -790,7 +790,7 @@ DSP数据结构（Dashboard.h:182-186）：
   Rectangle {
     color: Cpp_IO_Manager.isConnected ? "green" :
   "red"
-    // 
+    //
   当isConnected变化时，color自动更新，无需手动编码
   }
 ```
@@ -1055,7 +1055,7 @@ void ModuleManager::initializeQmlInterface() {
   c->setContextProperty("Cpp_UI_Dashboard", uiDashboard);
   c->setContextProperty("Cpp_JSON_FrameBuilder", frameBuilder);
   // ...
-  m_engine.load(QUrl("qrc:/serial-studio.com/gui/qml/main.qml"));
+  m_engine.load(QUrl("qrc:/Frequency-Calculator.com/gui/qml/main.qml"));
 }
 ```
 

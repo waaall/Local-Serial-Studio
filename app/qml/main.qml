@@ -62,17 +62,17 @@ Item {
 
     DialogLoader {
       id: aboutDialog
-      source: "qrc:/serial-studio.com/gui/qml/Dialogs/About.qml"
+      source: "qrc:/Frequency-Calculator.com/gui/qml/Dialogs/About.qml"
     }
 
     DialogLoader {
       id: acknowledgementsDialog
-      source: "qrc:/serial-studio.com/gui/qml/Dialogs/Acknowledgements.qml"
+      source: "qrc:/Frequency-Calculator.com/gui/qml/Dialogs/Acknowledgements.qml"
     }
 
     DialogLoader {
       id: fileTransmissionDialog
-      source: "qrc:/serial-studio.com/gui/qml/Dialogs/FileTransmission.qml"
+      source: "qrc:/Frequency-Calculator.com/gui/qml/Dialogs/FileTransmission.qml"
     }
   }
 
