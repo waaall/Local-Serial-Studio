@@ -14,11 +14,6 @@ Item {
   id: app
 
   //
-  // Define application name
-  //
-  readonly property bool proVersion: false
-
-  //
   // Check for updates (non-silent mode)
   //
   function checkForUpdates() {
@@ -54,10 +49,6 @@ Item {
 
     Dialogs.CsvPlayer {
       id: csvPlayer
-    }
-
-    Dialogs.Donate {
-      id: donateDialog
     }
 
     DialogLoader {

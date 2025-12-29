@@ -194,17 +194,6 @@ Rectangle {
     }
 
     //
-    // Examples
-    //
-    Widgets.ToolbarButton {
-      text: qsTr("Examples")
-      Layout.alignment: Qt.AlignVCenter
-      icon.source: "qrc:/rcc/icons/toolbar/examples.svg"
-      ToolTip.text: qsTr("Browse example projects on GitHub")
-      onClicked: Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/tree/master/examples")
-    }
-
-    //
     // Help
     //
     Widgets.ToolbarButton {
@@ -213,17 +202,6 @@ Rectangle {
       icon.source: "qrc:/rcc/icons/toolbar/help.svg"
       ToolTip.text: qsTr("Open the online documentation for help and guidance")
       onClicked: Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/wiki")
-    }
-
-    //
-    // DeepWiki
-    //
-    Widgets.ToolbarButton {
-      text: qsTr("AI Help")
-      Layout.alignment: Qt.AlignVCenter
-      icon.source: "qrc:/rcc/icons/toolbar/deepwiki.svg"
-      ToolTip.text: qsTr("View detailed documentation and ask questions on DeepWiki")
-      onClicked: Qt.openUrlExternally("https://deepwiki.com/Serial-Studio/Serial-Studio")
     }
 
     //

@@ -13,14 +13,3 @@ Copyright (c) 2020–2025 Alex Spataru <https://github.com/alex-spataru>
 
 Serial Studio를 처음 사용하시나요? 시작하려면 도구 모음의 "도움말"
 버튼을 클릭하세요.
-
-이 프로젝트가 마음에 드시나요? Pro 버전을 구매해 후원해 주세요:
-→ https://store.serial-studio.com/
-
-Pro 버전에는 다음과 같은 강력한 기능이 포함됩니다:
-→ MQTT 지원
-→ XY 플로팅 및 3D 시각화
-→ 상업적 사용에 적합한 바이너리 라이선스 (GPL 의무 없음)
-→ 임베디드 워크플로를 향상시키는 추가 도구들
-
-→ 자세히 보기: https://serial-studio.com/

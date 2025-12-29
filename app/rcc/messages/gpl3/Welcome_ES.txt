@@ -14,14 +14,3 @@ derivados también permanezcan como código abierto.
 
 ¿Nuevo en Serial Studio? Haz clic en el botón "Ayuda" de la barra de
 herramientas para comenzar.
-
-¿Te gusta este proyecto? Considera apoyarlo comprando la versión Pro:
-→ https://store.serial-studio.com/
-
-Pro incluye extras geniales como:
-→ Soporte para MQTT
-→ Gráficas XY y visualización en 3D
-→ Licencia binaria amigable con empresas (sin obligaciones GPL)
-→ Y más herramientas para mejorar tu flujo de trabajo embebido
-
-→ Más información: https://serial-studio.com/

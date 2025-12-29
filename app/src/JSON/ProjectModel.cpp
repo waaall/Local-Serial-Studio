@@ -240,12 +240,7 @@ JSON::ProjectModel::CurrentView JSON::ProjectModel::currentView() const
  */
 SerialStudio::DecoderMethod JSON::ProjectModel::decoderMethod() const
 {
-#ifdef BUILD_COMMERCIAL
-  if (SerialStudio::activated())
-    return m_frameDecoder;
-#endif
-
-  return SerialStudio::PlainText;
+  return m_frameDecoder;
 }
 
 /**

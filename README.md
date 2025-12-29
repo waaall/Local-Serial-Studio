@@ -8,7 +8,6 @@
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Serial-Studio/Serial-Studio)
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white)](https://instagram.com/serialstudio.app)
 [![Donate](https://img.shields.io/badge/Donate-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/donate?hosted_button_id=XN68J47QJKYDE)
-[![Buy Pro](https://img.shields.io/badge/Buy%20Pro-Lemon%20Squeezy-blue?logo=lemonsqueezy)](https://store.serial-studio.com/buy/ba46c099-0d51-4d98-9154-6be5c35bc1ec)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4b6f3ce14a684704980fea31d8c1632e)](https://app.codacy.com/gh/Serial-Studio/Serial-Studio/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 **Serial Studio** is an open-core, cross-platform telemetry dashboard and real-time data visualization tool. It supports input from serial ports, Bluetooth Low Energy (BLE), MQTT, TCP/UDP sockets and Audio devices, allowing data acquisition from embedded devices, analog circuits, external software, and networked services.
@@ -109,19 +108,15 @@ cmake ../ -DPRODUCTION_OPTIMIZATION=ON -DCMAKE_BUILD_TYPE=Release
 cmake --build . -j$(nproc)
 ```
 
-By default, the build system produces a fully GPLv3-compliant version of Serial Studio.
-This version includes most core features but excludes commercial modules such as MQTT, 3D visualization, XY plotting, and other advanced tools that depend on proprietary Qt components.
-
-If you are a Pro user or have a commercial license, [contact the project maintainer](mailto:alex@serial-studio.com) for build instructions and activation requirements.
+The build system produces a fully GPLv3-compliant version of Serial Studio with all available features.
 
 ## Support the Project
 Serial Studio is developed and maintained by [Alex Spataru](https://github.com/alex-spataru).  
 It is open source and community-driven, with commercial options available for users who need advanced features or business-friendly licensing.
 
-If Serial Studio is useful to you, consider supporting its development in one of the following ways:
+If Serial Studio is useful to you, consider supporting its development:
 
 - [**Donate via PayPal**](https://www.paypal.com/donate?hosted_button_id=XN68J47QJKYDE): Helps keep the project active and sustainable.
-- [**Purchase a Commercial License**](https://serial-studio.com): Required for commercial use of the official binary. Includes Pro features and priority support.
 
 Commercial licenses directly fund continued development, bug fixes, and new features.
 
@@ -140,20 +135,13 @@ Source files are individually marked with SPDX headers indicating whether they a
 
 This structure allows developers to build and distribute GPL-compliant versions while protecting commercial functionality.
 
-## Choosing the Right Version of Serial Studio
+## GPL Version Features
 
-The table below outlines licensing, feature access, and obligations across each edition:
+This is the open-source GPLv3 version of Serial Studio. It includes:
 
-| Feature / Use Case           | GPL Version *(Build it yourself)*       | Trial Version *(Official binary)*    | Pro Version *(Activated official binary)*    |
-|-----------------------------|------------------------------------------|---------------------------------------|----------------------------------------------|
-| **Commercial Use**          | ✅ If fully GPL compliant                | ❌ Evaluation only                    | ✅ Fully licensed                             |
-| **Official Support**        | ❌ Community only                        | ❌ None                               | ✅ Priority support                           |
-| **Pro Features**            | ❌ Not included                          | ✅ Included                           | ✅ Included                                   |
-| **Usage Restrictions**      | Must comply with GPL and Qt terms        | 14-day trial, no redistribution       | Bound by commercial license terms            |
-| **Precompiled Binary**      | ❌ Must build from source                | ✅ Provided for trial only            | ✅ Provided                                   |
-| **Qt Licensing**            | Requires GPL-compatible Qt               | Qt licensing covered by vendor        | Qt licensing covered by vendor               |
-| **Activation System**       | ❌ Not applicable                        | ✅ Trial disables after 14 days       | ✅ Requires valid license key                 |
-| **Business Use**            | ✅ If strictly GPL compliant             | ❌ Prohibited                         | ✅ Fully allowed                              |
-| **Best For**                | OSS devs, students, contributors         | Hobbyists, personal evaluation        | Businesses, teams, commercial products       |
-
-**Reminder:** Pro features and official binaries are proprietary and require a commercial license for any use beyond personal evaluation. Visibility of source code does **not** imply GPL rights unless explicitly licensed.
+- ✅ All core visualization and telemetry features
+- ✅ Support for Serial, BLE, MQTT, TCP/UDP, and Audio inputs
+- ✅ Real-time data plotting and dashboard widgets
+- ✅ CSV export and project file management
+- ✅ Full GPL compliance for commercial and non-commercial use
+- ⚠️ Must comply with GPL and Qt licensing terms

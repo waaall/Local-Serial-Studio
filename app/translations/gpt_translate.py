@@ -1,25 +1,3 @@
-#
-# Copyright (c) 202 Alex Spataru <https://github.com/alex-spataru>
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-
 import re
 import os
 import time
@@ -28,10 +6,10 @@ import subprocess
 
 from lxml import etree
 
-#------------------------------------------------------------------------------
-# Configuration
-#------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------
+# Configuration
+# ------------------------------------------------------------------------------
 # Path to the directory containing .ts translation files
 TS_DIRECTORY = "ts"
 
@@ -58,10 +36,10 @@ LANGUAGE_MAP = {
     "cs_CZ": "Czech"
 }
 
-#------------------------------------------------------------------------------
-# Utility Functions
-#------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------
+# Utility Functions
+# ------------------------------------------------------------------------------
 def run_qt_translation_tool(mode):
     """
     Run the Qt translation manager to update or compile translations.
@@ -73,6 +51,7 @@ def run_qt_translation_tool(mode):
         check=True
     )
 
+
 def remove_wrapping_quotes(text):
     """
     Remove single or double quotes around a string.
@@ -80,13 +59,14 @@ def remove_wrapping_quotes(text):
     text = text.strip()
     if (text.startswith('"') and text.endswith('"')) or (text.startswith("'") and text.endswith("'")):
         return text[1:-1].strip()
-    
+
     return text
+
 
 def translate_batch(source_texts, target_language):
     """
     Translate a batch of UI strings to a given target language using OpenAI.
-    
+
     Args:
         source_texts (list of (str, str)): Tuples of (context_location, source_text).
         target_language (str): Human-readable name (e.g., "French").
@@ -182,10 +162,10 @@ def translate_batch(source_texts, target_language):
 
     return final_output
 
-#------------------------------------------------------------------------------
-# Core Translation Logic
-#------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------
+# Core Translation Logic
+# ------------------------------------------------------------------------------
 def translate_ts_file(filename, batch_size=10):
     """
     Process a TS file and translate all unfinished or empty entries.
@@ -283,10 +263,10 @@ def translate_ts_file(filename, batch_size=10):
     tree.write(ts_path, encoding="utf-8", xml_declaration=True)
     print(f"{filename}: {total_updated} strings translated.")
 
-#------------------------------------------------------------------------------
-# Entry Point
-#------------------------------------------------------------------------------
 
+# ------------------------------------------------------------------------------
+# Entry Point
+# ------------------------------------------------------------------------------
 def main():
     """Run full translation pipeline: update sources, translate, then compile."""
     run_qt_translation_tool("--lupdate")
@@ -296,6 +276,7 @@ def main():
             translate_ts_file(file)
 
     run_qt_translation_tool("--lrelease")
+
 
 if __name__ == "__main__":
     main()

@@ -363,15 +363,6 @@ void Widgets::GPS::setMapType(const int type)
   auto mapId = qBound(0, type, m_mapTypes.count() - 1);
   if (m_mapType != mapId)
   {
-    if (!SerialStudio::activated() && mapId > 0)
-    {
-      mapId = 0;
-      Misc::Utilities::showMessageBox(
-          tr("Additional map layers are available only for Pro users."),
-          tr("We can't offer unrestricted access because the ArcGIS API key "
-             "incurs real costs."),
-          QMessageBox::Information);
-    }
 
     m_mapType = mapId;
     m_tileCache.clear();

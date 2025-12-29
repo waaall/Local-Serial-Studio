@@ -117,34 +117,16 @@ void IO::ConsoleExport::setupExternalConnections()
  */
 void IO::ConsoleExport::setExportEnabled(const bool enabled)
 {
-#ifdef BUILD_COMMERCIAL
-  if (SerialStudio::activated())
-  {
-    m_exportEnabled = enabled;
-    Q_EMIT enabledChanged();
-
-    if (!exportEnabled() && isOpen())
-    {
-      m_buffer.clear();
-      closeFile();
-    }
-
-    m_settings.setValue("ConsoleExport", m_exportEnabled);
-    return;
-  }
-#endif
-
-  closeFile();
-  m_buffer.clear();
-  m_exportEnabled = false;
-  m_settings.setValue("ConsoleExport", false);
+  m_exportEnabled = enabled;
   Q_EMIT enabledChanged();
 
-  if (enabled)
-    Misc::Utilities::showMessageBox(
-        tr("Console Export is a Pro feature."),
-        tr("This feature requires a license. Please "
-           "purchase one to enable console export."));
+  if (!exportEnabled() && isOpen())
+  {
+    m_buffer.clear();
+    closeFile();
+  }
+
+  m_settings.setValue("ConsoleExport", m_exportEnabled);
 }
 
 /**

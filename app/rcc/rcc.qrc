@@ -115,7 +115,6 @@
         <file>icons/buttons/attach.svg</file>
         <file>icons/buttons/auto-layout.svg</file>
         <file>icons/buttons/backward.svg</file>
-        <file>icons/buttons/buy.svg</file>
         <file>icons/buttons/cancel.svg</file>
         <file>icons/buttons/center.svg</file>
         <file>icons/buttons/clear.svg</file>
@@ -127,14 +126,12 @@
         <file>icons/buttons/forward.svg</file>
         <file>icons/buttons/info.svg</file>
         <file>icons/buttons/invisible.svg</file>
-        <file>icons/buttons/lemonsqueezy.svg</file>
         <file>icons/buttons/media-next.svg</file>
         <file>icons/buttons/media-pause.svg</file>
         <file>icons/buttons/media-play.svg</file>
         <file>icons/buttons/media-prev.svg</file>
         <file>icons/buttons/media-stop.svg</file>
         <file>icons/buttons/open.svg</file>
-        <file>icons/buttons/paypal.svg</file>
         <file>icons/buttons/print.svg</file>
         <file>icons/buttons/refresh.svg</file>
         <file>icons/buttons/save.svg</file>
@@ -206,13 +203,6 @@
         <file>icons/dashboard-small/plot.svg</file>
         <file>icons/dashboard-small/plot3d.svg</file>
         <file>icons/dashboard-small/terminal.svg</file>
-        <file>icons/licensing/devices.svg</file>
-        <file>icons/licensing/email.svg</file>
-        <file>icons/licensing/key.svg</file>
-        <file>icons/licensing/license.svg</file>
-        <file>icons/licensing/plan.svg</file>
-        <file>icons/licensing/user.svg</file>
-        <file>icons/licensing/uuid.svg</file>
         <file>icons/miniwindow/close.svg</file>
         <file>icons/miniwindow/external.svg</file>
         <file>icons/miniwindow/maximize.svg</file>
@@ -330,7 +320,6 @@
         <file>icons/toolbar/settings.svg</file>
         <file>images/banner.png</file>
         <file>images/banner@2x.png</file>
-        <file>images/buy-qr.svg</file>
         <file>images/code.svg</file>
         <file>images/dialog-banner.svg</file>
         <file>images/drag-and-drop.svg</file>
@@ -363,34 +352,6 @@
         <file>messages/gpl3/Welcome_TR.txt</file>
         <file>messages/gpl3/Welcome_UK.txt</file>
         <file>messages/gpl3/Welcome_ZH.txt</file>
-        <file>messages/pro/Welcome_CZ.txt</file>
-        <file>messages/pro/Welcome_DE.txt</file>
-        <file>messages/pro/Welcome_EN.txt</file>
-        <file>messages/pro/Welcome_ES.txt</file>
-        <file>messages/pro/Welcome_FR.txt</file>
-        <file>messages/pro/Welcome_IT.txt</file>
-        <file>messages/pro/Welcome_JA.txt</file>
-        <file>messages/pro/Welcome_KO.txt</file>
-        <file>messages/pro/Welcome_PL.txt</file>
-        <file>messages/pro/Welcome_PT.txt</file>
-        <file>messages/pro/Welcome_RU.txt</file>
-        <file>messages/pro/Welcome_TR.txt</file>
-        <file>messages/pro/Welcome_UK.txt</file>
-        <file>messages/pro/Welcome_ZH.txt</file>
-        <file>messages/trial/Welcome_CZ.txt</file>
-        <file>messages/trial/Welcome_DE.txt</file>
-        <file>messages/trial/Welcome_EN.txt</file>
-        <file>messages/trial/Welcome_ES.txt</file>
-        <file>messages/trial/Welcome_FR.txt</file>
-        <file>messages/trial/Welcome_IT.txt</file>
-        <file>messages/trial/Welcome_JA.txt</file>
-        <file>messages/trial/Welcome_KO.txt</file>
-        <file>messages/trial/Welcome_PL.txt</file>
-        <file>messages/trial/Welcome_PT.txt</file>
-        <file>messages/trial/Welcome_RU.txt</file>
-        <file>messages/trial/Welcome_TR.txt</file>
-        <file>messages/trial/Welcome_UK.txt</file>
-        <file>messages/trial/Welcome_ZH.txt</file>
         <file>messages/Acknowledgements.txt</file>
         <file>scripts/frame-parser.js</file>
         <file>themes/code-editor/dark.xml</file>

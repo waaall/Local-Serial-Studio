@@ -1,28 +1,7 @@
-#
-# Copyright (c) 2024 Alex Spataru <https://github.com/alex-spataru>
-#
-# Permission is hereby granted, free of charge, to any person obtaining a copy
-# of this software and associated documentation files (the "Software"), to deal
-# in the Software without restriction, including without limitation the rights
-# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-# copies of the Software, and to permit persons to whom the Software is
-# furnished to do so, subject to the following conditions:
-#
-# The above copyright notice and this permission notice shall be included in
-# all copies or substantial portions of the Software.
-#
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-# THE SOFTWARE.
-#
-
 import os
 import subprocess
 import argparse
+
 
 def run_lupdate(ts_dir, app_sources, lib_sources):
     """
@@ -62,7 +41,7 @@ def run_lrelease(ts_dir, qm_dir):
     for ts_file in ts_files:
         qm_file = os.path.join(qm_dir, os.path.splitext(os.path.basename(ts_file))[0] + '.qm')
         command = ['lrelease', ts_file, '-qm', qm_file]
-        
+
         print("Running lrelease command:", ' '.join(command))
 
         try:
@@ -78,11 +57,11 @@ def create_ts(language, ts_dir, app_sources, lib_sources):
     Create a new .ts file for the given language code.
     """
     new_ts_file = os.path.join(ts_dir, f"{language}.ts")
-    
+
     if os.path.exists(new_ts_file):
         print(f"The .ts file for language '{language}' already exists.")
         return
-    
+
     print(f"Creating new .ts file: {new_ts_file}")
     all_sources = app_sources + lib_sources
     command = ['lupdate', '-source-language', 'en_US', '-target-language', language] + all_sources + ['-ts', new_ts_file]
@@ -130,7 +109,7 @@ if __name__ == "__main__":
         exit(0)
 
     # Define paths
-    translations_dir = os.path.dirname(os.path.abspath(__file__))  
+    translations_dir = os.path.dirname(os.path.abspath(__file__))
     app_dir = os.path.dirname(os.path.dirname(translations_dir))
     lib_dir = os.path.join(os.path.dirname(app_dir), 'lib')
     ts_dir = os.path.join(translations_dir, 'ts')

@@ -1,18 +1,18 @@
 #
 # hydrogen.py
-# 
-# Simulates a hydrogen atom's electron cloud using a probabilistic model of the 
-# 1s orbital and streams the data via UDP for real-time visualization in 
+#
+# Simulates a hydrogen atom's electron cloud using a probabilistic model of the
+# 1s orbital and streams the data via UDP for real-time visualization in
 # Serial Studio.
-# 
+#
 # --- Purpose ---
 # This script is designed for educational and visualization purposes, showing
-# how an electron in a hydrogen atom is not in a fixed orbit but distributed 
-# according to quantum probability density. 
+# how an electron in a hydrogen atom is not in a fixed orbit but distributed
+# according to quantum probability density.
 #
-# It leverages a simplified Monte Carlo simulation to generate random 
+# It leverages a simplified Monte Carlo simulation to generate random
 # positions based on the 1s orbital probability distribution.
-# 
+#
 # --- What It Streams (UDP, CSV Format) ---
 #   x       : Electron X-coordinate in 3D space
 #   y       : Electron Y-coordinate in 3D space
@@ -30,35 +30,35 @@
 #     x vs y        → 2D orbital projection
 #     x vs psi²     → Electron probability across space
 #     x vs z        → Orbital cross-sections
-# 
+#
 # --- Notes ---
-# - Not a true quantum mechanical solver. This is a visual/statistical 
+# - Not a true quantum mechanical solver. This is a visual/statistical
 #   approximation.
 # - It's recommended to enable the scatter plot features instead of the
 #   interpolated/line plots for better visualization.
-# 
+#
 
 import socket
 import time
 import math
 import random
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # UDP socket configuration
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-UDP_IP = "localhost"     
-UDP_PORT = 9000         
+UDP_IP = "localhost"
+UDP_PORT = 9000
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Bohr radius (normalized units)
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
-a0 = 1.0 
+a0 = 1.0
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Functions
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 def sample_radius():
     """Rejection sampling from 1s orbital: P(r) ∝ r^2 * e^(-2r/a0)"""
@@ -78,9 +78,9 @@ def compute_wavefunction_density(r):
     """1s orbital ψ² (normalized)"""
     return (1 / math.pi) * math.exp(-2 * r / a0)
 
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 # Data streaming loop
-#------------------------------------------------------------------------------
+# ------------------------------------------------------------------------------
 
 if __name__ == "__main__":
     t_start = time.time()

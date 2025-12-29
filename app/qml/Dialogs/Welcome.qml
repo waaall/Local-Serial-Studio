@@ -35,28 +35,6 @@ Window {
   }
 
   //
-  // Quit app
-  //
-  onClosing: {
-    if (Cpp_CommercialBuild)
-      if (!mainWindow.visible)
-        Qt.quit()
-  }
-
-  //
-  // Hide this aberration when user activates
-  //
-  Connections {
-    target: Cpp_Licensing_LemonSqueezy
-    function onActivatedChanged() {
-      if (Cpp_Licensing_LemonSqueezy.isActivated && root.visible) {
-        app.showMainWindow()
-        root.close()
-      }
-    }
-  }
-
-  //
   // Use page item to set application palette
   //
   Page {
@@ -118,273 +96,68 @@ Window {
         }
 
         //
-        // Text messages shown to the user
+        // Welcome message
         //
-        SwipeView {
-          clip: true
-          interactive: false
+        ColumnLayout {
+          spacing: 0
           Layout.fillWidth: true
           Layout.fillHeight: true
           Layout.minimumHeight: banner.implicitHeight
           Layout.maximumHeight: banner.implicitHeight
-          Layout.minimumWidth: Math.max(248, titleA.implicitWidth, titleB.implicitWidth, titleC.implicitWidth) + 48
-          Layout.maximumWidth: Math.max(248, titleA.implicitWidth, titleB.implicitWidth, titleC.implicitWidth) + 48
-          currentIndex : Cpp_Licensing_Trial.firstRun ? 0 : (Cpp_Licensing_Trial.trialEnabled ? 1 : (Cpp_Licensing_Trial.trialExpired ? 2 : -1))
+          Layout.minimumWidth: 400
+          Layout.maximumWidth: 400
 
-          //
-          // Welcome message
-          //
-          ColumnLayout {
-            spacing: 0
-            Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            opacity: Cpp_Licensing_Trial.firstRun ? 1 : 0
-            Behavior on opacity {NumberAnimation{}}
-
-            Item {
-              implicitHeight: 24
-            }
-
-            Label {
-              id: titleA
-              Layout.fillWidth: true
-              Layout.maximumWidth: parent.width
-              text: qsTr("Welcome to %1!").arg(Cpp_AppName)
-              font: Cpp_Misc_CommonFonts.customUiFont(1.2, true)
-            }
-
-            Item {
-              implicitHeight: 16
-            }
-
-            Label {
-              wrapMode: Label.WordWrap
-              Layout.maximumWidth: parent.width
-              text: qsTr("Serial Studio is a powerful real-time visualization tool, " +
-                         "built for engineers, students, and makers.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Label {
-              wrapMode: Label.WordWrap
-              Layout.maximumWidth: parent.width
-              text: qsTr("You can start a fully-functional 14-day trial, activate it " +
-                         "with your license key, or download and compile the GPLv3 " +
-                         "source code yourself.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("Buying Pro supports the author directly and helps fund future development.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("Building the GPLv3 version yourself helps grow the community and encourages technical contributions.")
-            }
-
-            Item {
-              Layout.fillHeight: true
-              implicitHeight: 12
-            }
-
-            RowLayout {
-              spacing: 4
-              opacity: Cpp_Licensing_Trial.busy ? 1 : 0
-
-              Behavior on opacity {NumberAnimation{}}
-
-              BusyIndicator {
-                Layout.alignment: Qt.AlignVCenter
-                running: Cpp_Licensing_Trial.busy
-              }
-
-              Label {
-                Layout.fillWidth: true
-                text: qsTr("Please wait...")
-                Layout.alignment: Qt.AlignVCenter
-                horizontalAlignment: Qt.AlignVCenter
-                font: Cpp_Misc_CommonFonts.boldUiFont
-              }
-            }
-
-            Item {
-              Layout.fillHeight: true
-              implicitHeight: 12
-            }
+          Item {
+            implicitHeight: 24
           }
 
-          //
-          // Trial enabled message
-          //
-          ColumnLayout {
-            spacing: 0
+          Label {
             Layout.fillWidth: true
-            Layout.fillHeight: true
-
-            opacity: Cpp_Licensing_Trial.trialEnabled ? 1 : 0
-            Behavior on opacity {NumberAnimation{}}
-
-
-            Item {
-              implicitHeight: 24
-            }
-
-            Label {
-              id: titleB
-              Layout.fillWidth: true
-              Layout.maximumWidth: parent.width
-              font: Cpp_Misc_CommonFonts.customUiFont(1.2, true)
-              text: qsTr("%1 days remaining in your trial.").arg(Cpp_Licensing_Trial.daysRemaining)
-            }
-
-            Item {
-              implicitHeight: 16
-            }
-
-            Label {
-              wrapMode: Label.WordWrap
-              Layout.maximumWidth: parent.width
-              text: qsTr("You’re currently using the fully-featured trial " +
-                         "of %1 Pro. It’s valid for 14 days of personal, " +
-                         "non-commercial use.").arg(Cpp_AppName)
-            }
-
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("Upgrade to a paid plan to keep using Serial Studio Pro.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("Or, compile the GPLv3 source code to use it for free.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("To see available subscription plans, click \"Upgrade Now\" below.")
-            }
-
-            Item {
-              implicitHeight: 24
-            }
-
-            RowLayout {
-              Layout.fillWidth: true
-
-              Switch {
-                id: dontNagMe
-                Layout.leftMargin: -6
-              }
-
-              Label {
-                Layout.fillWidth: true
-                wrapMode: Label.WordWrap
-                visible: Cpp_Licensing_Trial.daysRemaining > 1
-                text: qsTr("Don't nag me about the trial.\nI understand that when it ends, I'll need to buy a license or build the GPLv3 version.")
-              }
-            }
-
-            Item {
-              Layout.fillHeight: true
-            }
+            Layout.maximumWidth: parent.width
+            text: qsTr("Welcome to %1!").arg(Cpp_AppName)
+            font: Cpp_Misc_CommonFonts.customUiFont(1.2, true)
           }
 
-          //
-          // Trial expired message
-          //
-          ColumnLayout {
-            spacing: 0
-            Layout.fillWidth: true
+          Item {
+            implicitHeight: 16
+          }
+
+          Label {
+            wrapMode: Label.WordWrap
+            Layout.maximumWidth: parent.width
+            text: qsTr("Serial Studio is a powerful real-time visualization tool, " +
+                       "built for engineers, students, and makers.")
+          }
+
+          Item {
+            implicitHeight: 12
+          }
+
+          Label {
+            wrapMode: Label.WordWrap
+            Layout.maximumWidth: parent.width
+            text: qsTr("This is the open-source GPLv3 version. You are free to use, " +
+                       "modify, and redistribute this software under the GPL terms.")
+          }
+
+          Item {
+            implicitHeight: 12
+          }
+
+          Widgets.InfoBullet {
+            text: qsTr("Click the \"Help\" toolbar button to get started.")
+          }
+
+          Item {
+            implicitHeight: 12
+          }
+
+          Widgets.InfoBullet {
+            text: qsTr("Visit our GitHub repository for documentation and examples.")
+          }
+
+          Item {
             Layout.fillHeight: true
-
-            opacity: Cpp_Licensing_Trial.trialExpired ? 1 : 0
-            Behavior on opacity {NumberAnimation{}}
-
-            Item {
-              implicitHeight: 24
-            }
-
-            Label {
-              id: titleC
-              Layout.fillWidth: true
-              Layout.maximumWidth: parent.width
-              font: Cpp_Misc_CommonFonts.customUiFont(1.2, true)
-              text: qsTr("Your %1 trial has expired.").arg(Cpp_AppName)
-            }
-
-            Item {
-              implicitHeight: 16
-            }
-
-            Label {
-              wrapMode: Label.WordWrap
-              Layout.maximumWidth: parent.width
-              text: qsTr("Your trial period has ended. To continue using %1 with all " +
-                         "Pro features, please upgrade to a paid plan.").arg(Cpp_AppName)
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Label {
-              wrapMode: Label.WordWrap
-              Layout.maximumWidth: parent.width
-              text: qsTr("If you prefer, you can also compile the open-source " +
-                         "version under the GPLv3 license.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("Buying Pro supports the author directly and helps fund future development.")
-            }
-
-            Item {
-              implicitHeight: 12
-            }
-
-            Widgets.InfoBullet {
-              text: qsTr("Building the GPLv3 version yourself helps grow the community and encourages technical contributions.")
-            }
-
-            Item {
-              implicitHeight: 16
-            }
-
-            Label {
-              wrapMode: Label.WordWrap
-              Layout.maximumWidth: parent.width
-              font: Cpp_Misc_CommonFonts.boldUiFont
-              text: qsTr("Thank you for trying %1!").arg(Cpp_AppName)
-            }
-
-            Item {
-              Layout.fillHeight: true
-            }
           }
         }
 
@@ -419,29 +192,6 @@ Window {
             verticalCenter: parent.verticalCenter
           }
 
-          Button {
-            icon.width: 18
-            icon.height: 18
-            rightPadding: 8
-            text: qsTr("Upgrade Now")
-            Layout.alignment: Qt.AlignVCenter
-            onClicked: Cpp_Licensing_LemonSqueezy.buy()
-            highlighted: Cpp_Licensing_Trial.trialExpired
-            icon.source: "qrc:/rcc/icons/buttons/buy.svg"
-            icon.color: Cpp_ThemeManager.colors["button_text"]
-          }
-
-          Button {
-            icon.width: 18
-            icon.height: 18
-            rightPadding: 8
-            text: qsTr("Activate")
-            Layout.alignment: Qt.AlignVCenter
-            onClicked: app.showLicenseDialog()
-            icon.source: "qrc:/rcc/icons/buttons/activate.svg"
-            icon.color: Cpp_ThemeManager.colors["button_text"]
-          }
-
           Item {
             Layout.fillWidth: true
           }
@@ -450,26 +200,14 @@ Window {
             icon.width: 18
             icon.height: 18
             rightPadding: 8
+            text: qsTr("Get Started")
+            highlighted: true
             Layout.alignment: Qt.AlignVCenter
-            highlighted: !Cpp_Licensing_Trial.trialExpired
             icon.source: "qrc:/rcc/icons/buttons/apply.svg"
             icon.color: Cpp_ThemeManager.colors["button_text"]
-            text: Cpp_Licensing_Trial.trialExpired ? qsTr("Open in Limited Mode") : (Cpp_Licensing_Trial.trialEnabled ? qsTr("Continue") : qsTr("Start Trial"))
             onClicked: {
-              if (Cpp_Licensing_Trial.trialExpired) {
-                app.showMainWindow()
-                root.close()
-              }
-
-              else if (!Cpp_Licensing_Trial.trialEnabled)
-                Cpp_Licensing_Trial.enableTrial()
-
-              else {
-                app.dontNag = dontNagMe.checked
-
-                app.showMainWindow()
-                root.close()
-              }
+              app.showMainWindow()
+              root.close()
             }
           }
         }

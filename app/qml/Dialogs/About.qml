@@ -202,65 +202,10 @@ Window {
       }
 
       //
-      // License label for activated commercial-build
-      //
-      Label {
-        opacity: 0.8
-        Layout.fillWidth: true
-        Layout.maximumWidth: _logo.implicitWidth
-        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-        visible: Cpp_CommercialBuild && Cpp_Licensing_LemonSqueezy.isActivated
-        text: qsTr("This configuration is licensed for commercial and proprietary use. " +
-                   "It may be used in closed-source and commercial applications, " +
-                   "subject to the terms of the commercial license.")
-      }
-
-      //
-      // License label for non-activated commercial-build
-      //
-      Label {
-        opacity: 0.8
-        Layout.fillWidth: true
-        Layout.maximumWidth: _logo.implicitWidth
-        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-        visible: Cpp_CommercialBuild && !Cpp_Licensing_LemonSqueezy.isActivated
-        text: qsTr("This configuration is for personal and evaluation purposes only. " +
-                   "Commercial use is prohibited unless a valid commercial " +
-                   "license is activated.")
-      }
-
-      //
-      // License label for all commercial builds
-      //
-      Label {
-        opacity: 0.7
-        Layout.fillWidth: true
-        visible: Cpp_CommercialBuild
-        Layout.maximumWidth: _logo.implicitWidth
-        wrapMode: Label.WrapAtWordBoundaryOrAnywhere
-        text: qsTr("This software is provided 'as is' without warranty of " +
-                   "any kind, express or implied, including but not limited " +
-                   "to the warranties of merchantability or fitness for a " +
-                   "particular purpose. In no event shall the author be " +
-                   "liable for any damages arising from the use of this " +
-                   "software.")
-      }
-
-      //
       // Spacer
       //
       Item {
         implicitHeight: 8
-      }
-
-      //
-      // Donate button (free & GPL3)
-      //
-      Button {
-        text: qsTr("Donate")
-        Layout.fillWidth: true
-        visible: !app.proVersion
-        onClicked: donateDialog.show()
       }
 
       //
