@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Serial Studio 跨平台构建编排工具
+Primary Frequency Regulation Monitor 跨平台构建编排工具
 
 === 使用说明 ===
 
@@ -610,7 +610,7 @@ class Builder:
 
 def parse_cli(argv: Optional[Sequence[str]]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Serial Studio build orchestrator",
+        description="Primary Frequency Regulation Monitor build orchestrator",
         formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument("--config", help="Path to JSON configuration file.")

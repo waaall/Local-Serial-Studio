@@ -14,7 +14,7 @@ namespace Drivers
 {
 /**
  * @brief The BluetoothLE class
- * Serial Studio driver class to interact with Bluetooth Low Energy devices.
+ * Primary Frequency Regulation Monitor driver class to interact with Bluetooth Low Energy devices.
  */
 class BluetoothLE : public HAL_Driver
 {

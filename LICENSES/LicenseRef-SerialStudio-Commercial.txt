@@ -1,12 +1,12 @@
-Serial Studio Commercial License Agreement
+Primary Frequency Regulation Monitor Commercial License Agreement
 ==========================================
 
 Effective Date: April 19, 2025  
-Product: Serial Studio (Official Precompiled Binary)  
+Product: Primary Frequency Regulation Monitor (Official Precompiled Binary)  
 Licensor: Alex Spataru (https://github.com/alex-spataru)
 Contact: alex@serial-studio.com
 
-This Commercial License Agreement ("Agreement") is a legally binding contract between the end user ("Licensee") and Alex Spataru ("Licensor"). It governs the use of the official precompiled version of Serial Studio ("Software").
+This Commercial License Agreement ("Agreement") is a legally binding contract between the end user ("Licensee") and Alex Spataru ("Licensor"). It governs the use of the official precompiled version of Primary Frequency Regulation Monitor ("Software").
 
 By downloading, installing, activating, or using the Software, you agree to be bound by the terms of this Agreement.
 
@@ -18,7 +18,7 @@ Upon purchase and activation, the Licensor grants the Licensee a limited, non-ex
 This license:
 
    - Applies only to the official precompiled binaries distributed by the Licensor.
-   - Does not include any rights to the source code, which is governed separately by the Serial Studio Dual License agreement.
+   - Does not include any rights to the source code, which is governed separately by the Primary Frequency Regulation Monitor Dual License agreement.
    - Does not permit modification, reverse engineering, redistribution, sublicensing, or public deployment.
    - Includes execution in runtime environments on physical, virtual, cloud, or containerized infrastructure under the control of the Licensee.
 
@@ -175,6 +175,6 @@ Failure by the Licensor to enforce any provision does not constitute a waiver of
 Alex Spataru  
 Email: alex@serial-studio.com
 GitHub: https://github.com/alex-spataru 
-Website: https://serial-studio.com
+Website: http://localhost:4567
 
-By using the official Serial Studio binary, you confirm that you have read, understood, and accepted this Agreement.
+By using the official Primary Frequency Regulation Monitor binary, you confirm that you have read, understood, and accepted this Agreement.

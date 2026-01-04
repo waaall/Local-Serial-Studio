@@ -25,8 +25,8 @@
           },
           "glass" : true,
           "hidden" : false,
-          "image-name" : "Serial Studio B L4.svg",
-          "name" : "Serial Studio B L4"
+          "image-name" : "Primary Frequency Regulation Monitor B L4.svg",
+          "name" : "Primary Frequency Regulation Monitor B L4"
         }
       ],
       "name" : "Group",
@@ -89,8 +89,8 @@
               }
             }
           ],
-          "image-name" : "Serial Studio B L3.svg",
-          "name" : "Serial Studio B L3"
+          "image-name" : "Primary Frequency Regulation Monitor B L3.svg",
+          "name" : "Primary Frequency Regulation Monitor B L3"
         }
       ],
       "lighting" : "individual",
@@ -170,8 +170,8 @@
               }
             }
           ],
-          "image-name" : "Serial Studio B L2.svg",
-          "name" : "Serial Studio B L2"
+          "image-name" : "Primary Frequency Regulation Monitor B L2.svg",
+          "name" : "Primary Frequency Regulation Monitor B L2"
         }
       ],
       "name" : "Group",

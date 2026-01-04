@@ -189,8 +189,8 @@
     </message>
     <message>
         <location filename="../../qml/MainWindow/Panes/SetupPanes/Drivers/BluetoothLE.qml" line="176"/>
-        <source>Sorry, this system is not supported yet. We&apos;ll update Serial Studio to work with this operating system as soon as Qt officially supports it.</source>
-        <translation>Przepraszamy, ten system nie jest jeszcze obsługiwany. Zaktualizujemy Serial Studio, aby działał z tym systemem operacyjnym, gdy tylko Qt oficjalnie go wesprze.</translation>
+        <source>Sorry, this system is not supported yet. We&apos;ll update Primary Frequency Regulation Monitor to work with this operating system as soon as Qt officially supports it.</source>
+        <translation>Przepraszamy, ten system nie jest jeszcze obsługiwany. Zaktualizujemy Primary Frequency Regulation Monitor, aby działał z tym systemem operacyjnym, gdy tylko Qt oficjalnie go wesprze.</translation>
     </message>
 </context>
 <context>
@@ -494,16 +494,16 @@
 <context>
     <name>Donate</name>
     <message>
-        <source>Support Serial Studio</source>
-        <translation type="vanished">Wspieraj Serial Studio</translation>
+        <source>Support Primary Frequency Regulation Monitor</source>
+        <translation type="vanished">Wspieraj Primary Frequency Regulation Monitor</translation>
     </message>
     <message>
         <source>Support the development of %1!</source>
         <translation type="vanished">Wspieraj rozwój %1!</translation>
     </message>
     <message>
-        <source>Serial Studio is free &amp; open-source software supported by volunteers. Consider donating or obtaining a Pro license to support development efforts :)</source>
-        <translation type="vanished">Serial Studio to darmowe i otwarte oprogramowanie wspierane przez wolontariuszy. Rozważ darowiznę lub uzyskanie licencji Pro, aby wspierać rozwój :)</translation>
+        <source>Primary Frequency Regulation Monitor is free &amp; open-source software supported by volunteers. Consider donating or obtaining a Pro license to support development efforts :)</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor to darmowe i otwarte oprogramowanie wspierane przez wolontariuszy. Rozważ darowiznę lub uzyskanie licencji Pro, aby wspierać rozwój :)</translation>
     </message>
     <message>
         <source>You can also support this project by sharing it, reporting bugs and proposing new features!</source>
@@ -518,8 +518,8 @@
         <translation type="vanished">Wpłać darowiznę</translation>
     </message>
     <message>
-        <source>Get Serial Studio Pro</source>
-        <translation type="vanished">Pobierz Serial Studio Pro</translation>
+        <source>Get Primary Frequency Regulation Monitor Pro</source>
+        <translation type="vanished">Pobierz Primary Frequency Regulation Monitor Pro</translation>
     </message>
 </context>
 <context>
@@ -1345,8 +1345,8 @@
         <translation type="vanished">Twój okres próbny dobiegł końca.</translation>
     </message>
     <message>
-        <source>To continue using Serial Studio, please activate your license.</source>
-        <translation type="vanished">Aby kontynuować korzystanie z Serial Studio, proszę aktywować licencję.</translation>
+        <source>To continue using Primary Frequency Regulation Monitor, please activate your license.</source>
+        <translation type="vanished">Aby kontynuować korzystanie z Primary Frequency Regulation Monitor, proszę aktywować licencję.</translation>
     </message>
 </context>
 <context>
@@ -1514,8 +1514,8 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="739"/>
-        <source>Save Serial Studio Project</source>
-        <translation>Zapisz projekt Serial Studio</translation>
+        <source>Save Primary Frequency Regulation Monitor Project</source>
+        <translation>Zapisz projekt Primary Frequency Regulation Monitor</translation>
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="2164"/>
@@ -1947,8 +1947,8 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="741"/>
-        <source>Serial Studio Project Files (*.ssproj)</source>
-        <translation>Pliki projektu Serial Studio (*.ssproj)</translation>
+        <source>Primary Frequency Regulation Monitor Project Files (*.ssproj)</source>
+        <translation>Pliki projektu Primary Frequency Regulation Monitor (*.ssproj)</translation>
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="881"/>
@@ -1972,8 +1972,8 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="1044"/>
-        <source>Switch Serial Studio to Project Mode?</source>
-        <translation>Przełączyć Serial Studio na Tryb Projektu?</translation>
+        <source>Switch Primary Frequency Regulation Monitor to Project Mode?</source>
+        <translation>Przełączyć Primary Frequency Regulation Monitor na Tryb Projektu?</translation>
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="1045"/>
@@ -2586,8 +2586,8 @@
         <translation type="vanished">Proszę czekać...</translation>
     </message>
     <message>
-        <source>Activate Serial Studio Pro</source>
-        <translation type="vanished">Aktywuj Serial Studio Pro</translation>
+        <source>Activate Primary Frequency Regulation Monitor Pro</source>
+        <translation type="vanished">Aktywuj Primary Frequency Regulation Monitor Pro</translation>
     </message>
     <message>
         <source>Paste your license key below to unlock Pro features like MQTT, 3D plotting, and more.</source>
@@ -2620,8 +2620,8 @@ Plany obejmują opcje miesięczne, roczne i dożywotnie.</translation>
         <translation type="vanished">Produkt</translation>
     </message>
     <message>
-        <source>Serial Studio %1</source>
-        <translation type="vanished">Serial Studio %1</translation>
+        <source>Primary Frequency Regulation Monitor %1</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor %1</translation>
     </message>
     <message>
         <source>Licensee</source>
@@ -2675,12 +2675,12 @@ Plany obejmują opcje miesięczne, roczne i dożywotnie.</translation>
         <translation type="vanished">Wystąpił problem z weryfikacją twojej licencji.</translation>
     </message>
     <message>
-        <source>The license key you provided does not belong to Serial Studio.</source>
-        <translation type="vanished">Klucz licencyjny, który podałeś, nie należy do Serial Studio.</translation>
+        <source>The license key you provided does not belong to Primary Frequency Regulation Monitor.</source>
+        <translation type="vanished">Klucz licencyjny, który podałeś, nie należy do Primary Frequency Regulation Monitor.</translation>
     </message>
     <message>
-        <source>Please double-check that you purchased your license from the official Serial Studio store.</source>
-        <translation type="vanished">Proszę sprawdzić, czy licencja została zakupiona w oficjalnym sklepie Serial Studio.</translation>
+        <source>Please double-check that you purchased your license from the official Primary Frequency Regulation Monitor store.</source>
+        <translation type="vanished">Proszę sprawdzić, czy licencja została zakupiona w oficjalnym sklepie Primary Frequency Regulation Monitor.</translation>
     </message>
     <message>
         <source>This license key was activated on a different device.</source>
@@ -2731,9 +2731,9 @@ Plany obejmują opcje miesięczne, roczne i dożywotnie.</translation>
         <translation type="vanished">Twoja licencja została pomyślnie aktywowana.</translation>
     </message>
     <message>
-        <source>Thank you for supporting Serial Studio!
+        <source>Thank you for supporting Primary Frequency Regulation Monitor!
 You now have access to all premium features.</source>
-        <translation type="vanished">Dziękujemy za wsparcie Serial Studio!
+        <translation type="vanished">Dziękujemy za wsparcie Primary Frequency Regulation Monitor!
 Masz teraz dostęp do wszystkich funkcji premium.</translation>
     </message>
     <message>
@@ -2762,9 +2762,9 @@ Masz teraz dostęp do wszystkich funkcji premium.</translation>
     </message>
     <message>
         <source>Access to Pro features has been removed.
-Thank you again for supporting Serial Studio!</source>
+Thank you again for supporting Primary Frequency Regulation Monitor!</source>
         <translation type="vanished">Dostęp do funkcji Pro został usunięty.
-Dziękujemy ponownie za wsparcie Serial Studio!</translation>
+Dziękujemy ponownie za wsparcie Primary Frequency Regulation Monitor!</translation>
     </message>
 </context>
 <context>
@@ -2842,10 +2842,10 @@ Dziękujemy ponownie za wsparcie Serial Studio!</translation>
         <translation type="vanished">Funkcja MQTT wymaga licencji komercyjnej</translation>
     </message>
     <message>
-        <source>Connecting to MQTT brokers is only available with a valid Serial Studio commercial license.
+        <source>Connecting to MQTT brokers is only available with a valid Primary Frequency Regulation Monitor commercial license.
 
 To unlock this feature, please activate your license or visit the store.</source>
-        <translation type="vanished">Łączenie z brokerami MQTT jest dostępne tylko z ważną komercyjną licencją Serial Studio.
+        <translation type="vanished">Łączenie z brokerami MQTT jest dostępne tylko z ważną komercyjną licencją Primary Frequency Regulation Monitor.
 
 Aby odblokować tę funkcję, aktywuj swoją licencję lub odwiedź sklep.</translation>
     </message>
@@ -4327,8 +4327,8 @@ Proszę podać niezbędne dane uwierzytelniające.</translation>
     </message>
     <message>
         <location filename="../../qml/Dialogs/Welcome.qml" line="128"/>
-        <source>Serial Studio is a powerful real-time visualization tool, built for engineers, students, and makers.</source>
-        <translation>Serial Studio to potężne narzędzie do wizualizacji w czasie rzeczywistym, stworzone dla inżynierów, studentów i twórców.</translation>
+        <source>Primary Frequency Regulation Monitor is a powerful real-time visualization tool, built for engineers, students, and makers.</source>
+        <translation>Primary Frequency Regulation Monitor to potężne narzędzie do wizualizacji w czasie rzeczywistym, stworzone dla inżynierów, studentów i twórców.</translation>
     </message>
     <message>
         <location filename="../../qml/Dialogs/Welcome.qml" line="139"/>
@@ -4375,8 +4375,8 @@ Proszę podać niezbędne dane uwierzytelniające.</translation>
         <translation type="vanished">Obecnie używasz w pełni funkcjonalnej wersji próbnej %1 Pro. Jest ważna przez 14 dni do osobistego, niekomercyjnego użytku.</translation>
     </message>
     <message>
-        <source>Upgrade to a paid plan to keep using Serial Studio Pro.</source>
-        <translation type="vanished">Ulepsz do płatnego planu, aby nadal korzystać z Serial Studio Pro.</translation>
+        <source>Upgrade to a paid plan to keep using Primary Frequency Regulation Monitor Pro.</source>
+        <translation type="vanished">Ulepsz do płatnego planu, aby nadal korzystać z Primary Frequency Regulation Monitor Pro.</translation>
     </message>
     <message>
         <source>Or, compile the GPLv3 source code to use it for free.</source>

@@ -13,7 +13,7 @@
 // clang-format on
 
 #if defined(Q_OS_MAC) || defined(Q_OS_WIN)
-#  define APP_EXECUTABLE QStringLiteral("Serial-Studio")
+#  define APP_EXECUTABLE QStringLiteral("Primary-Frequency-Regulation-Monitor")
 #else
-#  define APP_EXECUTABLE QStringLiteral("serial-studio")
+#  define APP_EXECUTABLE QStringLiteral("primary-frequency-regulation-monitor")
 #endif

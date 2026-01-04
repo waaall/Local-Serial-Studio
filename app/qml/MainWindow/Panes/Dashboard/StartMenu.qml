@@ -301,7 +301,7 @@ Popup {
       icon.source: "qrc:/rcc/icons/start/help.svg"
       onClicked: {
         root.close()
-        Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/wiki")
+        Qt.openUrlExternally("http://localhost:4567/wiki")
       }
     }
 

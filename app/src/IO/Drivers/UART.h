@@ -16,7 +16,7 @@ namespace Drivers
 {
 /**
  * @brief The UART class
- * Serial Studio "driver" class to interact with serial port devices.
+ * Primary Frequency Regulation Monitor "driver" class to interact with serial port devices.
  */
 class UART : public HAL_Driver
 {

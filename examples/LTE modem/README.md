@@ -1,10 +1,10 @@
-# Serial Studio and LTE modem HUAWEI K5161H
+# Primary Frequency Regulation Monitor and LTE modem HUAWEI K5161H
 
 ## Overview
 
-This project demonstrates how to use **Serial Studio** to visualize signal quality data from a **LTE modem HUAWEI K5161H**.
+This project demonstrates how to use **Primary Frequency Regulation Monitor** to visualize signal quality data from a **LTE modem HUAWEI K5161H**.
 
-![Serial Studio](doc/screenshot.png)
+![Primary Frequency Regulation Monitor](doc/screenshot.png)
 
 Three methods of sending data are described:
 - [Virtual Serial Port](#method_1)
@@ -12,8 +12,8 @@ Three methods of sending data are described:
 - [UDP Socket](#method_3)
 
 
-The examples are implemented on OS [Archlinux](https://archlinux.org/), in which **Serial Studio** can be:
-- run from [AppImage](https://github.com/serial-studio/serial-studio/releases/latest)
+The examples are implemented on OS [Archlinux](https://archlinux.org/), in which **Primary Frequency Regulation Monitor** can be:
+- run from [AppImage](http://localhost:4567/releases/latest)
 - installed from [Arch User Repository](https://aur.archlinux.org/packages/serial-studio-bin) (AUR) [manually](https://wiki.archlinux.org/title/Arch_User_Repository#Installing_and_upgrading_packages) or by AUR helper, e.g. `yay`
     ```
     yay -S serial-studio-bin
@@ -54,8 +54,8 @@ Python was used to receive, process and generate data frames.
     python lte_serial.py
     ```
 
-### Serial Studio configuration for Virtual Serial Port
-- Run **Serial Studio**
+### Primary Frequency Regulation Monitor configuration for Virtual Serial Port
+- Run **Primary Frequency Regulation Monitor**
 - Select **DEVICE SETUP** &rarr; I/O Interface: Serial Port
 - Select **FRAME PARSING** &rarr; Parse via JSON Project File
 - Select **Project file** &rarr; `lte.json`
@@ -63,7 +63,7 @@ Python was used to receive, process and generate data frames.
 - Select **Baud Rate** &rarr; 9600
 - Click **Connect** in upper right corner  
 
-After get first frame of data **Serial Studio** will automatic open dashboard with plots.  
+After get first frame of data **Primary Frequency Regulation Monitor** will automatic open dashboard with plots.  
 
 ![Screenshot Virtual Serial Port](doc/screenshot_serial.png)
 
@@ -94,9 +94,9 @@ After get first frame of data **Serial Studio** will automatic open dashboard wi
     python lte_mqtt.py
     ```
 
-### Serial Studio Configuration for MQTT
+### Primary Frequency Regulation Monitor Configuration for MQTT
 
-- Run **Serial Studio**
+- Run **Primary Frequency Regulation Monitor**
 - Select **FRAME PARSING** &rarr; Parse via JSON Project File
 - Select **Project file** &rarr; `lte.json`
 - Click **MQTT** in the top bar
@@ -107,7 +107,7 @@ After get first frame of data **Serial Studio** will automatic open dashboard wi
 - Set **Keep Alive** &rarr; 600
 - Click **Connect**  
 
-After get first frame of data **Serial Studio** will automatic open dashboard with plots.  
+After get first frame of data **Primary Frequency Regulation Monitor** will automatic open dashboard with plots.  
 
 ![Screenshot MQTT](doc/screenshot_mqtt.png)
 
@@ -122,9 +122,9 @@ Run a Python script `lte_udp.py` to process data and send it to the UDP Socket
 python lte_udp.py
 ```
 
-### Serial Studio Configuration for UDP Socket
+### Primary Frequency Regulation Monitor Configuration for UDP Socket
 
-- Run **Serial Studio**
+- Run **Primary Frequency Regulation Monitor**
 - Select **DEVICE SETUP** &rarr; I/O Interface: Network Socket
 - Select **FRAME PARSING** &rarr; Parse via JSON Project File
 - Select **Project file** &rarr; `lte.json`
@@ -133,7 +133,7 @@ python lte_udp.py
 - Set **Local port** &rarr; 5005
 - Click **Connect** in upper right corner  
 
-After get first frame of data **Serial Studio** will automatic open dashboard with plots.  
+After get first frame of data **Primary Frequency Regulation Monitor** will automatic open dashboard with plots.  
 
 ![Screenshot UDP](doc/screenshot_udp.png)
 

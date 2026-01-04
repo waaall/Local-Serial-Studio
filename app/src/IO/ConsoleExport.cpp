@@ -19,7 +19,7 @@
 #endif
 
 /**
- * Constructor function, configures the path in which Serial Studio shall
+ * Constructor function, configures the path in which Primary Frequency Regulation Monitor shall
  * automatically write generated console log files.
  */
 IO::ConsoleExport::ConsoleExport()

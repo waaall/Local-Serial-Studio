@@ -2,13 +2,13 @@
 
 ## **Overview**
 
-This project visualizes the real-time position and velocity of the International Space Station (ISS) using Serial Studio. Telemetry data is fetched from a public API and streamed over UDP. Serial Studio parses this data and displays it on interactive widgets including a map and gauges.
+This project visualizes the real-time position and velocity of the International Space Station (ISS) using Primary Frequency Regulation Monitor. Telemetry data is fetched from a public API and streamed over UDP. Primary Frequency Regulation Monitor parses this data and displays it on interactive widgets including a map and gauges.
 
-This project showcases real-time satellite tracking and requires **no additional hardware**, only Python, Serial Studio and an internet connection.
+This project showcases real-time satellite tracking and requires **no additional hardware**, only Python, Primary Frequency Regulation Monitor and an internet connection.
 
-**Note:** Some Serial Studio features may require a paid license. Visit [serial-studio.com](https://serial-studio.com/) for more details.
+**Note:** Some Primary Frequency Regulation Monitor features may require a paid license. Visit [serial-studio.com](http://localhost:4567/) for more details.
 
-![ISS Tracker in Serial Studio](doc/screenshot.png)
+![ISS Tracker in Primary Frequency Regulation Monitor](doc/screenshot.png)
 
 ## **Telemetry Source**
 
@@ -25,7 +25,7 @@ ISS data is retrieved from [Where the ISS at?](https://wheretheiss.at/) API, whi
 - Altitude bar graph with configurable alarms.
 - Velocity gauge with alarm thresholds.
 - UDP-based telemetry stream using simple JSON format.
-- Visual layout configured entirely via Serial Studio’s project editor.
+- Visual layout configured entirely via Primary Frequency Regulation Monitor’s project editor.
 
 ## **Data Format**
 
@@ -40,7 +40,7 @@ Each UDP frame is a newline-delimited JSON object:
 }
 ```
 
-Serial Studio parses the JSON into an array:
+Primary Frequency Regulation Monitor parses the JSON into an array:
 ```json
 [29.35, -94.98, 419.75, 27650.0]
 ```
@@ -63,13 +63,13 @@ The widgets are then mapped to array indices:
    - Pulls ISS data every second.
    - Sends it via UDP to `127.0.0.1:9000`.
 
-2. **Open Serial Studio**:
+2. **Open Primary Frequency Regulation Monitor**:
    - Load `iss-tracker.ssproj` (provided project file).
    - Set **input source** to **Network Socket**, and select **UDP** as socket type.
    - Use port **9000**.
    - Click **Connect** to start visualizing.
 
-## **Serial Studio Visualizations**
+## **Primary Frequency Regulation Monitor Visualizations**
 
 - **Map Widget**: Displays live ISS position using latitude and longitude.
 - **Bar Graph**: Shows altitude in kilometers, with min/max alarms.
@@ -78,7 +78,7 @@ The widgets are then mapped to array indices:
 ## **Files Included**
 
 - `iss-tracker.py`: Python script that fetches and streams ISS data via UDP.
-- `iss-tracker.ssproj`: Serial Studio project file (preconfigured).
+- `iss-tracker.ssproj`: Primary Frequency Regulation Monitor project file (preconfigured).
 - `README.md`: Project documentation.
 - `doc/screenshot.png`: Visualization screenshot.
 
@@ -90,4 +90,4 @@ The widgets are then mapped to array indices:
 ## **Notes**
 
 - The API occasionally returns incomplete or missing fields. The parser assumes valid JSON is always received; you can add error handling if needed.
-- The default port (`9000`) can be changed in both the Python script and Serial Studio, if needed.
+- The default port (`9000`) can be changed in both the Python script and Primary Frequency Regulation Monitor, if needed.

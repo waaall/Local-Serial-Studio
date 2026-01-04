@@ -1,32 +1,32 @@
 # readme again
 
-这是我fork 的 Serial Studio，在此基础上自行学习开发。
+这是我fork 的 Primary Frequency Regulation Monitor，在此基础上自行学习开发。
 
-# ![Application Icon for Serial Studio](./doc/brand/logo.svg) Serial Studio
+# ![Application Icon for Primary Frequency Regulation Monitor](./doc/brand/logo.svg) Primary Frequency Regulation Monitor
 
-[![GitHub downloads](https://img.shields.io/github/downloads/Serial-Studio/Serial-Studio/total.svg?logo=github)](https://github.com/Serial-Studio/Serial-Studio/releases/)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Serial-Studio/Serial-Studio)
+[![GitHub downloads](https://img.shields.io/github/downloads/Serial-Studio/Serial-Studio/total.svg?logo=github)](http://localhost:4567/releases/)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](http://localhost:4567)
 [![Instagram](https://img.shields.io/badge/Instagram-E4405F?logo=instagram&logoColor=white)](https://instagram.com/serialstudio.app)
 [![Donate](https://img.shields.io/badge/Donate-00457C?logo=paypal&logoColor=white)](https://www.paypal.com/donate?hosted_button_id=XN68J47QJKYDE)
-[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4b6f3ce14a684704980fea31d8c1632e)](https://app.codacy.com/gh/Serial-Studio/Serial-Studio/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/4b6f3ce14a684704980fea31d8c1632e)](http://localhost:4567/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
-**Serial Studio** is an open-core, cross-platform telemetry dashboard and real-time data visualization tool. It supports input from serial ports, Bluetooth Low Energy (BLE), MQTT, TCP/UDP sockets and Audio devices, allowing data acquisition from embedded devices, analog circuits, external software, and networked services.
+**Primary Frequency Regulation Monitor** is an open-core, cross-platform telemetry dashboard and real-time data visualization tool. It supports input from serial ports, Bluetooth Low Energy (BLE), MQTT, TCP/UDP sockets and Audio devices, allowing data acquisition from embedded devices, analog circuits, external software, and networked services.
 
-Serial Studio runs on Windows, macOS, and Linux. It is suited for telemetry monitoring, sensor data analysis, and real-time debugging in educational, hobbyist, and professional environments.
+Primary Frequency Regulation Monitor runs on Windows, macOS, and Linux. It is suited for telemetry monitoring, sensor data analysis, and real-time debugging in educational, hobbyist, and professional environments.
 
 ![Software usage](doc/screenshot.png)
 
 ## Download
-Serial Studio is available as source code and official precompiled binaries for Windows, macOS, and Linux.
+Primary Frequency Regulation Monitor is available as source code and official precompiled binaries for Windows, macOS, and Linux.
 
-- [Latest Stable Release](https://github.com/Serial-Studio/Serial-Studio/releases/latest)
-- [Pre-release Builds](https://github.com/Serial-Studio/Serial-Studio/releases/continuous)
+- [Latest Stable Release](http://localhost:4567/releases/latest)
+- [Pre-release Builds](http://localhost:4567/releases/continuous)
 
 #### Microsoft Windows:
 Requires the [Microsoft Visual C++ Redistributable (x64)](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#latest-microsoft-visual-c-redistributable-version). On first launch, Windows may show a warning about an unknown developer, click _"More Info → Run Anyway"_ to continue.
 
 #### macOS: 
-Distributed as a universal DMG. Open the DMG file and drag **Serial Studio** into the **Applications** folder.
+Distributed as a universal DMG. Open the DMG file and drag **Primary Frequency Regulation Monitor** into the **Applications** folder.
 Alternatively, you can try installing via Homebrew:
 
 ```bash
@@ -36,7 +36,7 @@ brew install --cask serial-studio
 **Note:** The Homebrew cask is community-maintained. It’s available, but not officially developed or tested by me.
 
 #### Linux:
-The recommended way to install Serial Studio on Linux is via the official pre-built [AppImage](https://appimage.org/). Make it executable and run it:
+The recommended way to install Primary Frequency Regulation Monitor on Linux is via the official pre-built [AppImage](https://appimage.org/). Make it executable and run it:
 
 ```bash
 chmod +x SerialStudio-Pro-3.1.10-Linux-x64.AppImage
@@ -52,7 +52,7 @@ sudo apt install libfuse2
 **Tip:** For better desktop integration (menu entries, updates, icons), use [AppImageLauncher](https://github.com/TheAssassin/AppImageLauncher).
 
 ##### Flatpak (via Flathub)
-Serial Studio is also available on [Flathub](https://flathub.org/apps/com.serial_studio.Serial-Studio). This version receives regular updates and may offer better support for ARM64 systems. However, minor graphical glitches may occur on some desktop environments—especially under Wayland (e.g., missing window shadows).
+Primary Frequency Regulation Monitor is also available on [Flathub](https://flathub.org/apps/com.serial_studio.Serial-Studio). This version receives regular updates and may offer better support for ARM64 systems. However, minor graphical glitches may occur on some desktop environments—especially under Wayland (e.g., missing window shadows).
 
 ##### Raspberry Pi / ARM64:
 An ARM64 AppImage is available for Raspberry Pi and similar devices. Performance varies based on hardware and GPU drivers, since the UI depends on GPU acceleration. The ARM64 AppImage requires:
@@ -78,16 +78,16 @@ Make sure your system meets these requirements before running the AppImage.
 
 ## Documentation
 
-Refer to the [Wiki](https://github.com/Serial-Studio/Serial-Studio/wiki) for complete guides and examples:
+Refer to the [Wiki](http://localhost:4567/wiki) for complete guides and examples:
 
 - **Installation:** Instructions for Windows, macOS, and Linux.
 - **Quick Start:** Connect a device and visualize data in minutes.
 - **Advanced Usage:** Learn about data flow, frame parsing, and dashboard customization.
 - **Examples:** Sample code and projects to accelerate learning.
 
-## Building Serial Studio
+## Building Primary Frequency Regulation Monitor
 
-The only required dependency to build Serial Studio from source is [Qt](https://www.qt.io/download-open-source/), preferably with all modules and plugins installed. The project is built using **Qt 6.9.2**.
+The only required dependency to build Primary Frequency Regulation Monitor from source is [Qt](https://www.qt.io/download-open-source/), preferably with all modules and plugins installed. The project is built using **Qt 6.9.2**.
 
 #### Additional Requirements for Linux
 
@@ -108,13 +108,13 @@ cmake ../ -DPRODUCTION_OPTIMIZATION=ON -DCMAKE_BUILD_TYPE=Release
 cmake --build . -j$(nproc)
 ```
 
-The build system produces a fully GPLv3-compliant version of Serial Studio with all available features.
+The build system produces a fully GPLv3-compliant version of Primary Frequency Regulation Monitor with all available features.
 
 ## Support the Project
-Serial Studio is developed and maintained by [Alex Spataru](https://github.com/alex-spataru).  
+Primary Frequency Regulation Monitor is developed and maintained by [Alex Spataru](https://github.com/alex-spataru).  
 It is open source and community-driven, with commercial options available for users who need advanced features or business-friendly licensing.
 
-If Serial Studio is useful to you, consider supporting its development:
+If Primary Frequency Regulation Monitor is useful to you, consider supporting its development:
 
 - [**Donate via PayPal**](https://www.paypal.com/donate?hosted_button_id=XN68J47QJKYDE): Helps keep the project active and sustainable.
 
@@ -122,7 +122,7 @@ Commercial licenses directly fund continued development, bug fixes, and new feat
 
 ## Licensing
 
-Serial Studio uses a **dual-license model** that distinguishes between open-source usage and commercial distribution:
+Primary Frequency Regulation Monitor uses a **dual-license model** that distinguishes between open-source usage and commercial distribution:
 
 - [LICENSE.md](LICENSE.md): summary of dual-license structure and usage terms
 - [LICENSES/GPL-3.0-only.txt](LICENSES/GPL-3.0-only.txt): full GNU GPLv3 text for open-source source code
@@ -137,7 +137,7 @@ This structure allows developers to build and distribute GPL-compliant versions 
 
 ## GPL Version Features
 
-This is the open-source GPLv3 version of Serial Studio. It includes:
+This is the open-source GPLv3 version of Primary Frequency Regulation Monitor. It includes:
 
 - ✅ All core visualization and telemetry features
 - ✅ Support for Serial, BLE, MQTT, TCP/UDP, and Audio inputs

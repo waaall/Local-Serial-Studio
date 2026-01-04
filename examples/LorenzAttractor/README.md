@@ -1,14 +1,14 @@
-# **Lorenz Attractor + Serial Studio**
+# **Lorenz Attractor + Primary Frequency Regulation Monitor**
 
 ## **Overview**
 
-This project demonstrates how to simulate and visualize the Lorenz attractor, a chaotic system of differential equations, using an Arduino board and [Serial Studio](https://serial-studio.github.io/). The Arduino program calculates the Lorenz system's chaotic trajectory in real-time and sends the resulting data ($x$, $y$, $z$) to Serial Studio for plotting.
+This project demonstrates how to simulate and visualize the Lorenz attractor, a chaotic system of differential equations, using an Arduino board and [Primary Frequency Regulation Monitor](http://localhost:4567/). The Arduino program calculates the Lorenz system's chaotic trajectory in real-time and sends the resulting data ($x$, $y$, $z$) to Primary Frequency Regulation Monitor for plotting.
 
 The Lorenz system, introduced by Edward Lorenz in 1963, is a set of three coupled differential equations commonly used to model atmospheric convection. Its iconic "butterfly-shaped" attractor has become a symbol of chaos theory. For more information on the Lorenz system, visit [this article](https://marksmath.org/visualization/LorenzExperiment/).
 
-![Lorenz Attractor in Serial Studio](doc/screenshot.png)
+![Lorenz Attractor in Primary Frequency Regulation Monitor](doc/screenshot.png)
 
-**Note:** This project makes use of features that are only available under a paid license. Please visit [serial-studio.com](https://serial-studio.com/) for more information.
+**Note:** This project makes use of features that are only available under a paid license. Please visit [serial-studio.com](http://localhost:4567/) for more information.
 
 ## **Lorenz System Basics**
 
@@ -34,21 +34,21 @@ The Arduino program uses the **Euler method** for numerical integration to calcu
 ## **Project Features**
 
 - **Real-Time Visualization**: View the Lorenz attractor's chaotic motion in real time.
-- **Custom X-Axis Configuration**: Use Serial Studio's project editor to select datasets as X-axis sources.
-- **Dynamic Visualization**: Plot $x$, $y$, and $z$ values on 2D or 3D graphs using Serial Studio.
+- **Custom X-Axis Configuration**: Use Primary Frequency Regulation Monitor's project editor to select datasets as X-axis sources.
+- **Dynamic Visualization**: Plot $x$, $y$, and $z$ values on 2D or 3D graphs using Primary Frequency Regulation Monitor.
 
 ## **Hardware Setup**
 
 ### **Requirements**
 - **Arduino Board**: Uno, Mega, Nano, or compatible.
-- **Serial Studio**: Download the latest version from [here](https://serial-studio.github.io/).
+- **Primary Frequency Regulation Monitor**: Download the latest version from [here](http://localhost:4567/).
 
 ### **Connections**
 No additional hardware is required beyond the Arduino. Ensure the Arduino is connected to your computer via USB.
 
 ## **Arduino Sketch**
 
-The provided Arduino code simulates the Lorenz attractor and transmits the calculated values $x$, $y$ and $z$ to Serial Studio. Here's the complete code:
+The provided Arduino code simulates the Lorenz attractor and transmits the calculated values $x$, $y$ and $z$ to Primary Frequency Regulation Monitor. Here's the complete code:
 
 ```cpp
 //
@@ -103,11 +103,11 @@ void loop() {
 }
 ```
 
-## **Serial Studio Configuration**
+## **Primary Frequency Regulation Monitor Configuration**
 
 ### **1. Setting Up the Project**
 
-1. Open Serial Studio and click the **Project Editor**.
+1. Open Primary Frequency Regulation Monitor and click the **Project Editor**.
 2. Create a new project or import the provided `LorenzAttractor.json` file.
 4. Add three datasets for $\(x\)$, $\(y\)$, and $\(z\)$, specifying their respective configurations:
    - Dataset $x$: Use $y$ as the X-axis source.
@@ -116,17 +116,17 @@ void loop() {
 
 ### **2. Plotting the Lorenz Attractor**
 
-1. Open the project in Serial Studio.
+1. Open the project in Primary Frequency Regulation Monitor.
 2. Connect to the Arduino using the correct serial port and set the baud rate to **115200**.
 3. Add a **Multi-Plot Widget** to visualize the attractor.
 
 Here’s how your project editor should look:
 
-![Serial Studio Project Setup](doc/project-setup.png)
+![Primary Frequency Regulation Monitor Project Setup](doc/project-setup.png)
 
 ## **Custom X-Axis Example**
 
-With Serial Studio's new custom X-axis feature, you can map any dataset to serve as the X-axis source for plots. This is particularly useful for:
+With Primary Frequency Regulation Monitor's new custom X-axis feature, you can map any dataset to serve as the X-axis source for plots. This is particularly useful for:
 - Plotting values against elapsed time or packet numbers.
 - Creating advanced visualizations like the Lorenz attractor.
 
@@ -134,6 +134,6 @@ With Serial Studio's new custom X-axis feature, you can map any dataset to serve
 
 - **No Data Appears**:
   - Ensure the Arduino sketch is uploaded correctly.
-  - Check the serial port and baud rate in Serial Studio.
+  - Check the serial port and baud rate in Primary Frequency Regulation Monitor.
 - **Chaotic Output**:
   - Ensure the `transmissionInterval` in the Arduino sketch is suitable for your system.

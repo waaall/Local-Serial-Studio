@@ -13,7 +13,7 @@ namespace CSV
  * @brief The Player class
  *
  * The CSV player class allows users to select a CSV file and "re-play" it
- * with Serial Studio.
+ * with Primary Frequency Regulation Monitor.
  */
 class Player : public QObject
 {

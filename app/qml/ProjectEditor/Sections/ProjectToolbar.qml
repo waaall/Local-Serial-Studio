@@ -390,7 +390,7 @@ Rectangle {
       Layout.alignment: Qt.AlignVCenter
       icon.source: "qrc:/rcc/icons/project-editor/toolbar/help.svg"
       ToolTip.text: qsTr("Open the online Project Editor documentation")
-      onClicked: Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/wiki/Project-Editor")
+      onClicked: Qt.openUrlExternally("http://localhost:4567/wiki/Project-Editor")
     }
 
 

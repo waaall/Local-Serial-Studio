@@ -5,7 +5,7 @@
 //
 // This program reads GPS data (latitude, longitude, and altitude) from a GPS module 
 // connected to an Arduino. It then transmits this data over the serial port for 
-// easy viewing on Serial Studio.
+// easy viewing on Primary Frequency Regulation Monitor.
 //
 // The program uses the TinyGPS library to parse NMEA sentences from the GPS module.
 // Make sure to download and install the TinyGPS library from the Arduino Library 
@@ -19,7 +19,7 @@
 // - Ensure your GPS module operates at 9600 baud for compatibility.
 //
 // Baud Rates:
-// - Serial Studio: 115200 baud
+// - Primary Frequency Regulation Monitor: 115200 baud
 // - GPS Module: 9600 baud
 //
 
@@ -75,7 +75,7 @@ void loop() {
     }
   }
 
-  // Transmit the position data to Serial Studio
+  // Transmit the position data to Primary Frequency Regulation Monitor
   Serial.print('$');           // Frame start sequence
   Serial.print(latitude, 6);   // Latitude with 6 decimal places (index = 1)
   Serial.print(',');           // Frame separator

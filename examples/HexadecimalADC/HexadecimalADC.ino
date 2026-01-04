@@ -9,7 +9,7 @@
 //
 // The device remains idle until a "poll-data" command is received via serial.
 // Upon receiving this command, it captures the current sensor values and
-// transmits a single frame. The host (e.g. Serial Studio) is responsible
+// transmits a single frame. The host (e.g. Primary Frequency Regulation Monitor) is responsible
 // for managing the polling rate.
 //
 // Each transmitted frame includes:
@@ -17,7 +17,7 @@
 // - 6 sensor values (1 byte each)
 // - CRC-16-CCITT checksum (2 bytes, big-endian)
 //
-// This format ensures data integrity and is compatible with Serial Studio’s
+// This format ensures data integrity and is compatible with Primary Frequency Regulation Monitor’s
 // automatic frame validation and decoding.
 //
 // Requirements:
@@ -45,7 +45,7 @@ void setup() {
 }
 
 //-----------------------------------------------------------------------------
-// Serial Studio actions
+// Primary Frequency Regulation Monitor actions
 //-----------------------------------------------------------------------------
 
 void setPullUp() {

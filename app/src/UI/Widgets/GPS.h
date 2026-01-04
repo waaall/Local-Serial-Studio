@@ -23,7 +23,7 @@ namespace Widgets
  * - Fetches and caches tiles during runtime
  * - Supports zoom and drag interaction
  * - Draws an iOS-style indicator at the current GPS location
- * - Integrates with Serial Studio's dashboard system
+ * - Integrates with Primary Frequency Regulation Monitor's dashboard system
  *
  * Designed to be lightweight, dependency-free (beyond QtNetwork),
  * and fully embeddable into any QML/QtQuick scene.

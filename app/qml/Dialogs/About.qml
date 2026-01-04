@@ -223,7 +223,7 @@ Window {
       Button {
         Layout.fillWidth: true
         text: qsTr("License Agreement")
-        onClicked: Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/blob/master/LICENSE.md")
+        onClicked: Qt.openUrlExternally("http://localhost:4567/blob/master/LICENSE.md")
       }
 
       //
@@ -232,7 +232,7 @@ Window {
       Button {
         Layout.fillWidth: true
         text: qsTr("Report Bug")
-        onClicked: Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/issues")
+        onClicked: Qt.openUrlExternally("http://localhost:4567/issues")
       }
 
       //
@@ -250,7 +250,7 @@ Window {
       Button {
         Layout.fillWidth: true
         text: qsTr("Website")
-        onClicked: Qt.openUrlExternally("https://serial-studio.com/")
+        onClicked: Qt.openUrlExternally("http://localhost:4567/")
       }
 
       //

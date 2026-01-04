@@ -107,7 +107,7 @@ def translate_batch(source_texts, target_language):
     # Build prompt with filename/line context
     prompt = "\n".join([
         f"Translate the following user interface strings to {target_language}.",
-        "The context is a technical application named Serial Studio, written in Qt/QML.",
+        "The context is a technical application named Primary Frequency Regulation Monitor, written in Qt/QML.",
         "Each string includes its source context in square brackets: [Component @ File:Line].",
         "",
         "IMPORTANT:",

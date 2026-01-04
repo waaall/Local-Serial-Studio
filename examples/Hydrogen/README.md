@@ -2,13 +2,13 @@
 
 ## **Overview**
 
-This project simulates the electron probability distribution of a hydrogen atom’s 1s orbital using Monte Carlo sampling. The data is streamed over UDP for real-time visualization in Serial Studio.
+This project simulates the electron probability distribution of a hydrogen atom’s 1s orbital using Monte Carlo sampling. The data is streamed over UDP for real-time visualization in Primary Frequency Regulation Monitor.
 
 This is not a classical orbit model. Instead, it displays probabilistic electron positions derived from quantum mechanics, visualized as a dynamic 3D cloud.
 
-**Note:** This project uses features available only under a paid license. Visit [serial-studio.com](https://serial-studio.com/) for more information.
+**Note:** This project uses features available only under a paid license. Visit [serial-studio.com](http://localhost:4567/) for more information.
 
-![Electron Cloud in Serial Studio](doc/screenshot.png)
+![Electron Cloud in Primary Frequency Regulation Monitor](doc/screenshot.png)
 
 ## **Simulation Model**
 
@@ -50,12 +50,12 @@ Where:
 
    `python3 hydrogen.py`
 
-2. In Serial Studio:
+2. In Primary Frequency Regulation Monitor:
    - Open the `hydrogen.json` project file.
    - Set the input source to UDP, port `9000`.
    - Click **Connect**.
 
-## **Serial Studio Visualizations**
+## **Primary Frequency Regulation Monitor Visualizations**
 
 - **3D Plot**: Displays the real-time electron cloud in space.
 - **XY Plot**: Plots $$psi^2$$ vs. $$x$$, showing spatial density.
@@ -63,7 +63,7 @@ Where:
 ## **Files Included**
 
 - `hydrogen.py`: Python script for simulation and UDP streaming.
-- `hydrogen.json`: Serial Studio project file.
+- `hydrogen.json`: Primary Frequency Regulation Monitor project file.
 - `README.md`: Project documentation.  
 - `doc/screenshot.png`: Screenshot of the visualization.
 

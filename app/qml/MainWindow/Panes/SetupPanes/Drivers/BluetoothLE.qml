@@ -174,7 +174,7 @@ Item {
         wrapMode: Label.WordWrap
         Layout.alignment: Qt.AlignVCenter
         text: qsTr("Sorry, this system is not supported yet. " +
-                   "We'll update Serial Studio to work with this operating " +
+                   "We'll update Primary Frequency Regulation Monitor to work with this operating " +
                    "system as soon as Qt officially supports it.")
       }
     }

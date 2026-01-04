@@ -2,11 +2,11 @@
 
 ## Overview
 
-This project demonstrates how to use the **UDP Function Generator** program to generate and transmit multiple real-time waveforms (sine, triangle, sawtooth, and square) over a UDP network. The program is designed to feed CSV-formatted data to **Serial Studio**, allowing users to visualize the generated waveforms in real-time.
+This project demonstrates how to use the **UDP Function Generator** program to generate and transmit multiple real-time waveforms (sine, triangle, sawtooth, and square) over a UDP network. The program is designed to feed CSV-formatted data to **Primary Frequency Regulation Monitor**, allowing users to visualize the generated waveforms in real-time.
 
-With **Serial Studio**, you can use the **Quick Plot** feature to easily visualize data transmitted via the UDP socket. This provides an intuitive way to test and analyze waveform generation.
+With **Primary Frequency Regulation Monitor**, you can use the **Quick Plot** feature to easily visualize data transmitted via the UDP socket. This provides an intuitive way to test and analyze waveform generation.
 
-![Serial Studio with UDP Function Generator](doc/screenshot.png)
+![Primary Frequency Regulation Monitor with UDP Function Generator](doc/screenshot.png)
 
 ### What is a Function Generator?
 
@@ -14,7 +14,7 @@ A **function generator** creates electrical waveforms that can be used for testi
 
 The waveforms can be used for:
 - Testing UDP-based communication.
-- Stress-testing Serial Studio to find bugs.
+- Stress-testing Primary Frequency Regulation Monitor to find bugs.
 - Visualizing signal behavior in applications.
 - Learning and experimenting with waveform generation and signal processing.
 
@@ -34,7 +34,7 @@ The waveforms can be used for:
 
 - GCC or any compatible C compiler.
 - A system with POSIX support for UDP sockets (Linux, macOS, or Windows with WSL).
-- [**Serial Studio**](https://serial-studio.github.io/) for real-time visualization.
+- [**Primary Frequency Regulation Monitor**](http://localhost:4567/) for real-time visualization.
 
 ### 1. Compile the Program
 
@@ -71,25 +71,25 @@ Use the following command to execute the program:
 ./udp_function_generator -p 9000 -i 5 -n 3 -v
 ```
 
-### 3. Visualize Data in Serial Studio
+### 3. Visualize Data in Primary Frequency Regulation Monitor
 
 To visualize the transmitted data:
 
-1. **Download and Install Serial Studio**:
-   Visit the [official website](https://serial-studio.github.io/) to download and install the software.
+1. **Download and Install Primary Frequency Regulation Monitor**:
+   Visit the [official website](http://localhost:4567/) to download and install the software.
 
-2. **Configure Serial Studio**:
+2. **Configure Primary Frequency Regulation Monitor**:
    - Set the **I/O Interface** to `Network Socket`.
    - Select `UDP` as the **Socket Type**.
    - Set the **Host** to `localhost`.
    - Configure both the **Local** and **Remote** ports to match the program's `-p` option (default: `9000`).
 
 3. **Enable Quick Plot**:
-   - In Serial Studio, click on the **Quick Plot** checkbox in the **Setup** pane.
+   - In Primary Frequency Regulation Monitor, click on the **Quick Plot** checkbox in the **Setup** pane.
    - This feature plots numerical values transmitted via UDP in real time.
 
 4. **Run the Program**:
-   Execute the `udp_function_generator` program. Waveforms will be displayed in Serial Studio's real-time plot.
+   Execute the `udp_function_generator` program. Waveforms will be displayed in Primary Frequency Regulation Monitor's real-time plot.
 
 ## Step-by-Step Guide
 
@@ -105,12 +105,12 @@ The program validates your input and warns about aliasing or distortion if the f
 
 ### Data Transmission
 
-The program formats the waveform data into a comma-separated string and transmits it via UDP at the specified interval. You can view this data in Serial Studio or analyze it using any UDP-compatible client.
+The program formats the waveform data into a comma-separated string and transmits it via UDP at the specified interval. You can view this data in Primary Frequency Regulation Monitor or analyze it using any UDP-compatible client.
 
 ### Troubleshooting
 
-- **No Waveforms in Serial Studio**: Ensure that the UDP port matches between the program and Serial Studio, and that the **host** is set to `localhost`.
-- **Distorted Waveforms**: Reduce the frequency of the waveforms if they approach the Nyquist limit. The program issues warnings for frequencies near this threshold. If the frequencies are ok, please open a [bug report](https://github.com/Serial-Studio/Serial-Studio/issues/new?assignees=alex-spataru&labels=bug&projects=&template=bug_report.md).
+- **No Waveforms in Primary Frequency Regulation Monitor**: Ensure that the UDP port matches between the program and Primary Frequency Regulation Monitor, and that the **host** is set to `localhost`.
+- **Distorted Waveforms**: Reduce the frequency of the waveforms if they approach the Nyquist limit. The program issues warnings for frequencies near this threshold. If the frequencies are ok, please open a [bug report](http://localhost:4567/issues/new?assignees=alex-spataru&labels=bug&projects=&template=bug_report.md).
 - **No Data Output**: Ensure the program is running and the network configuration is correct.
 
 ## Examples
@@ -142,7 +142,7 @@ Configuration:
 3. Waveform 3: `square`, `50 Hz`, `0 radians`.
 
 Visualization:
-- Serial Studio will display all three waveforms in real time, with a sampling interval of 5 ms.
+- Primary Frequency Regulation Monitor will display all three waveforms in real time, with a sampling interval of 5 ms.
 
 ### Example 3: High-Frequency Warning
 

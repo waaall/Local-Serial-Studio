@@ -189,8 +189,8 @@
     </message>
     <message>
         <location filename="../../qml/MainWindow/Panes/SetupPanes/Drivers/BluetoothLE.qml" line="176"/>
-        <source>Sorry, this system is not supported yet. We&apos;ll update Serial Studio to work with this operating system as soon as Qt officially supports it.</source>
-        <translation>죄송합니다, 이 시스템은 아직 지원되지 않습니다. Qt가 공식적으로 지원하면 Serial Studio를 업데이트하여 이 운영 체제에서 작동하도록 하겠습니다.</translation>
+        <source>Sorry, this system is not supported yet. We&apos;ll update Primary Frequency Regulation Monitor to work with this operating system as soon as Qt officially supports it.</source>
+        <translation>죄송합니다, 이 시스템은 아직 지원되지 않습니다. Qt가 공식적으로 지원하면 Primary Frequency Regulation Monitor를 업데이트하여 이 운영 체제에서 작동하도록 하겠습니다.</translation>
     </message>
 </context>
 <context>
@@ -494,16 +494,16 @@
 <context>
     <name>Donate</name>
     <message>
-        <source>Support Serial Studio</source>
-        <translation type="vanished">Serial Studio 지원</translation>
+        <source>Support Primary Frequency Regulation Monitor</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor 지원</translation>
     </message>
     <message>
         <source>Support the development of %1!</source>
         <translation type="vanished">%1의 개발을 지원하세요!</translation>
     </message>
     <message>
-        <source>Serial Studio is free &amp; open-source software supported by volunteers. Consider donating or obtaining a Pro license to support development efforts :)</source>
-        <translation type="vanished">Serial Studio는 자원봉사자가 지원하는 무료 오픈 소스 소프트웨어입니다. 개발 노력을 지원하기 위해 기부하거나 Pro 라이선스를 고려해 보세요 :)</translation>
+        <source>Primary Frequency Regulation Monitor is free &amp; open-source software supported by volunteers. Consider donating or obtaining a Pro license to support development efforts :)</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor는 자원봉사자가 지원하는 무료 오픈 소스 소프트웨어입니다. 개발 노력을 지원하기 위해 기부하거나 Pro 라이선스를 고려해 보세요 :)</translation>
     </message>
     <message>
         <source>You can also support this project by sharing it, reporting bugs and proposing new features!</source>
@@ -518,8 +518,8 @@
         <translation type="vanished">기부</translation>
     </message>
     <message>
-        <source>Get Serial Studio Pro</source>
-        <translation type="vanished">Serial Studio Pro 받기</translation>
+        <source>Get Primary Frequency Regulation Monitor Pro</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor Pro 받기</translation>
     </message>
 </context>
 <context>
@@ -1345,8 +1345,8 @@
         <translation type="vanished">체험 기간이 종료되었습니다.</translation>
     </message>
     <message>
-        <source>To continue using Serial Studio, please activate your license.</source>
-        <translation type="vanished">Serial Studio를 계속 사용하려면 라이선스를 활성화하십시오.</translation>
+        <source>To continue using Primary Frequency Regulation Monitor, please activate your license.</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor를 계속 사용하려면 라이선스를 활성화하십시오.</translation>
     </message>
 </context>
 <context>
@@ -1514,8 +1514,8 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="739"/>
-        <source>Save Serial Studio Project</source>
-        <translation>Serial Studio 프로젝트 저장</translation>
+        <source>Save Primary Frequency Regulation Monitor Project</source>
+        <translation>Primary Frequency Regulation Monitor 프로젝트 저장</translation>
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="2164"/>
@@ -1947,8 +1947,8 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="741"/>
-        <source>Serial Studio Project Files (*.ssproj)</source>
-        <translation>Serial Studio 프로젝트 파일 (*.ssproj)</translation>
+        <source>Primary Frequency Regulation Monitor Project Files (*.ssproj)</source>
+        <translation>Primary Frequency Regulation Monitor 프로젝트 파일 (*.ssproj)</translation>
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="881"/>
@@ -1972,8 +1972,8 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="1044"/>
-        <source>Switch Serial Studio to Project Mode?</source>
-        <translation>Serial Studio를 프로젝트 모드로 전환하시겠습니까?</translation>
+        <source>Switch Primary Frequency Regulation Monitor to Project Mode?</source>
+        <translation>Primary Frequency Regulation Monitor를 프로젝트 모드로 전환하시겠습니까?</translation>
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="1045"/>
@@ -2586,8 +2586,8 @@
         <translation type="vanished">잠시 기다려 주세요...</translation>
     </message>
     <message>
-        <source>Activate Serial Studio Pro</source>
-        <translation type="vanished">Serial Studio Pro 활성화</translation>
+        <source>Activate Primary Frequency Regulation Monitor Pro</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor Pro 활성화</translation>
     </message>
     <message>
         <source>Paste your license key below to unlock Pro features like MQTT, 3D plotting, and more.</source>
@@ -2620,8 +2620,8 @@ Plans include Monthly, Yearly, and Lifetime options.</source>
         <translation type="vanished">제품</translation>
     </message>
     <message>
-        <source>Serial Studio %1</source>
-        <translation type="vanished">Serial Studio %1</translation>
+        <source>Primary Frequency Regulation Monitor %1</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor %1</translation>
     </message>
     <message>
         <source>Licensee</source>
@@ -2675,12 +2675,12 @@ Plans include Monthly, Yearly, and Lifetime options.</source>
         <translation type="vanished">라이선스를 검증하는 데 문제가 발생했습니다.</translation>
     </message>
     <message>
-        <source>The license key you provided does not belong to Serial Studio.</source>
-        <translation type="vanished">제공된 라이선스 키는 Serial Studio에 속하지 않습니다.</translation>
+        <source>The license key you provided does not belong to Primary Frequency Regulation Monitor.</source>
+        <translation type="vanished">제공된 라이선스 키는 Primary Frequency Regulation Monitor에 속하지 않습니다.</translation>
     </message>
     <message>
-        <source>Please double-check that you purchased your license from the official Serial Studio store.</source>
-        <translation type="vanished">공식 Serial Studio 스토어에서 라이선스를 구매했는지 다시 확인해 주세요.</translation>
+        <source>Please double-check that you purchased your license from the official Primary Frequency Regulation Monitor store.</source>
+        <translation type="vanished">공식 Primary Frequency Regulation Monitor 스토어에서 라이선스를 구매했는지 다시 확인해 주세요.</translation>
     </message>
     <message>
         <source>This license key was activated on a different device.</source>
@@ -2731,9 +2731,9 @@ Plans include Monthly, Yearly, and Lifetime options.</source>
         <translation type="vanished">라이센스가 성공적으로 활성화되었습니다.</translation>
     </message>
     <message>
-        <source>Thank you for supporting Serial Studio!
+        <source>Thank you for supporting Primary Frequency Regulation Monitor!
 You now have access to all premium features.</source>
-        <translation type="vanished">Serial Studio를 지원해 주셔서 감사합니다!
+        <translation type="vanished">Primary Frequency Regulation Monitor를 지원해 주셔서 감사합니다!
 이제 모든 프리미엄 기능에 접근할 수 있습니다.</translation>
     </message>
     <message>
@@ -2762,9 +2762,9 @@ You now have access to all premium features.</source>
     </message>
     <message>
         <source>Access to Pro features has been removed.
-Thank you again for supporting Serial Studio!</source>
+Thank you again for supporting Primary Frequency Regulation Monitor!</source>
         <translation type="vanished">Pro 기능에 대한 접근이 제거되었습니다.
-Serial Studio를 지원해 주셔서 다시 한번 감사합니다!</translation>
+Primary Frequency Regulation Monitor를 지원해 주셔서 다시 한번 감사합니다!</translation>
     </message>
 </context>
 <context>
@@ -2842,10 +2842,10 @@ Serial Studio를 지원해 주셔서 다시 한번 감사합니다!</translation
         <translation type="vanished">MQTT 기능은 상업용 라이선스가 필요합니다</translation>
     </message>
     <message>
-        <source>Connecting to MQTT brokers is only available with a valid Serial Studio commercial license.
+        <source>Connecting to MQTT brokers is only available with a valid Primary Frequency Regulation Monitor commercial license.
 
 To unlock this feature, please activate your license or visit the store.</source>
-        <translation type="vanished">MQTT 브로커에 연결하려면 유효한 Serial Studio 상업용 라이선스가 필요합니다.
+        <translation type="vanished">MQTT 브로커에 연결하려면 유효한 Primary Frequency Regulation Monitor 상업용 라이선스가 필요합니다.
 
 이 기능을 활성화하려면 라이선스를 활성화하거나 스토어를 방문하세요.</translation>
     </message>
@@ -4327,8 +4327,8 @@ Please provide the necessary credentials.</source>
     </message>
     <message>
         <location filename="../../qml/Dialogs/Welcome.qml" line="128"/>
-        <source>Serial Studio is a powerful real-time visualization tool, built for engineers, students, and makers.</source>
-        <translation>Serial Studio는 엔지니어, 학생, 제작자를 위해 만들어진 강력한 실시간 시각화 도구입니다.</translation>
+        <source>Primary Frequency Regulation Monitor is a powerful real-time visualization tool, built for engineers, students, and makers.</source>
+        <translation>Primary Frequency Regulation Monitor는 엔지니어, 학생, 제작자를 위해 만들어진 강력한 실시간 시각화 도구입니다.</translation>
     </message>
     <message>
         <location filename="../../qml/Dialogs/Welcome.qml" line="139"/>
@@ -4375,8 +4375,8 @@ Please provide the necessary credentials.</source>
         <translation type="vanished">현재 %1 Pro의 모든 기능을 갖춘 체험판을 사용 중입니다. 개인적, 비상업적 용도로 14일간 유효합니다.</translation>
     </message>
     <message>
-        <source>Upgrade to a paid plan to keep using Serial Studio Pro.</source>
-        <translation type="vanished">Serial Studio Pro를 계속 사용하려면 유료 플랜으로 업그레이드하세요.</translation>
+        <source>Upgrade to a paid plan to keep using Primary Frequency Regulation Monitor Pro.</source>
+        <translation type="vanished">Primary Frequency Regulation Monitor Pro를 계속 사용하려면 유료 플랜으로 업그레이드하세요.</translation>
     </message>
     <message>
         <source>Or, compile the GPLv3 source code to use it for free.</source>

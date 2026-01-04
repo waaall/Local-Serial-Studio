@@ -201,7 +201,7 @@ Rectangle {
       Layout.alignment: Qt.AlignVCenter
       icon.source: "qrc:/rcc/icons/toolbar/help.svg"
       ToolTip.text: qsTr("Open the online documentation for help and guidance")
-      onClicked: Qt.openUrlExternally("https://github.com/Serial-Studio/Serial-Studio/wiki")
+      onClicked: Qt.openUrlExternally("http://localhost:4567/wiki")
     }
 
     //

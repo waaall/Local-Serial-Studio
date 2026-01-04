@@ -21,14 +21,14 @@ namespace Plugins
 {
 /**
  * @class Plugins::Server
- * @brief TCP server interface for plugin communication in Serial Studio.
+ * @brief TCP server interface for plugin communication in Primary Frequency Regulation Monitor.
  *
  * Implements a TCP server that listens on port 7777, allowing external
- * applications (referred to as "plugins") to exchange data with Serial Studio
+ * applications (referred to as "plugins") to exchange data with Primary Frequency Regulation Monitor
  * over the local network or localhost.
  *
  * Connected plugins can:
- * - Receive real-time JSON data frames processed by Serial Studio.
+ * - Receive real-time JSON data frames processed by Primary Frequency Regulation Monitor.
  * - Transmit raw data directly to the underlying I/O device via the TCP socket.
  *
  * This design enables companion applications to be written in any language or

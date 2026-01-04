@@ -1,6 +1,6 @@
 # Acknowledgements
 
-Serial Studio makes use of several libraries and data providers to deliver its full functionality.
+Primary Frequency Regulation Monitor makes use of several libraries and data providers to deliver its full functionality.
 Below is a list of external components and services, along with their respective licenses or attribution.
 
 ## Cloud Map Imagery

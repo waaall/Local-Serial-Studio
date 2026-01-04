@@ -352,7 +352,7 @@ void JSON::FrameParser::redo()
 void JSON::FrameParser::help()
 {
   // clang-format off
-  const auto url = QStringLiteral("https://github.com/Serial-Studio/Serial-Studio/wiki/Data-Flow-in-Serial-Studio#frame-parser-function");
+  const auto url = QStringLiteral("http://localhost:4567/wiki/Data-Flow-in-Serial-Studio#frame-parser-function");
   QDesktopServices::openUrl(QUrl(url));
   // clang-format on
 }

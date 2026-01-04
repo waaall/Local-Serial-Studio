@@ -14,7 +14,7 @@ namespace Misc
  * @brief The ModuleManager class
  *
  * The @c ModuleManager class is in charge of initializing all the C++ modules
- * that are part of Serial Studio in the correct order.
+ * that are part of Primary Frequency Regulation Monitor in the correct order.
  */
 class ModuleManager : public QObject
 {

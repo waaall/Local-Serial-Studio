@@ -108,7 +108,7 @@ Widgets::Terminal::Terminal(QQuickItem *parent)
       update();
   });
 
-  // Update welcome guide when Serial Studio changes its activation status
+  // Update welcome guide when Primary Frequency Regulation Monitor changes its activation status
 #ifdef BUILD_COMMERCIAL
   connect(&Licensing::LemonSqueezy::instance(),
           &Licensing::LemonSqueezy::activatedChanged, this,

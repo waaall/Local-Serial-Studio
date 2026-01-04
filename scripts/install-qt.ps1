@@ -1,5 +1,5 @@
 #
-# Serial Studio - https://github.com/alex-spataru/serial-studio
+# Primary Frequency Regulation Monitor - http://localhost:4567
 #
 # Copyright (C) 2020-2025 Alex Spataru <https://aspatru.com>
 #

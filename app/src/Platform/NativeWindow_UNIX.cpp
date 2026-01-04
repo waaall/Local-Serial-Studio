@@ -1,13 +1,13 @@
 /*
- * Serial Studio
- * https://serial-studio.com/
+ * Primary Frequency Regulation Monitor
+ * http://localhost:4567/
  *
  * Copyright (C) 2020–2025 Alex Spataru
  *
  * This file is dual-licensed:
  *
  * - Under the GNU GPLv3 (or later) for builds that exclude Pro modules.
- * - Under the Serial Studio Commercial License for builds that include*
+ * - Under the Primary Frequency Regulation Monitor Commercial License for builds that include*
  *   any Pro functionality.
  *
  * You must comply with the terms of one of these licenses, depending

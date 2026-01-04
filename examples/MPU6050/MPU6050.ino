@@ -7,7 +7,7 @@
 // sensor connected to an Arduino. It outputs the processed sensor readings over the serial
 // port for visualization and data logging.
 //
-// The data can be visualized in Serial Studio with widgets specific to accelerometers
+// The data can be visualized in Primary Frequency Regulation Monitor with widgets specific to accelerometers
 // and gyroscopes (such as a g-meter or an attitude indicator) by creating a project file.
 // A JSON project file is available with this example for easy experimentation.
 //
@@ -63,7 +63,7 @@ void loop() {
   // Retrieve readings from the MPU6050 sensor
   mpu.getEvent(&a, &g, &temp);
 
-  // Print sensor data in CSV format for Serial Studio visualization
+  // Print sensor data in CSV format for Primary Frequency Regulation Monitor visualization
   Serial.print("$");               // Start of data packet
   Serial.print(a.acceleration.x);  // X-axis acceleration (m/s^2)
   Serial.print(",");

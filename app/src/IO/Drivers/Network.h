@@ -18,7 +18,7 @@ namespace Drivers
 /**
  * @brief The Network class
  *
- * Serial Studio "driver" class to interact with UDP/TCP network ports.
+ * Primary Frequency Regulation Monitor "driver" class to interact with UDP/TCP network ports.
  */
 class Network : public HAL_Driver
 {

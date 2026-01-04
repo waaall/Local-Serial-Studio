@@ -8,7 +8,7 @@
 // and then applies a moving average filter to smooth the final signal.
 //
 // The filtered signal is transmitted over the serial port for visualization.
-// You can use the the "Quick Plot" feature in Serial Studio to visualize and
+// You can use the the "Quick Plot" feature in Primary Frequency Regulation Monitor to visualize and
 // create a CSV file from the generated data without needing to create any
 // project file.
 //
@@ -68,7 +68,7 @@ void loop() {
   // Calculate the average value of the buffer for the final smoothed signal
   filteredSignal = bufferSum / BUFFER_SIZE;
 
-  // Transmit the filtered signal to Serial Studio for visualization
+  // Transmit the filtered signal to Primary Frequency Regulation Monitor for visualization
   Serial.println(filteredSignal);
 
   // Wait a little to adjust sampling rate

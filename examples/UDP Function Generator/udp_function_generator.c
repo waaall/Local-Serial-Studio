@@ -319,7 +319,7 @@ int main(int argc, char *argv[])
 
   // Print run status
   printf("The program is now generating real-time functions...\n\n");
-  printf("To visualize the data in Serial Studio:\n");
+  printf("To visualize the data in Primary Frequency Regulation Monitor:\n");
   printf("  1. Set the I/O interface to \"Network Socket\".\n");
   printf("  2. Enable \"Quick Plot\" operation mode.\n");
   printf("  3. Select \"UDP\" as the Socket Type.\n");

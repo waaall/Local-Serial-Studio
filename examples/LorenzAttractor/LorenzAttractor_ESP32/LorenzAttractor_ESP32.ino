@@ -7,7 +7,7 @@
 // the Lorenz system using fixed-point arithmetic. The Lorenz system is a set of
 // three chaotic differential equations, and the program transmits the generated
 // data (x, y, z) over the serial port. The output is ideal for visualizing the
-// Lorenz attractor in real-time using tools like Serial Studio.
+// Lorenz attractor in real-time using tools like Primary Frequency Regulation Monitor.
 //
 // Lorenz System Parameters:
 // - σ (sigma): 10.0      (controls the rate of rotation in the attractor)
@@ -25,10 +25,10 @@
 //
 // Required Tools:
 // - ESP32 microcontroller (e.g., ESP32 DevKit, NodeMCU ESP32, etc.)
-// - Serial Studio or any serial plotting tool to visualize the data.
+// - Primary Frequency Regulation Monitor or any serial plotting tool to visualize the data.
 //
 // Baud Rates:
-// - Serial Studio: 115200 baud
+// - Primary Frequency Regulation Monitor: 115200 baud
 //
 // Notes:
 // - This program is optimized for the ESP32 and may require modifications to work
@@ -37,7 +37,7 @@
 //
 // How to Run:
 // - Load this program onto an ESP32 using the Arduino IDE or similar tool.
-// - Connect to the ESP32 via Serial Studio or another serial plotting tool.
+// - Connect to the ESP32 via Primary Frequency Regulation Monitor or another serial plotting tool.
 // - Observe the real-time Lorenz attractor visualization.
 //
 

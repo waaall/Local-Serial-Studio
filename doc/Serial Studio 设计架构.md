@@ -552,7 +552,7 @@ DSP数据结构（Dashboard.h:182-186）：
   }
 ```
 
-### 5.2 Serial Studio接收流程
+### 5.2 Primary Frequency Regulation Monitor接收流程
 
 #### 第1步：UART驱动接收（IO/Drivers/UART.cpp）
 

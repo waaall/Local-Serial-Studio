@@ -20,7 +20,7 @@
 #include "JSON/FrameBuilder.h"
 
 //------------------------------------------------------------------------------
-// ProjectModel.cpp - Core data model for Serial Studio projects
+// ProjectModel.cpp - Core data model for Primary Frequency Regulation Monitor projects
 //
 // 4000+ lines of conditionally stable logic supporting project structures,
 // group hierarchies, dataset bindings, and action editing, all through the
@@ -736,9 +736,9 @@ bool JSON::ProjectModel::saveJsonFile(const bool askPath)
   if (jsonFilePath().isEmpty() || askPath)
   {
     auto *dialog
-        = new QFileDialog(nullptr, tr("Save Serial Studio Project"),
+        = new QFileDialog(nullptr, tr("Save Primary Frequency Regulation Monitor Project"),
                           jsonProjectsPath() + "/" + title() + ".ssproj",
-                          tr("Serial Studio Project Files (*.ssproj)"));
+                          tr("Primary Frequency Regulation Monitor Project Files (*.ssproj)"));
 
     dialog->setAcceptMode(QFileDialog::AcceptSave);
     dialog->setFileMode(QFileDialog::AnyFile);
@@ -1030,7 +1030,7 @@ void JSON::ProjectModel::openJsonFile(const QString &path)
 }
 
 /**
- * @brief Ensures Serial Studio is in Project File Mode.
+ * @brief Ensures Primary Frequency Regulation Monitor is in Project File Mode.
  *
  * Prompts the user to switch to Project File Mode if the current operation
  * mode is different.
@@ -1041,7 +1041,7 @@ void JSON::ProjectModel::enableProjectMode()
   if (opMode != SerialStudio::ProjectFile)
   {
     auto answ = Misc::Utilities::showMessageBox(
-        tr("Switch Serial Studio to Project Mode?"),
+        tr("Switch Primary Frequency Regulation Monitor to Project Mode?"),
         tr("This operation mode is required to load and display dashboards "
            "from project files."),
         QMessageBox::Question, qApp->applicationDisplayName(),
@@ -3730,7 +3730,7 @@ int JSON::ProjectModel::nextDatasetIndex()
 //------------------------------------------------------------------------------
 
 /**
- * @brief Finalizes the process of saving a Serial Studio project to disk.
+ * @brief Finalizes the process of saving a Primary Frequency Regulation Monitor project to disk.
  *
  * This method writes the current project configuration into a JSON file,
  * including metadata, group definitions, and action definitions. It performs
@@ -3792,7 +3792,7 @@ bool JSON::ProjectModel::finalizeProjectSave()
   // Ask user to switch to project mode
   enableProjectMode();
 
-  // Load JSON file to Serial Studio
+  // Load JSON file to Primary Frequency Regulation Monitor
   openJsonFile(file.fileName());
   JSON::FrameBuilder::instance().loadJsonMap(file.fileName());
   return true;

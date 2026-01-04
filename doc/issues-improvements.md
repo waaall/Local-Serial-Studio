@@ -1,6 +1,6 @@
-# 基于 Serial Studio 现有问题与改进方向
+# 基于 Primary Frequency Regulation Monitor 现有问题与改进方向
 
-背景：Serial Studio 作为工业级遥测/通信/记录看板（Qt/QML + C++），关注高吞吐、长时间运行下的稳定性、可观测性、持久化和易用性。
+背景：Primary Frequency Regulation Monitor 作为工业级遥测/通信/记录看板（Qt/QML + C++），关注高吞吐、长时间运行下的稳定性、可观测性、持久化和易用性。
 
 ## 现有问题（代码层面）
 - UI 刷新率设置键不一致：读取 `uiRefreshRate`、写入 `uiTimerHz`，重启后自定义 FPS 不生效（`Misc/TimerEvents.cpp`）。

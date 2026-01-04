@@ -27,13 +27,13 @@ option(PRODUCTION_OPTIMIZATION "Enable production optimization flags"  OFF)
 # -------------------------------------------------------------------------------
 
 set(PROJECT_ROOT_DIR ${CMAKE_CURRENT_LIST_DIR})
-set(PROJECT_DISPNAME "STM32 Monitor")
+set(PROJECT_DISPNAME "Primary Frequency Regulation Monitor")
 set(PROJECT_FILE_LICENSE "${PROJECT_ROOT_DIR}/LICENSES/GPL-3.0-only.txt")
 
 if (UNIX AND NOT APPLE)
-   set(PROJECT_EXECUTABLE "stm32-monitor")
+   set(PROJECT_EXECUTABLE "primary-frequency-regulation-monitor")
 else()
-   set(PROJECT_EXECUTABLE "STM32-Monitor")
+   set(PROJECT_EXECUTABLE "Primary-Frequency-Regulation-Monitor")
 endif()
 
 set(PROJECT_VENDOR              "Alex Spataru")
@@ -262,4 +262,3 @@ message(STATUS "LIB Compile Options: ${SUBDIRECTORY_COMPILE_OPTIONS}")
 
 get_directory_property(SUBDIRECTORY_COMPILE_OPTIONS DIRECTORY app COMPILE_OPTIONS)
 message(STATUS "APP Compile Options: ${SUBDIRECTORY_COMPILE_OPTIONS}")
-

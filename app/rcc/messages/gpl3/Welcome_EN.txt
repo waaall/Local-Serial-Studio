@@ -1,2 +1,2 @@
-Primary Frequency Regulation Monitoring Software
+Primary Frequency Regulation Monitor
 High-precision real-time frequency monitoring and primary frequency regulation performance evaluation.

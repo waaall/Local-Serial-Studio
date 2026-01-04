@@ -3,7 +3,7 @@
 #
 # Simulates a hydrogen atom's electron cloud using a probabilistic model of the
 # 1s orbital and streams the data via UDP for real-time visualization in
-# Serial Studio.
+# Primary Frequency Regulation Monitor.
 #
 # --- Purpose ---
 # This script is designed for educational and visualization purposes, showing
@@ -23,7 +23,7 @@
 # Example frame:
 #  -0.283291,0.453772,0.125448,0.038142,0.621987
 #
-# --- Use In Serial Studio ---
+# --- Use In Primary Frequency Regulation Monitor ---
 # - Set input source to UDP on port 9000
 # - Load the hydrogen.json project from the examples.
 # - Plot combinations like:

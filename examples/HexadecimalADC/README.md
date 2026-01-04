@@ -2,15 +2,15 @@
 
 ## Overview
 
-This project showcases how to integrate **binary data parsing**, **custom serial actions**, **timed execution**, and **checksum validation** in a Serial Studio workflow using Arduino. It provides a complete example of how to build a robust, command-driven interface for sensor data acquisition, suitable for real-time plotting and FFT analysis.
+This project showcases how to integrate **binary data parsing**, **custom serial actions**, **timed execution**, and **checksum validation** in a Primary Frequency Regulation Monitor workflow using Arduino. It provides a complete example of how to build a robust, command-driven interface for sensor data acquisition, suitable for real-time plotting and FFT analysis.
 
-The Arduino collects analog readings from six input channels (A0 to A5), processes the values, wraps them in a binary protocol frame with a **CRC-16-CCITT** checksum, and only sends data when explicitly commanded using a custom `"poll-data"` action. Serial Studio triggers this action either manually or via timer modes like auto-start or toggle-on-trigger.
+The Arduino collects analog readings from six input channels (A0 to A5), processes the values, wraps them in a binary protocol frame with a **CRC-16-CCITT** checksum, and only sends data when explicitly commanded using a custom `"poll-data"` action. Primary Frequency Regulation Monitor triggers this action either manually or via timer modes like auto-start or toggle-on-trigger.
 
 ## Key Features
 
 - **Binary Data Parsing**: Efficient, low-overhead serial communication
 - **CRC-16 Checksums**: Ensures data integrity on each frame
-- **Action System**: Serial Studio dashboard buttons that send predefined commands
+- **Action System**: Primary Frequency Regulation Monitor dashboard buttons that send predefined commands
 - **Timer Modes**: AutoStart, Toggle, and Triggered transmission
 - **FFT Visualization**: Analyze analog noise or sensor signals in the frequency domain
 
@@ -18,7 +18,7 @@ The Arduino collects analog readings from six input channels (A0 to A5), process
 
 Works with any Arduino board featuring analog input pins. No external components required—floating analog pins generate natural noise, ideal for FFT demonstrations.
 
-![Serial Studio FFT](doc/screenshot.png)
+![Primary Frequency Regulation Monitor FFT](doc/screenshot.png)
 
 ## Hardware Setup
 
@@ -40,12 +40,12 @@ This sketch configures the ADC, listens for serial commands like `"poll-data"`, 
 
 **Baud Rate:** `115200`
 
-**Trigger via Serial Studio Actions**:
+**Trigger via Primary Frequency Regulation Monitor Actions**:
 - `poll-data`: Read and transmit 1 data frame
 - `enable-pull-up`: Enable pull-ups on A0–A5
 - `disable-pull-up`: Set A0–A5 to normal input mode
 
-### 2. Serial Studio Configuration
+### 2. Primary Frequency Regulation Monitor Configuration
 
 #### Frame Format
 - **Mode**: `Binary (direct)`
@@ -77,11 +77,11 @@ function parse(frame) {
 }
 ```
 
-For help on the parser function, see the [Serial Studio documentation](https://github.com/Serial-Studio/Serial-Studio/wiki/Project-Editor#frame-parser-function-view).
+For help on the parser function, see the [Primary Frequency Regulation Monitor documentation](http://localhost:4567/wiki/Project-Editor#frame-parser-function-view).
 
 ### 3. Visualize with FFT
 
-1. Start Serial Studio.
+1. Start Primary Frequency Regulation Monitor.
 2. Select the serial port.
 3. Set baud to **115200**.
 4. Click your `"poll-data"` action.

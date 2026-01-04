@@ -255,7 +255,7 @@ void Misc::ModuleManager::registerQmlTypes()
   qmlRegisterType<UI::Taskbar>("SerialStudio.UI", 1, 0, "TaskBar");
   qmlRegisterType<UI::WindowManager>("SerialStudio.UI", 1, 0, "WindowManager");
 
-  // Regsiter common Serial Studio enums & values
+  // Regsiter common Primary Frequency Regulation Monitor enums & values
   qmlRegisterSingletonType<SerialStudio>(
       "SerialStudio", 1, 0, "SerialStudio",
       [](QQmlEngine *, QJSEngine *) -> QObject * {

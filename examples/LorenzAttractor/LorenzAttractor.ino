@@ -6,7 +6,7 @@
 // This program simulates the Lorenz system, a set of three chaotic differential
 // equations, and transmits the generated data (x, y, z) over the serial port.
 // The output is ideal for visualizing the Lorenz attractor in real-time using
-// tools like Serial Studio.
+// tools like Primary Frequency Regulation Monitor.
 //
 // Lorenz System Parameters:
 // - σ (sigma): 10.0      (controls the rate of rotation in the attractor)
@@ -20,10 +20,10 @@
 //
 // Required Tools:
 // - Arduino board (e.g., Uno, Mega, Nano, etc.)
-// - Serial Studio or any serial plotting tool to visualize the data.
+// - Primary Frequency Regulation Monitor or any serial plotting tool to visualize the data.
 //
 // Baud Rates:
-// - Serial Studio: 115200 baud
+// - Primary Frequency Regulation Monitor: 115200 baud
 //
 
 // Parameters for the Lorenz system

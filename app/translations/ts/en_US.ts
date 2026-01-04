@@ -136,7 +136,7 @@
     </message>
     <message>
         <location filename="../../qml/MainWindow/Panes/SetupPanes/Drivers/BluetoothLE.qml" line="176"/>
-        <source>Sorry, this system is not supported yet. We&apos;ll update Serial Studio to work with this operating system as soon as Qt officially supports it.</source>
+        <source>Sorry, this system is not supported yet. We&apos;ll update Primary Frequency Regulation Monitor to work with this operating system as soon as Qt officially supports it.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -1316,7 +1316,7 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="739"/>
-        <source>Save Serial Studio Project</source>
+        <source>Save Primary Frequency Regulation Monitor Project</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1682,7 +1682,7 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="741"/>
-        <source>Serial Studio Project Files (*.ssproj)</source>
+        <source>Primary Frequency Regulation Monitor Project Files (*.ssproj)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1707,7 +1707,7 @@
     </message>
     <message>
         <location filename="../../src/JSON/ProjectModel.cpp" line="1044"/>
-        <source>Switch Serial Studio to Project Mode?</source>
+        <source>Switch Primary Frequency Regulation Monitor to Project Mode?</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3205,7 +3205,7 @@
     </message>
     <message>
         <location filename="../../qml/Dialogs/Welcome.qml" line="128"/>
-        <source>Serial Studio is a powerful real-time visualization tool, built for engineers, students, and makers.</source>
+        <source>Primary Frequency Regulation Monitor is a powerful real-time visualization tool, built for engineers, students, and makers.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

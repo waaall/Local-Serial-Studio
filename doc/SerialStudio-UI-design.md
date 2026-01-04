@@ -1,8 +1,8 @@
-# Serial Studio UI设计架构与修改指南
+# Primary Frequency Regulation Monitor UI设计架构与修改指南
 
 ## 1. 架构概览
 
-Serial Studio采用**QML + C++混合架构**,实现了UI与业务逻辑的清晰分离:
+Primary Frequency Regulation Monitor采用**QML + C++混合架构**,实现了UI与业务逻辑的清晰分离:
 
 ```
 ┌─────────────────────────────────────────────────────────────┐

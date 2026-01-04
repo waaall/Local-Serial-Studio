@@ -125,7 +125,7 @@ Window {
           Label {
             wrapMode: Label.WordWrap
             Layout.maximumWidth: parent.width
-            text: qsTr("Serial Studio is a powerful real-time visualization tool, " +
+            text: qsTr("Primary Frequency Regulation Monitor is a powerful real-time visualization tool, " +
                        "built for engineers, students, and makers.")
           }
 

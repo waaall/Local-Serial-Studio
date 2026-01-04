@@ -8,7 +8,7 @@
 #include <QJsonObject>
 
 //------------------------------------------------------------------------------
-// Qt Stylesheet utilties...not used on Serial Studio, but useful reference...
+// Qt Stylesheet utilties...not used on Primary Frequency Regulation Monitor, but useful reference...
 //------------------------------------------------------------------------------
 
 /**

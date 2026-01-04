@@ -1,12 +1,12 @@
 # BLE Battery Level Monitor
 
-This [Serial Studio](https://github.com/Serial-Studio/Serial-Studio) project visualizes the **battery level from BLE devices**, like iPhones, by connecting directly over [Bluetooth Low Energy](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy).
+This [Primary Frequency Regulation Monitor](http://localhost:4567) project visualizes the **battery level from BLE devices**, like iPhones, by connecting directly over [Bluetooth Low Energy](https://en.wikipedia.org/wiki/Bluetooth_Low_Energy).
 
 ![Screenshot](doc/screenshot.png)
 
 ## What It Does
 
-- Connects directly to BLE devices using Serial Studio's native BLE support.
+- Connects directly to BLE devices using Primary Frequency Regulation Monitor's native BLE support.
 - Subscribes to the Battery Level characteristic (0x2A19).
 - Displays the battery percentage (0–100%) using a real-time gauge and a plot.
 - Parses raw binary data with no need for delimiters or framing
@@ -20,7 +20,7 @@ Bluetooth Low Energy defines a standard Battery Service:
 - **Service UUID**: `0x180F`
 - **Characteristic UUID**: `0x2A19` — Battery Level (`uint8`, `0–100`)
 
-Most BLE-enabled phones and peripherals support this. Serial Studio connects directly to this characteristic and decodes the raw value with a 1-byte binary read.
+Most BLE-enabled phones and peripherals support this. Primary Frequency Regulation Monitor connects directly to this characteristic and decodes the raw value with a 1-byte binary read.
 
 ## Project Configuration
 
